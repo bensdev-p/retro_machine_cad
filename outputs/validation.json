@@ -1,0 +1,766 @@
+{
+  "units": "mm",
+  "parameter_sha256": "7c58c18c6cd3c1405f3d352f44520a9b5e61673130f30260491707a25f79d745",
+  "case_WHD": [
+    431.096,
+    192.88,
+    205.0
+  ],
+  "carrier_WHD": [
+    390.6,
+    183.6,
+    59.8
+  ],
+  "option_A_WHD": [
+    431.096,
+    192.88,
+    264.8
+  ],
+  "valid_solids": 27,
+  "collision_checks": [
+    {
+      "a": "display_reference_envelope",
+      "b": "drive_1_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "drive_2_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "pi_board_nominal",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "cooler_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "drive_2_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "pi_board_nominal",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "cooler_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "pi_board_nominal",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "cooler_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "cooler_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "touch_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "drive_1_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "drive_2_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "cooler_air_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "pi_USB_Ethernet_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "pi_power_HDMI_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "display_cable_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "touch_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "drive_1_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "drive_2_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "cooler_air_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "pi_USB_Ethernet_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "pi_power_HDMI_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "display_cable_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "touch_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "drive_1_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "drive_2_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "cooler_air_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "pi_USB_Ethernet_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "pi_power_HDMI_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "display_cable_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "touch_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "drive_1_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "drive_2_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "cooler_air_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "pi_USB_Ethernet_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "pi_power_HDMI_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "display_cable_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "touch_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "drive_1_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "drive_2_rear_cable",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "cooler_air_keepout",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "pi_USB_Ethernet_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "pi_power_HDMI_exit",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "display_cable_placeholder",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "display_reference_envelope",
+      "b": "keyboard_A_stock_envelope",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_1_placeholder",
+      "b": "keyboard_A_stock_envelope",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_2_placeholder",
+      "b": "keyboard_A_stock_envelope",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "pi_board_nominal",
+      "b": "keyboard_A_stock_envelope",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "cooler_placeholder",
+      "b": "keyboard_A_stock_envelope",
+      "intersection_mm3": 0
+    }
+  ],
+  "unwanted_envelope_interferences": [],
+  "parts": {
+    "case_envelope": {
+      "size": [
+        431.096,
+        205.0,
+        192.88
+      ],
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "color": "#bfbab0",
+      "role": "envelope",
+      "status": "design"
+    },
+    "display_reference_envelope": {
+      "size": [
+        248.096,
+        15.55,
+        166.88
+      ],
+      "origin": [
+        13.0,
+        12.0,
+        13.0
+      ],
+      "color": "#555b60",
+      "role": "hardware",
+      "status": "manufacturer_reference"
+    },
+    "active_area_reference": {
+      "size": [
+        216.576,
+        0.2,
+        135.36
+      ],
+      "origin": [
+        28.759999999999998,
+        11.8,
+        28.759999999999998
+      ],
+      "color": "#408caa",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "touch_keepout": {
+      "size": [
+        226.576,
+        11.8,
+        145.36
+      ],
+      "origin": [
+        23.759999999999998,
+        0,
+        23.759999999999998
+      ],
+      "color": "#7ac8dc",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "drive_1_placeholder": {
+      "size": [
+        145.0,
+        150.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        12.0,
+        40.0
+      ],
+      "color": "#8a929d",
+      "role": "hardware",
+      "status": "provisional"
+    },
+    "drive_1_rear_cable": {
+      "size": [
+        145.0,
+        40.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        162.0,
+        40.0
+      ],
+      "color": "#e8ae57",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "drive_1_disk_access": {
+      "size": [
+        145.0,
+        100.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        -100.0,
+        40.0
+      ],
+      "color": "#e8ae57",
+      "role": "operating_clearance",
+      "status": "provisional"
+    },
+    "drive_2_placeholder": {
+      "size": [
+        145.0,
+        150.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        12.0,
+        74.0
+      ],
+      "color": "#8a929d",
+      "role": "hardware",
+      "status": "provisional"
+    },
+    "drive_2_rear_cable": {
+      "size": [
+        145.0,
+        40.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        162.0,
+        74.0
+      ],
+      "color": "#e8ae57",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "drive_2_disk_access": {
+      "size": [
+        145.0,
+        100.0,
+        22.0
+      ],
+      "origin": [
+        273.096,
+        -100.0,
+        74.0
+      ],
+      "color": "#e8ae57",
+      "role": "operating_clearance",
+      "status": "provisional"
+    },
+    "display_inner_mount_axis_1": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        157.926,
+        27.55,
+        70.71000000000001
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_inner_mount_axis_2": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        157.926,
+        27.55,
+        119.71
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_inner_mount_axis_3": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        99.92600000000002,
+        27.55,
+        70.71000000000001
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_inner_mount_axis_4": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        99.92600000000002,
+        27.55,
+        119.71
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_outer_mount_axis_1": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        213.426,
+        27.55,
+        34.19
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_outer_mount_axis_2": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        213.426,
+        27.55,
+        155.99
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_outer_mount_axis_3": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        53.426000000000016,
+        27.55,
+        34.19
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "display_outer_mount_axis_4": {
+      "size": [
+        2.5,
+        8.0,
+        2.5
+      ],
+      "origin": [
+        53.426000000000016,
+        27.55,
+        155.99
+      ],
+      "color": "#bd5aa0",
+      "role": "reference",
+      "status": "manufacturer_reference"
+    },
+    "pi_board_nominal": {
+      "size": [
+        85.0,
+        1.6,
+        56.0
+      ],
+      "origin": [
+        87.67600000000002,
+        33.55,
+        68.46
+      ],
+      "color": "#4e8c65",
+      "role": "hardware",
+      "status": "provisional"
+    },
+    "cooler_placeholder": {
+      "size": [
+        60.0,
+        24.0,
+        45.0
+      ],
+      "origin": [
+        100.17600000000002,
+        35.15,
+        73.96
+      ],
+      "color": "#a5aeb2",
+      "role": "hardware",
+      "status": "provisional"
+    },
+    "cooler_air_keepout": {
+      "size": [
+        60.0,
+        15.0,
+        45.0
+      ],
+      "origin": [
+        100.17600000000002,
+        59.15,
+        73.96
+      ],
+      "color": "#7ac8dc",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "pi_USB_Ethernet_exit": {
+      "size": [
+        40.0,
+        20.0,
+        56.0
+      ],
+      "origin": [
+        172.67600000000002,
+        33.55,
+        68.46
+      ],
+      "color": "#e8ae57",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "pi_power_HDMI_exit": {
+      "size": [
+        85.0,
+        20.0,
+        40.0
+      ],
+      "origin": [
+        87.67600000000002,
+        33.55,
+        28.459999999999994
+      ],
+      "color": "#e8ae57",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "display_cable_placeholder": {
+      "size": [
+        60.0,
+        34.5,
+        35.0
+      ],
+      "origin": [
+        33.0,
+        27.55,
+        133.0
+      ],
+      "color": "#e8ae57",
+      "role": "clearance",
+      "status": "provisional"
+    },
+    "keyboard_A_stock_envelope": {
+      "size": [
+        376.6,
+        46.8,
+        169.6
+      ],
+      "origin": [
+        27.24799999999999,
+        -56.8,
+        11.64
+      ],
+      "color": "#d6d0c3",
+      "role": "transport",
+      "status": "provided"
+    },
+    "carrier_A_envelope": {
+      "size": [
+        390.6,
+        59.8,
+        183.6
+      ],
+      "origin": [
+        20.24799999999999,
+        -59.8,
+        4.640000000000001
+      ],
+      "color": "#537d9b",
+      "role": "envelope",
+      "status": "design"
+    },
+    "keyboard_B_separate": {
+      "size": [
+        376.6,
+        169.6,
+        46.8
+      ],
+      "origin": [
+        27.24799999999999,
+        -199.6,
+        0
+      ],
+      "color": "#d6d0c3",
+      "role": "separate",
+      "status": "provided"
+    }
+  },
+  "intentional_contacts": [
+    "Cooler front on rear-facing board component plane",
+    "Cable zones touch associated envelope faces",
+    "Outer and carrier envelopes contain reference solids",
+    "Touch and air regions are spatial reservations"
+  ],
+  "unverified": [
+    "Pi drawing and mounting alignment",
+    "All actual connector bodies and cable bend radii",
+    "Display mount-plane depth, thread engagement and physical dimensions (brief is approximate)",
+    "Drive and cooler models",
+    "Finished part printer fit; nominal A1 and A1 mini volumes recorded, seams not designed",
+    "Thermal design, handle loads, keyboard housing contact",
+    "Battery/power conversion allocation"
+  ],
+  "printable_parts": 0,
+  "display_mount_axes": [
+    {
+      "name": "display_inner_mount_axis_1",
+      "screen_local_x": 146.176,
+      "screen_local_z": 58.96,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_inner_mount_axis_2",
+      "screen_local_x": 146.176,
+      "screen_local_z": 107.96,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_inner_mount_axis_3",
+      "screen_local_x": 88.17600000000002,
+      "screen_local_z": 58.96,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_inner_mount_axis_4",
+      "screen_local_x": 88.17600000000002,
+      "screen_local_z": 107.96,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_outer_mount_axis_1",
+      "screen_local_x": 201.676,
+      "screen_local_z": 22.44,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_outer_mount_axis_2",
+      "screen_local_x": 201.676,
+      "screen_local_z": 144.24,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_outer_mount_axis_3",
+      "screen_local_x": 41.676000000000016,
+      "screen_local_z": 22.44,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    },
+    {
+      "name": "display_outer_mount_axis_4",
+      "screen_local_x": 41.676000000000016,
+      "screen_local_z": 144.24,
+      "thread": "M2.5",
+      "mount_plane_y": null
+    }
+  ],
+  "selected_transport": "A_front_carrier",
+  "pi_rear_stack_depth": 46.6,
+  "printer_envelope_fit": {
+    "A1": {
+      "case_single_piece_axis_aligned": false,
+      "note": "Layout envelope only; part subdivision required, no printable parts yet"
+    },
+    "A1_mini": {
+      "case_single_piece_axis_aligned": false,
+      "note": "Layout envelope only; part subdivision required, no printable parts yet"
+    }
+  }
+}

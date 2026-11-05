@@ -1,0 +1,203 @@
+{
+  "units": "mm",
+  "status_key": {
+    "provided": "User-supplied specification; not measured here",
+    "provisional": "Must be confirmed before detailed design",
+    "design": "Adjustable design choice",
+    "manufacturer_reference": "Transcribed from manufacturer product brief; approximate reference dimensions, not physical measurements or production tolerances"
+  },
+  "keyboard": {
+    "status": "provided",
+    "source": "User: 8BitDo Retro Mechanical Keyboard M Edition manufacturer dimensions",
+    "width": 376.6,
+    "depth": 169.6,
+    "height": 46.8
+  },
+  "display": {
+    "status": "manufacturer_reference",
+    "source": "docs/reference/touch-display-2-10-product-brief.pdf, October 2026, printed pages 1, 2 and 4 (PDF pages 2, 3, 5)",
+    "width": 248.096,
+    "height": 166.88,
+    "depth": 15.55,
+    "active_width": 216.576,
+    "active_height": 135.36,
+    "active_centered": true,
+    "mounting_holes": {
+      "status": "manufacturer_reference",
+      "thread": "M2.5",
+      "thread_depth": null,
+      "mount_plane_y": null,
+      "coordinate_convention": "Portrait REAR view: u right from glass left, v down from glass top. Landscape front CAD: x = 248.096 - v, z = u; add screen origin. All mm.",
+      "portrait_rear_inner_uv": [
+        [
+          58.96,
+          101.92
+        ],
+        [
+          107.96,
+          101.92
+        ],
+        [
+          58.96,
+          159.92
+        ],
+        [
+          107.96,
+          159.92
+        ]
+      ],
+      "portrait_rear_outer_uv": [
+        [
+          22.44,
+          46.42
+        ],
+        [
+          144.24,
+          46.42
+        ],
+        [
+          22.44,
+          206.42
+        ],
+        [
+          144.24,
+          206.42
+        ]
+      ],
+      "derivation": "PCB right = 166.88 - 11.76 = 155.12; inner right u=155.12-47.16=107.96, left=right-49; outer right u=155.12-10.88=144.24, left=right-121.8. PCB top v=11.86; inner upper v=11.86+90.06=101.92, lower=upper+58; outer upper v=11.86+34.56=46.42, lower=upper+160.",
+      "note": "Markers represent screw axes only. Do not infer bore diameter, thread engagement, boss width or mount-plane depth from marker geometry.",
+      "landscape_inner_pitch_xz": [
+        58,
+        49
+      ],
+      "landscape_outer_pitch_xz": [
+        160,
+        121.8
+      ]
+    },
+    "family": "Raspberry Pi Touch Display 2 \u2014 10-inch Portrait",
+    "diagonal_inches": 10.1,
+    "viewing_angle_degrees": 85,
+    "viewing_angle_note": "User specification; full/half angle convention unspecified",
+    "pixel_format": "24-bit RGB",
+    "native_resolution": [
+      1200,
+      1920
+    ],
+    "landscape_resolution": [
+      1920,
+      1200
+    ],
+    "active_area_status": "manufacturer_reference",
+    "outer_envelope_status": "manufacturer_reference",
+    "active_offset_status": "manufacturer_reference",
+    "pi_rear_mount_supported": true,
+    "pi_rear_mount_source": "User-confirmed mounting capability; brief confirms Pi 5 compatibility and shows 58 \u00d7 49 mm inner M2.5 pattern; board placement/orientation requires Pi drawing",
+    "source_sha256": "a7a5b94e4d14ab4b8be2fdb4dbb69ed45233ed13273c5edb8314b2b3df71382e",
+    "corner_radius": 5.0,
+    "active_offset_x": 15.76,
+    "active_offset_z": 15.76,
+    "power_watts": 5.1,
+    "connections": [
+      "Mini-mini DSI ribbon to Pi 5",
+      "GPIO power cable"
+    ],
+    "supplied_screws": {
+      "count": 8,
+      "thread": "M2.5",
+      "length": null
+    }
+  },
+  "drive": {
+    "status": "provisional",
+    "source": "Invented planning envelope for housed slim USB floppy; no selected product",
+    "width": 145.0,
+    "depth": 150.0,
+    "height": 22.0,
+    "count": 2,
+    "alternatives": "Slim USB with removable retro cosmetic bezel OR legacy drive plus USB adapter; latter requires new envelopes, power and adapter checks"
+  },
+  "pi": {
+    "status": "provisional",
+    "source": "Nominal Pi 5 board envelope; official drawing retrieval blocked, not drawing-verified",
+    "width": 85.0,
+    "depth": 56.0,
+    "board_thickness": 1.6,
+    "cooler_width": 60.0,
+    "cooler_depth": 45.0,
+    "cooler_height": 24.0,
+    "mounting_holes": null,
+    "mount_note": "Provisional board centered around inner screw pattern; board-edge offsets and port orientation are not yet drawing-verified. Display axes are mapped but board holes are not generated."
+  },
+  "design": {
+    "status": "design",
+    "wall": 3.0,
+    "edge_margin": 10.0,
+    "screen_drive_gap": 12.0,
+    "front_recess": 12.0,
+    "drive_bottom": 40.0,
+    "drive_stack_gap": 12.0,
+    "keyboard_margin": 4.0,
+    "carrier_wall": 3.0,
+    "carrier_front_gap": 6.0,
+    "keyboard_transport": "A_front_carrier",
+    "pi_mount": "display_rear",
+    "pi_screen_offset_x": 0.0,
+    "pi_screen_offset_z": 0.0,
+    "mount_axis_marker_radius": 1.25,
+    "mount_axis_marker_length": 8.0,
+    "mount_axis_marker_note": "Visualization only: radius equals half nominal M2.5 thread size, not a drilled hole."
+  },
+  "clearances": {
+    "status": "provisional",
+    "rear_drive_cable": 40.0,
+    "touch_edge_margin": 5.0,
+    "connector_exit": 40.0,
+    "connector_height": 20.0,
+    "display_cable_width": 60.0,
+    "display_cable_depth": 34.5,
+    "display_cable_height": 35.0,
+    "display_cable_x_offset": 20.0,
+    "display_cable_z_offset": 120.0,
+    "drive_media_front": 100.0,
+    "pi_screen_standoff": 6.0,
+    "cooler_air_outward": 15.0
+  },
+  "manufacturing": {
+    "status": "provisional",
+    "printer": [
+      "Bambu Lab A1",
+      "Bambu Lab A1 mini",
+      "Bambu Lab H2C",
+      "Bambu Lab X2D"
+    ],
+    "build_volume": null,
+    "material": "PLA prototypes; PETG candidate for final load-bearing shell after thermal/load tests",
+    "fastener": null,
+    "insert": null,
+    "fit_clearance": null,
+    "build_volumes": {
+      "A1": [
+        256,
+        256,
+        256
+      ],
+      "A1_mini": [
+        180,
+        180,
+        180
+      ]
+    },
+    "build_volume_source": "Nominal published volumes; usable margins/brims to be confirmed in slicer",
+    "prototype_material_status": "user accepted PLA",
+    "additional_printer_volumes_pending": {
+      "H2C": null,
+      "X2D": null
+    }
+  },
+  "power": {
+    "status": "provisional",
+    "battery_required": false,
+    "note": "User: external power for v1; battery and other additions may follow. No space promised for them."
+  }
+}
