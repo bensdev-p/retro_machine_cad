@@ -1,0 +1,15 @@
+{
+  "template_sha256": "0d0ee3c4bbfe652187605197b0bb176fdaab335f29af63ffe574aec9b02f37bc",
+  "test_browser": "headless Chromium via Playwright, software WebGL",
+  "load_method": "HTML injected with page.setContent because managed browser denies file URLs",
+  "tested_modes": [
+    "operating",
+    "transport",
+    "interior",
+    "front"
+  ],
+  "webgl_error": 0,
+  "javascript_errors": 0,
+  "orbit_and_zoom": "passed",
+  "Firefox_on_user_machine": "not tested"
+}

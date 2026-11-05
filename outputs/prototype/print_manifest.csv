@@ -1,0 +1,50 @@
+part,group,print_X_mm,print_Y_mm,print_Z_mm,CAD_volume_cm3,print_normal_in_assembly,notes
+side_left,case,200.0,220.0,14.0,230.81,x,Print outer broad face on bed; short vent bridges. Integrated nut pockets open to assembly interior.
+side_right,case,200.0,220.0,14.0,239.53,x,Print outer broad face on bed; short vent bridges. Integrated nut pockets open to assembly interior.
+base_left,case,195.875,216.0,4.0,168.752,z,Flat face on bed. Exposed screw heads underneath base require rubber feet.
+base_right,case,195.875,216.0,4.0,168.752,z,Flat face on bed. Exposed screw heads underneath base require rubber feet.
+base_seam_1,case,18.0,50.0,4.0,3.219,z,"M3x8 screws, captive M3 nuts; install before closing top."
+base_seam_2,case,18.0,50.0,4.0,3.219,z,"M3x8 screws, captive M3 nuts; install before closing top."
+top_left,case,195.875,216.0,4.0,168.77,z,Flat face on bed. Exposed screw heads underneath base require rubber feet.
+top_right,case,195.875,216.0,4.0,168.77,z,Flat face on bed. Exposed screw heads underneath base require rubber feet.
+top_seam_1,case,18.0,50.0,4.0,3.219,z,"M3x8 screws, captive M3 nuts; install before closing top."
+top_seam_2,case,18.0,50.0,4.0,3.219,z,"M3x8 screws, captive M3 nuts; install before closing top."
+fascia_left,case,195.875,192.0,4.0,48.335,y,Screen opening leaves 5 mm finger allowance beyond active area. Gasket supports glass; do not clamp active area.
+fascia_right,case,195.875,192.0,4.0,97.248,y,Screen opening leaves 5 mm finger allowance beyond active area. Gasket supports glass; do not clamp active area.
+fascia_seam_1,case,18.0,10.0,4.0,0.529,y,
+fascia_seam_2,case,18.0,10.0,4.0,0.529,y,
+front_rim_left,case,195.875,192.0,4.0,22.417,y,Carrier M4 knobs retain rim; use short M4 screws/spacers when operating without carrier.
+front_rim_right,case,195.875,192.0,4.0,22.417,y,Carrier M4 knobs retain rim; use short M4 screws/spacers when operating without carrier.
+rim_spacer_left_30,case,8.0,8.0,4.0,0.137,y,M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.
+rim_spacer_left_170,case,8.0,8.0,4.0,0.137,y,M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.
+rim_spacer_right_30,case,8.0,8.0,4.0,0.137,y,M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.
+rim_spacer_right_170,case,8.0,8.0,4.0,0.137,y,M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.
+screen_support_1,case,12.0,192.0,20.0,10.462,y,M2.5 mounting pattern from display brief; validate stand-off height and screw engagement with screen-corner coupon.
+screen_support_2,case,12.0,192.0,20.0,10.462,y,M2.5 mounting pattern from display brief; validate stand-off height and screw engagement with screen-corner coupon.
+drive_cage_left,internal,142.0,140.0,57.675,205.053,x,Print broad outside wall on bed. Join half shelves with M3 countersunk screws. Padded webbing retains drive housings; ports remain accessible from rear.
+drive_cage_right,internal,142.0,140.0,57.675,205.053,x,Print broad outside wall on bed. Join half shelves with M3 countersunk screws. Padded webbing retains drive housings; ports remain accessible from rear.
+drive_cage_join_0,internal,18.0,88.0,4.0,6.191,z,
+drive_cage_join_1,internal,18.0,88.0,4.0,5.955,z,
+drive_cage_join_2,internal,18.0,88.0,4.0,5.955,z,
+hub_cradle,internal,156.0,56.0,36.0,48.369,z,Adjustable foam and 20 mm strap retention; hub envelope is not a selected commercial model.
+rear_left,case,195.875,192.0,4.0,104.879,y,Remove rear panels for drive/hub servicing. Power opening requires a suitable grommet and separate strain relief.
+rear_right,case,195.875,192.0,4.0,143.155,y,Remove rear panels for drive/hub servicing. Power opening requires a suitable grommet and separate strain relief.
+rear_seam,case,18.0,160.0,4.0,10.948,y,
+rear_hub_plate,case,160.0,58.0,4.0,20.419,y,Generic opening for hub face/cables. Replace this part to suit the eventual hub; no proprietary connector geometry assumed.
+power_strain_relief,case,32.0,20.0,4.0,1.853,y,"Use rubber grommet plus cable tie through saddle slots. Validate grip on chosen power cable, never clamp bare conductors."
+handle_clamp_1,case,32.0,52.0,8.0,11.058,z,"M4x25 through bolts, washers and locknuts; webbing must be positively secured/sewn, not held by friction alone. Proof-load before carrying."
+handle_clamp_2,case,32.0,52.0,8.0,11.058,z,"M4x25 through bolts, washers and locknuts; webbing must be positively secured/sewn, not held by friction alone. Proof-load before carrying."
+carrier_left,carrier,197.875,184.0,64.0,274.728,y,Protective face on bed. Add edge foam and two padded straps against keyboard underside. No load may touch keys/knobs; verify with retention coupon.
+carrier_right,carrier,197.875,184.0,64.0,274.728,y,Protective face on bed. Add edge foam and two padded straps against keyboard underside. No load may touch keys/knobs; verify with retention coupon.
+carrier_seam_1,carrier,18.0,50.0,4.0,3.219,y,
+carrier_seam_2,carrier,18.0,50.0,4.0,3.219,y,
+carrier_blue_inlay_left,carrier,180.6,3.7,0.85,0.568,y,Decorative inlay: light adhesive permitted; not a service or structural joint.
+carrier_blue_inlay_right,carrier,180.6,3.7,0.85,0.568,y,Decorative inlay: light adhesive permitted; not a service or structural joint.
+TEST_alignment_left,test,15.875,20.0,4.0,1.252,z,Fit a purchased 2 mm x 8 mm steel pin; intended seam gap 0.25 mm. Adjust hole clearance after printing.
+TEST_alignment_right,test,15.875,20.0,4.0,1.252,z,Fit a purchased 2 mm x 8 mm steel pin; intended seam gap 0.25 mm. Adjust hole clearance after printing.
+TEST_screen_mount,test,12.0,20.0,4.0,0.91,y,"Test actual display screw, spacers and contact plane before full supports."
+TEST_screen_corner,test,60.0,45.0,4.0,5.348,y,"Check screen glass border, active-area exposure, gasket and finger clearance at the lower-left opening corner."
+TEST_drive_face,test,113.6,35.4,4.0,4.521,y,"Test actual bezel insertion, disk motion, eject button, finger access and LED visibility."
+TEST_keyboard_retention,test,24.0,32.0,64.0,10.614,y,"Check stock housing, strap route and keycap/knob clearance with foam; geometry is provisional."
+TEST_fasteners,test,70.0,32.0,8.0,17.548,z,Use actual M3/M4 nuts and bolts; adjust central pocket/clearance dimensions if needed. No heat-set inserts used.
+brand_badge,case,100.0,16.0,1.2,1.889,y,Decorative engraved badge; optional adhesive attachment and light paint fill. Not structural.

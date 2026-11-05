@@ -1,0 +1,915 @@
+{
+  "full_rigid_printed_pair_count": 861,
+  "revision": "P1 reference-hardware prototype; fit and load testing outstanding",
+  "parameter_sha256": "f3a6ad44b2f75b14d40322f598ed634b2549dc996c90f0e058febbe16a261eb4",
+  "case_WHD": [
+    400,
+    200,
+    220
+  ],
+  "transport_WHD": [
+    400,
+    200,
+    284
+  ],
+  "intersection_checks_with_overlapping_bounding_boxes": [
+    {
+      "a": "side_left",
+      "b": "base_left",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_left",
+      "b": "top_left",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_left",
+      "b": "fascia_left",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_left",
+      "b": "front_rim_left",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_left",
+      "b": "rim_spacer_left_30",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "side_left",
+      "b": "rim_spacer_left_170",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "side_left",
+      "b": "rear_left",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "base_right",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "top_right",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "fascia_right",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "front_rim_right",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "rim_spacer_right_30",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "side_right",
+      "b": "rim_spacer_right_170",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "side_right",
+      "b": "rear_right",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "drive_cage_join_0",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "drive_cage_join_1",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "drive_cage_join_2",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "drive_cage_join_0",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "drive_cage_join_1",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "drive_cage_join_2",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "carrier_left",
+      "b": "carrier_seam_1",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "carrier_left",
+      "b": "carrier_seam_2",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "carrier_left",
+      "b": "carrier_blue_inlay_left",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "carrier_right",
+      "b": "carrier_seam_1",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "carrier_right",
+      "b": "carrier_seam_2",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "carrier_right",
+      "b": "carrier_blue_inlay_right",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "side_left",
+      "b": "handle_backing_ALUMINIUM_NOT_PRINTED",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "side_right",
+      "b": "handle_backing_ALUMINIUM_NOT_PRINTED",
+      "intersection_mm3": 0.0
+    },
+    {
+      "a": "screen_support_2",
+      "b": "KEEP_pi_USB",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "floppy_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "floppy_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "USB_floppy_controller_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "USB_floppy_controller_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "KEEP_drive_rear_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_left",
+      "b": "KEEP_drive_rear_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "floppy_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "floppy_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "USB_floppy_controller_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "USB_floppy_controller_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "KEEP_drive_rear_1",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "drive_cage_right",
+      "b": "KEEP_drive_rear_2",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "hub_cradle",
+      "b": "powered_hub_allowance",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "carrier_left",
+      "b": "keyboard_transport_envelope",
+      "intersection_mm3": 0
+    },
+    {
+      "a": "carrier_right",
+      "b": "keyboard_transport_envelope",
+      "intersection_mm3": 0
+    }
+  ],
+  "unwanted_interferences": [],
+  "screen_mount_alignment": [
+    {
+      "part": "screen_support_1",
+      "axis": "y",
+      "x": 55.676,
+      "z": 39.0,
+      "type": "M2.5 display mounting reference; spacer and screw engagement TBD"
+    },
+    {
+      "part": "screen_support_1",
+      "axis": "y",
+      "x": 55.676,
+      "z": 160.8,
+      "type": "M2.5 display mounting reference; spacer and screw engagement TBD"
+    },
+    {
+      "part": "screen_support_2",
+      "axis": "y",
+      "x": 215.676,
+      "z": 39.0,
+      "type": "M2.5 display mounting reference; spacer and screw engagement TBD"
+    },
+    {
+      "part": "screen_support_2",
+      "axis": "y",
+      "x": 215.676,
+      "z": 160.8,
+      "type": "M2.5 display mounting reference; spacer and screw engagement TBD"
+    }
+  ],
+  "parts": {
+    "side_left": {
+      "color": "#b9b9b5",
+      "print_normal": "x",
+      "group": "case",
+      "note": "Print outer broad face on bed; short vent bridges. Integrated nut pockets open to assembly interior.",
+      "volume_mm3": 230809.51308277156,
+      "print_bounds_mm": [
+        200.00000000000003,
+        220.00000000000003,
+        14.000000000000044
+      ],
+      "fits_nominal_A1": true
+    },
+    "side_right": {
+      "color": "#b9b9b5",
+      "print_normal": "x",
+      "group": "case",
+      "note": "Print outer broad face on bed; short vent bridges. Integrated nut pockets open to assembly interior.",
+      "volume_mm3": 239529.51308277156,
+      "print_bounds_mm": [
+        200.00000000000003,
+        220.00000000000003,
+        14.000000000000059
+      ],
+      "fits_nominal_A1": true
+    },
+    "base_left": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "Flat face on bed. Exposed screw heads underneath base require rubber feet.",
+      "volume_mm3": 168752.32414960585,
+      "print_bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "base_right": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "Flat face on bed. Exposed screw heads underneath base require rubber feet.",
+      "volume_mm3": 168752.3241496058,
+      "print_bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "base_seam_1": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M3x8 screws, captive M3 nuts; install before closing top.",
+      "volume_mm3": 3218.780770485154,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "base_seam_2": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M3x8 screws, captive M3 nuts; install before closing top.",
+      "volume_mm3": 3218.780770485155,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "top_left": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "Flat face on bed. Exposed screw heads underneath base require rubber feet.",
+      "volume_mm3": 168770.35689143746,
+      "print_bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "top_right": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "Flat face on bed. Exposed screw heads underneath base require rubber feet.",
+      "volume_mm3": 168770.35689143746,
+      "print_bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "top_seam_1": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M3x8 screws, captive M3 nuts; install before closing top.",
+      "volume_mm3": 3218.780770485155,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "top_seam_2": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M3x8 screws, captive M3 nuts; install before closing top.",
+      "volume_mm3": 3218.780770485155,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "fascia_left": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Screen opening leaves 5 mm finger allowance beyond active area. Gasket supports glass; do not clamp active area.",
+      "volume_mm3": 48334.87265322759,
+      "print_bounds_mm": [
+        195.875,
+        192.0,
+        4.0000000000000435
+      ],
+      "fits_nominal_A1": true
+    },
+    "fascia_right": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Screen opening leaves 5 mm finger allowance beyond active area. Gasket supports glass; do not clamp active area.",
+      "volume_mm3": 97248.01441322766,
+      "print_bounds_mm": [
+        195.87500000000003,
+        192.0,
+        4.000000000000044
+      ],
+      "fits_nominal_A1": true
+    },
+    "fascia_seam_1": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "",
+      "volume_mm3": 529.3903852425777,
+      "print_bounds_mm": [
+        18.0,
+        10.0,
+        4.000000000000003
+      ],
+      "fits_nominal_A1": true
+    },
+    "fascia_seam_2": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "",
+      "volume_mm3": 529.3903852425778,
+      "print_bounds_mm": [
+        18.0,
+        10.0,
+        4.000000000000003
+      ],
+      "fits_nominal_A1": true
+    },
+    "front_rim_left": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Carrier M4 knobs retain rim; use short M4 screws/spacers when operating without carrier.",
+      "volume_mm3": 22417.005497529623,
+      "print_bounds_mm": [
+        195.875,
+        192.0,
+        4.000000000000043
+      ],
+      "fits_nominal_A1": true
+    },
+    "front_rim_right": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Carrier M4 knobs retain rim; use short M4 screws/spacers when operating without carrier.",
+      "volume_mm3": 22417.005497529615,
+      "print_bounds_mm": [
+        195.87500000000003,
+        192.0,
+        4.000000000000043
+      ],
+      "fits_nominal_A1": true
+    },
+    "rim_spacer_left_30": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.",
+      "volume_mm3": 137.4446785945534,
+      "print_bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "rim_spacer_left_170": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.",
+      "volume_mm3": 137.4446785945533,
+      "print_bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "rim_spacer_right_30": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.",
+      "volume_mm3": 137.44467859455372,
+      "print_bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "rim_spacer_right_170": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M4 spacer between front rim and fascia. Required with carrier knobs or short operating screws.",
+      "volume_mm3": 137.4446785945536,
+      "print_bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "screen_support_1": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M2.5 mounting pattern from display brief; validate stand-off height and screw engagement with screen-corner coupon.",
+      "volume_mm3": 10462.14879680919,
+      "print_bounds_mm": [
+        12.0,
+        192.0,
+        20.000000000000043
+      ],
+      "fits_nominal_A1": true
+    },
+    "screen_support_2": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "M2.5 mounting pattern from display brief; validate stand-off height and screw engagement with screen-corner coupon.",
+      "volume_mm3": 10462.14879680919,
+      "print_bounds_mm": [
+        12.0,
+        192.0,
+        20.000000000000043
+      ],
+      "fits_nominal_A1": true
+    },
+    "drive_cage_left": {
+      "color": "#b9b9b5",
+      "print_normal": "x",
+      "group": "internal",
+      "note": "Print broad outside wall on bed. Join half shelves with M3 countersunk screws. Padded webbing retains drive housings; ports remain accessible from rear.",
+      "volume_mm3": 205052.87861000324,
+      "print_bounds_mm": [
+        142.00000000000003,
+        140.0,
+        57.67500000000003
+      ],
+      "fits_nominal_A1": true
+    },
+    "drive_cage_right": {
+      "color": "#b9b9b5",
+      "print_normal": "x",
+      "group": "internal",
+      "note": "Print broad outside wall on bed. Join half shelves with M3 countersunk screws. Padded webbing retains drive housings; ports remain accessible from rear.",
+      "volume_mm3": 205052.87861000313,
+      "print_bounds_mm": [
+        142.0,
+        140.0,
+        57.675000000000004
+      ],
+      "fits_nominal_A1": true
+    },
+    "drive_cage_join_0": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "internal",
+      "note": "",
+      "volume_mm3": 6190.732755698009,
+      "print_bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "drive_cage_join_1": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "internal",
+      "note": "",
+      "volume_mm3": 5954.780770485157,
+      "print_bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "drive_cage_join_2": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "internal",
+      "note": "",
+      "volume_mm3": 5954.780770485156,
+      "print_bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "hub_cradle": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "internal",
+      "note": "Adjustable foam and 20 mm strap retention; hub envelope is not a selected commercial model.",
+      "volume_mm3": 48369.277927734496,
+      "print_bounds_mm": [
+        156.0,
+        56.0,
+        36.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "rear_left": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Remove rear panels for drive/hub servicing. Power opening requires a suitable grommet and separate strain relief.",
+      "volume_mm3": 104879.071889245,
+      "print_bounds_mm": [
+        195.875,
+        192.0,
+        4.000000000000057
+      ],
+      "fits_nominal_A1": true
+    },
+    "rear_right": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Remove rear panels for drive/hub servicing. Power opening requires a suitable grommet and separate strain relief.",
+      "volume_mm3": 143155.31616927907,
+      "print_bounds_mm": [
+        195.87500000000003,
+        192.0,
+        4.000000000000064
+      ],
+      "fits_nominal_A1": true
+    },
+    "rear_seam": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "case",
+      "note": "",
+      "volume_mm3": 10948.17115572774,
+      "print_bounds_mm": [
+        18.0,
+        160.0,
+        4.000000000000036
+      ],
+      "fits_nominal_A1": true
+    },
+    "rear_hub_plate": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Generic opening for hub face/cables. Replace this part to suit the eventual hub; no proprietary connector geometry assumed.",
+      "volume_mm3": 20418.780770485144,
+      "print_bounds_mm": [
+        160.0,
+        58.0,
+        4.00000000000002
+      ],
+      "fits_nominal_A1": true
+    },
+    "power_strain_relief": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Use rubber grommet plus cable tie through saddle slots. Validate grip on chosen power cable, never clamp bare conductors.",
+      "volume_mm3": 1853.0010431256485,
+      "print_bounds_mm": [
+        32.0,
+        20.0,
+        4.000000000000006
+      ],
+      "fits_nominal_A1": true
+    },
+    "handle_clamp_1": {
+      "color": "#355b88",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M4x25 through bolts, washers and locknuts; webbing must be positively secured/sewn, not held by friction alone. Proof-load before carrying.",
+      "volume_mm3": 11057.530995059224,
+      "print_bounds_mm": [
+        32.0,
+        52.0,
+        8.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "handle_clamp_2": {
+      "color": "#355b88",
+      "print_normal": "z",
+      "group": "case",
+      "note": "M4x25 through bolts, washers and locknuts; webbing must be positively secured/sewn, not held by friction alone. Proof-load before carrying.",
+      "volume_mm3": 11057.530995059224,
+      "print_bounds_mm": [
+        32.0,
+        52.0,
+        8.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_left": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "Protective face on bed. Add edge foam and two padded straps against keyboard underside. No load may touch keys/knobs; verify with retention coupon.",
+      "volume_mm3": 274728.478579187,
+      "print_bounds_mm": [
+        197.875,
+        184.00000000000003,
+        64.00000000000004
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_right": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "Protective face on bed. Add edge foam and two padded straps against keyboard underside. No load may touch keys/knobs; verify with retention coupon.",
+      "volume_mm3": 274728.4785791873,
+      "print_bounds_mm": [
+        197.875,
+        184.00000000000003,
+        64.00000000000004
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_seam_1": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "",
+      "volume_mm3": 3218.780770485154,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.000000000000011
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_seam_2": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "",
+      "volume_mm3": 3218.780770485155,
+      "print_bounds_mm": [
+        18.0,
+        50.0,
+        4.000000000000012
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_blue_inlay_left": {
+      "color": "#355b88",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "Decorative inlay: light adhesive permitted; not a service or structural joint.",
+      "volume_mm3": 567.9870000000003,
+      "print_bounds_mm": [
+        180.60000000000002,
+        3.7,
+        0.8500000000000008
+      ],
+      "fits_nominal_A1": true
+    },
+    "carrier_blue_inlay_right": {
+      "color": "#355b88",
+      "print_normal": "y",
+      "group": "carrier",
+      "note": "Decorative inlay: light adhesive permitted; not a service or structural joint.",
+      "volume_mm3": 567.9870000000003,
+      "print_bounds_mm": [
+        180.60000000000002,
+        3.7,
+        0.8500000000000008
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_alignment_left": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "test",
+      "note": "Fit a purchased 2 mm x 8 mm steel pin; intended seam gap 0.25 mm. Adjust hole clearance after printing.",
+      "volume_mm3": 1251.8229412558703,
+      "print_bounds_mm": [
+        15.875,
+        20.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_alignment_right": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "test",
+      "note": "Fit a purchased 2 mm x 8 mm steel pin; intended seam gap 0.25 mm. Adjust hole clearance after printing.",
+      "volume_mm3": 1251.82294125587,
+      "print_bounds_mm": [
+        15.875,
+        20.0,
+        4.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_screen_mount": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "test",
+      "note": "Test actual display screw, spacers and contact plane before full supports.",
+      "volume_mm3": 910.3792057833098,
+      "print_bounds_mm": [
+        12.0,
+        20.0,
+        4.000000000000009
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_screen_corner": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "test",
+      "note": "Check screen glass border, active-area exposure, gasket and finger clearance at the lower-left opening corner.",
+      "volume_mm3": 5348.147199999999,
+      "print_bounds_mm": [
+        60.0,
+        45.0,
+        4.000000000000011
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_drive_face": {
+      "color": "#353c42",
+      "print_normal": "y",
+      "group": "test",
+      "note": "Test actual bezel insertion, disk motion, eject button, finger access and LED visibility.",
+      "volume_mm3": 4520.960000000001,
+      "print_bounds_mm": [
+        113.6,
+        35.400000000000006,
+        4.000000000000008
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_keyboard_retention": {
+      "color": "#b9b9b5",
+      "print_normal": "y",
+      "group": "test",
+      "note": "Check stock housing, strap route and keycap/knob clearance with foam; geometry is provisional.",
+      "volume_mm3": 10614.233111052621,
+      "print_bounds_mm": [
+        24.0,
+        32.000000000000014,
+        64.00000000000001
+      ],
+      "fits_nominal_A1": true
+    },
+    "TEST_fasteners": {
+      "color": "#b9b9b5",
+      "print_normal": "z",
+      "group": "test",
+      "note": "Use actual M3/M4 nuts and bolts; adjust central pocket/clearance dimensions if needed. No heat-set inserts used.",
+      "volume_mm3": 17547.674621186623,
+      "print_bounds_mm": [
+        70.0,
+        32.0,
+        8.0
+      ],
+      "fits_nominal_A1": true
+    },
+    "brand_badge": {
+      "color": "#355b88",
+      "print_normal": "y",
+      "group": "case",
+      "note": "Decorative engraved badge; optional adhesive attachment and light paint fill. Not structural.",
+      "volume_mm3": 1888.8789022425601,
+      "print_bounds_mm": [
+        100.00000019999999,
+        16.000000200000002,
+        1.200000100000004
+      ],
+      "fits_nominal_A1": true
+    }
+  },
+  "limitations": [
+    "Approximate manufacturer display drawing; physical fit not established",
+    "Drive, cooler, Pi edge/port geometry, keyboard shell contacts and hub are provisional",
+    "No certified load rating or thermal/airflow simulation",
+    "No slicer/toolpath validation; orientation and volume checks only",
+    "Flexible straps and visual fastener heads excluded from rigid collision tests",
+    "Cable reservations and full service-tool sweeps require actual cables/hardware"
+  ]
+}

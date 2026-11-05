@@ -1,3 +1,6 @@
 .venv/
 __pycache__/
 *.pyc
+
+outputs/prototype/*.blend
+outputs/prototype/*.blend1

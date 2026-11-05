@@ -1,0 +1,508 @@
+{
+  "parameter_sha256": "f3a6ad44b2f75b14d40322f598ed634b2549dc996c90f0e058febbe16a261eb4",
+  "individual_parts": {
+    "side_left": {
+      "triangles": 5016,
+      "watertight": true,
+      "bounds_mm": [
+        199.99999999999997,
+        220.0,
+        14.0
+      ],
+      "volume_relative_error": 2.507634023473495e-06
+    },
+    "side_right": {
+      "triangles": 4876,
+      "watertight": true,
+      "bounds_mm": [
+        200.0,
+        220.0,
+        14.0
+      ],
+      "volume_relative_error": 2.4161890811572275e-06
+    },
+    "base_left": {
+      "triangles": 4780,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "volume_relative_error": 2.6048289875331766e-06
+    },
+    "base_right": {
+      "triangles": 4780,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "volume_relative_error": 2.606174583006489e-06
+    },
+    "base_seam_1": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "volume_relative_error": 1.2614665683162478e-05
+    },
+    "base_seam_2": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "volume_relative_error": 1.2614665682879916e-05
+    },
+    "top_left": {
+      "triangles": 4100,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "volume_relative_error": 2.5062497705034795e-06
+    },
+    "top_right": {
+      "triangles": 4100,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        216.0,
+        4.0
+      ],
+      "volume_relative_error": 2.50649324835408e-06
+    },
+    "top_seam_1": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "volume_relative_error": 1.2614665682879916e-05
+    },
+    "top_seam_2": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "volume_relative_error": 1.2614665682879916e-05
+    },
+    "fascia_left": {
+      "triangles": 2076,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.0
+      ],
+      "volume_relative_error": 5.3557759556159596e-06
+    },
+    "fascia_right": {
+      "triangles": 2116,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.0
+      ],
+      "volume_relative_error": 2.671989942819583e-06
+    },
+    "fascia_seam_1": {
+      "triangles": 740,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        10.000000000000002,
+        4.000000000000002
+      ],
+      "volume_relative_error": 3.837307086864288e-05
+    },
+    "fascia_seam_2": {
+      "triangles": 740,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        10.000000000000002,
+        4.0
+      ],
+      "volume_relative_error": 3.837307086756912e-05
+    },
+    "front_rim_left": {
+      "triangles": 716,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.0
+      ],
+      "volume_relative_error": 5.29002433172389e-06
+    },
+    "front_rim_right": {
+      "triangles": 716,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.0
+      ],
+      "volume_relative_error": 5.28674496719388e-06
+    },
+    "rim_spacer_left_30": {
+      "triangles": 672,
+      "watertight": true,
+      "bounds_mm": [
+        8.0,
+        8.0,
+        4.000000000000001
+      ],
+      "volume_relative_error": 0.000932217586303523
+    },
+    "rim_spacer_left_170": {
+      "triangles": 672,
+      "watertight": true,
+      "bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "volume_relative_error": 0.0009322175863026967
+    },
+    "rim_spacer_right_30": {
+      "triangles": 672,
+      "watertight": true,
+      "bounds_mm": [
+        8.0,
+        8.0,
+        4.000000000000001
+      ],
+      "volume_relative_error": 0.0009322175863057956
+    },
+    "rim_spacer_right_170": {
+      "triangles": 672,
+      "watertight": true,
+      "bounds_mm": [
+        8.0,
+        8.0,
+        4.0
+      ],
+      "volume_relative_error": 0.0009322175863049693
+    },
+    "screen_support_1": {
+      "triangles": 1452,
+      "watertight": true,
+      "bounds_mm": [
+        12.0,
+        192.0,
+        20.0
+      ],
+      "volume_relative_error": 6.647611935202851e-06
+    },
+    "screen_support_2": {
+      "triangles": 1452,
+      "watertight": true,
+      "bounds_mm": [
+        12.0,
+        192.0,
+        20.0
+      ],
+      "volume_relative_error": 6.647611935202851e-06
+    },
+    "drive_cage_left": {
+      "triangles": 4588,
+      "watertight": true,
+      "bounds_mm": [
+        142.0,
+        140.0,
+        57.67499923706055
+      ],
+      "volume_relative_error": 2.668635108426916e-06
+    },
+    "drive_cage_right": {
+      "triangles": 4588,
+      "watertight": true,
+      "bounds_mm": [
+        142.0,
+        140.0,
+        57.67499923706055
+      ],
+      "volume_relative_error": 2.6699140168216987e-06
+    },
+    "drive_cage_join_0": {
+      "triangles": 1372,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "volume_relative_error": 2.1873074141181057e-05
+    },
+    "drive_cage_join_1": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "volume_relative_error": 6.813955722211643e-06
+    },
+    "drive_cage_join_2": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        88.0,
+        4.0
+      ],
+      "volume_relative_error": 6.813955722364377e-06
+    },
+    "hub_cradle": {
+      "triangles": 1556,
+      "watertight": true,
+      "bounds_mm": [
+        156.0,
+        56.0,
+        36.0
+      ],
+      "volume_relative_error": 8.423324558630056e-07
+    },
+    "rear_left": {
+      "triangles": 3600,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.000000000000028
+      ],
+      "volume_relative_error": 3.223055635739536e-06
+    },
+    "rear_right": {
+      "triangles": 3140,
+      "watertight": true,
+      "bounds_mm": [
+        195.875,
+        192.0,
+        4.000000000000028
+      ],
+      "volume_relative_error": 4.83674636782593e-06
+    },
+    "rear_seam": {
+      "triangles": 2196,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        160.0,
+        4.0
+      ],
+      "volume_relative_error": 5.5359317433639254e-06
+    },
+    "rear_hub_plate": {
+      "triangles": 1488,
+      "watertight": true,
+      "bounds_mm": [
+        160.0,
+        58.0,
+        4.0
+      ],
+      "volume_relative_error": 1.996691695505591e-06
+    },
+    "power_strain_relief": {
+      "triangles": 1120,
+      "watertight": true,
+      "bounds_mm": [
+        32.0,
+        20.0,
+        4.0
+      ],
+      "volume_relative_error": 0.00023855349930168742
+    },
+    "handle_clamp_1": {
+      "triangles": 708,
+      "watertight": true,
+      "bounds_mm": [
+        32.0,
+        52.0,
+        8.0
+      ],
+      "volume_relative_error": 2.1452570605284723e-05
+    },
+    "handle_clamp_2": {
+      "triangles": 708,
+      "watertight": true,
+      "bounds_mm": [
+        32.0,
+        52.0,
+        8.0
+      ],
+      "volume_relative_error": 2.1452570605284723e-05
+    },
+    "carrier_left": {
+      "triangles": 2220,
+      "watertight": true,
+      "bounds_mm": [
+        197.875,
+        183.99999999999997,
+        64.0
+      ],
+      "volume_relative_error": 8.951186906006797e-07
+    },
+    "carrier_right": {
+      "triangles": 2220,
+      "watertight": true,
+      "bounds_mm": [
+        197.875,
+        183.99999999999997,
+        64.0
+      ],
+      "volume_relative_error": 9.13618170774016e-07
+    },
+    "carrier_seam_1": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.0
+      ],
+      "volume_relative_error": 1.261466568273864e-05
+    },
+    "carrier_seam_2": {
+      "triangles": 1468,
+      "watertight": true,
+      "bounds_mm": [
+        18.0,
+        50.0,
+        4.000000000000007
+      ],
+      "volume_relative_error": 1.2614665683162474e-05
+    },
+    "carrier_blue_inlay_left": {
+      "triangles": 12,
+      "watertight": true,
+      "bounds_mm": [
+        180.60000610351562,
+        3.7000000476837167,
+        0.8500000238418579
+      ],
+      "volume_relative_error": 7.473250364887387e-08
+    },
+    "carrier_blue_inlay_right": {
+      "triangles": 12,
+      "watertight": true,
+      "bounds_mm": [
+        180.60000610351562,
+        3.7000000476837167,
+        0.8500000238418579
+      ],
+      "volume_relative_error": 7.473250364887387e-08
+    },
+    "TEST_alignment_left": {
+      "triangles": 348,
+      "watertight": true,
+      "bounds_mm": [
+        15.875,
+        20.0,
+        4.0
+      ],
+      "volume_relative_error": 1.3537148387229132e-05
+    },
+    "TEST_alignment_right": {
+      "triangles": 348,
+      "watertight": true,
+      "bounds_mm": [
+        15.875,
+        20.0,
+        4.0
+      ],
+      "volume_relative_error": 1.3537148387229134e-05
+    },
+    "TEST_screen_mount": {
+      "triangles": 360,
+      "watertight": true,
+      "bounds_mm": [
+        12.0,
+        20.0,
+        4.0
+      ],
+      "volume_relative_error": 2.7057228308816048e-05
+    },
+    "TEST_screen_corner": {
+      "triangles": 20,
+      "watertight": true,
+      "bounds_mm": [
+        60.0,
+        45.0,
+        4.0
+      ],
+      "volume_relative_error": 6.500499423080008e-09
+    },
+    "TEST_drive_face": {
+      "triangles": 32,
+      "watertight": true,
+      "bounds_mm": [
+        113.5999984741211,
+        35.400001525878906,
+        4.0
+      ],
+      "volume_relative_error": 4.286408600655641e-09
+    },
+    "TEST_keyboard_retention": {
+      "triangles": 418,
+      "watertight": true,
+      "bounds_mm": [
+        24.0,
+        32.0,
+        63.99999999999999
+      ],
+      "volume_relative_error": 5.418850484751224e-06
+    },
+    "TEST_fasteners": {
+      "triangles": 740,
+      "watertight": true,
+      "bounds_mm": [
+        70.0,
+        32.0,
+        8.0
+      ],
+      "volume_relative_error": 6.2222986200893825e-06
+    },
+    "brand_badge": {
+      "triangles": 2276,
+      "watertight": true,
+      "bounds_mm": [
+        99.99999989999998,
+        15.999999900000006,
+        1.1999999476837147
+      ],
+      "volume_relative_error": 1.1407460991199682e-06
+    }
+  },
+  "assemblies": {
+    "enclosure_assembly": {
+      "valid": true,
+      "solids": 47
+    },
+    "transport_assembly": {
+      "valid": true,
+      "solids": 54
+    }
+  },
+  "source_geometry_interferences": 0,
+  "slicer_validation": "Not run",
+  "physical_validation": "Not run"
+}

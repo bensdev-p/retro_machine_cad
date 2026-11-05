@@ -199,5 +199,236 @@
     "status": "provisional",
     "battery_required": false,
     "note": "User: external power for v1; battery and other additions may follow. No space promised for them."
+  },
+  "prototype": {
+    "revision": "P1 reference-hardware prototype; fit and load testing outstanding",
+    "case": {
+      "width": 400,
+      "height": 200,
+      "depth": 220,
+      "wall": 4,
+      "split_x": 200,
+      "fascia_y": 8,
+      "fascia_thickness": 4,
+      "front_trim_depth": 4,
+      "front_trim_width": 10,
+      "corner_chamfer": 1.2
+    },
+    "palette": {
+      "shell": "#b9b9b5",
+      "fascia": "#353c42",
+      "accent": "#355b88",
+      "keys": "#deded6",
+      "modifier_keys": "#9ca2a7",
+      "metal": "#aeb3b7",
+      "rubber": "#252a2d"
+    },
+    "screen": {
+      "x": 14,
+      "z": 16.56,
+      "front_y": 12.8,
+      "support_y_gap": 1.0,
+      "support_width": 12,
+      "support_thickness": 4,
+      "foot_depth": 20,
+      "foot_height": 4,
+      "mount_clearance_diameter": 2.9,
+      "mount_slot_travel": 2.0
+    },
+    "drive": {
+      "reference_model": "TEAC FD-235HF, standard PC 34-pin 1.44 MB class",
+      "status": "provisional nominal reference; manufacturer website blocked; exact suffix/mechanism must be checked",
+      "width": 101.6,
+      "depth": 146,
+      "height": 25.4,
+      "x": 277.2,
+      "front_y": 12.8,
+      "bottom_z": [
+        66,
+        108
+      ],
+      "opening_clearance": 1.2,
+      "side_clearance": 1,
+      "shelf_gap": 1,
+      "shelf_thickness": 3,
+      "cage_wall": 6,
+      "cage_front_y": 24,
+      "cage_depth": 140,
+      "cage_top_z": 146,
+      "cage_base_height": 6,
+      "strap_width": 20,
+      "strap_thickness": 1,
+      "strap_y": 86
+    },
+    "cooler": {
+      "reference": "Raspberry Pi Active Cooler form-factor allowance",
+      "status": "provisional clearance envelope, not an accurate product model",
+      "width": 60,
+      "depth": 45,
+      "height": 24,
+      "screen_gap": 6,
+      "air_clearance": 15
+    },
+    "hub": {
+      "reference": "Adjustable cradle for a powered USB hub; choose a hub within the reserved envelope",
+      "status": "provisional",
+      "width": 140,
+      "depth": 55,
+      "height": 28,
+      "x": 34,
+      "y": 156,
+      "z": 8,
+      "opening_width": 136,
+      "opening_height": 30
+    },
+    "carrier": {
+      "depth": 64,
+      "x": 5,
+      "width": 390,
+      "z": 8,
+      "height": 184,
+      "wall": 4,
+      "keyboard_back_y": -6,
+      "keyboard_bottom_z": 15.2,
+      "strap_centers_z": [
+        41,
+        159
+      ],
+      "strap_width": 20,
+      "strap_thickness": 1,
+      "strap_slot_depth": 3,
+      "retention": "Two padded webbing straps across keyboard underside; keycaps face protective cover. Peripheral housing contacts need physical fit checks."
+    },
+    "handle": {
+      "type": "25 mm webbing handle, bolted clamp bars and full-width aluminium backing bar",
+      "anchor_x": [
+        120,
+        280
+      ],
+      "center_y": 110,
+      "clamp_x": 32,
+      "clamp_y": 52,
+      "clamp_height": 8,
+      "webbing_width": 25,
+      "webbing_thickness": 3,
+      "channel_depth": 2.5,
+      "bolt_y": [
+        90,
+        130
+      ],
+      "backing_width_y": 60,
+      "backing_thickness": 4,
+      "arch_height": 234,
+      "status": "Prototype load path only; metal bar and physical proof-load test required before carrying hardware",
+      "end_stop_pin_diameter": 6,
+      "end_stop_pin_length": 30,
+      "end_stop_pin_x": [
+        98,
+        302
+      ],
+      "end_stop_pin_z": 206,
+      "end_stop_note": "Sewn webbing return around steel crosspin outside each clamp; pin/loop cannot pass the 2.5 mm clamp channel. Physical proof-load required."
+    },
+    "fasteners": {
+      "method": "Through screws and captive hex nuts; no glue-only service joints and no unverified heat-set insert selection",
+      "M3": {
+        "clearance": 3.4,
+        "nut_af": 5.5,
+        "nut_thickness": 2.4,
+        "pocket_af": 5.9,
+        "pocket_depth": 2.8,
+        "head_diameter": 6.0,
+        "head_height": 3.0
+      },
+      "M4": {
+        "clearance": 4.5,
+        "nut_af": 7.0,
+        "nut_thickness": 3.2,
+        "pocket_af": 7.4,
+        "pocket_depth": 3.6
+      },
+      "basis": "Nominal ISO metric hardware geometry; selected vendor tolerances and printed fits require coupon testing",
+      "fit_clearance": 0.25
+    },
+    "printer": {
+      "preferred": "Bambu Lab H2C",
+      "H2C_usable_volume": null,
+      "fallback_verified_by_geometry": [
+        256,
+        256,
+        256
+      ],
+      "design_part_limit": 250,
+      "note": "H2C manufacturer page inaccessible. Parts are designed and numerically checked against an A1-sized 256 mm cube with 6 mm total nominal margin. Confirm slicer/brim requirements."
+    },
+    "io": {
+      "position": "rear left replaceable plate",
+      "hub_cutout": "Generic rectangle, adjust to actual powered hub",
+      "power_pass_diameter": 12,
+      "power_pass_x": 240,
+      "power_pass_z": 28
+    },
+    "joints": {
+      "side_rail_width": 10,
+      "side_rail_height": 10,
+      "side_top_base_y": [
+        40,
+        110,
+        190
+      ],
+      "fascia_screw_z": [
+        65,
+        135
+      ],
+      "carrier_screw_z": [
+        30,
+        170
+      ],
+      "rear_screw_z": [
+        30,
+        100,
+        170
+      ],
+      "seam_width": 18,
+      "seam_thickness": 4,
+      "horizontal_seam_segments": [
+        [
+          20,
+          70
+        ],
+        [
+          150,
+          200
+        ]
+      ],
+      "seam_bolt_x": [
+        195,
+        205
+      ],
+      "alignment_pin_diameter": 2.0,
+      "alignment_hole_diameter": 2.3,
+      "alignment_pin_length": 8.0,
+      "alignment_hole_length": 9.0,
+      "alignment_y": [
+        100,
+        145
+      ],
+      "rim_spacer_od": 8.0,
+      "rim_spacer_length": 4.0
+    },
+    "controls": {
+      "disk_format": "PC 1.44 MB FAT12",
+      "usb_controller": "One tested USB floppy controller per drive; no model or compatibility claim yet",
+      "battery": false
+    },
+    "research": {
+      "result": "Manufacturer pages denied by configured proxy (HTTP 403); selections and detailed keyboard geometry are explicit design assumptions. Uploaded display brief remains the verified source available in-session.",
+      "attempted_urls": [
+        "https://www.8bitdo.com/retro-mechanical-keyboard/",
+        "https://bambulab.com/en/h2c/tech-specs",
+        "https://www.teac.com/int/product/fd-235hf/overview",
+        "https://datasheets.raspberrypi.com/rpi5/raspberry-pi-5-mechanical-drawing.pdf"
+      ]
+    }
   }
 }

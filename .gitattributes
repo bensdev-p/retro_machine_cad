@@ -1,0 +1,4 @@
+outputs/** linguist-generated=true
+*.stl binary
+*.step -diff
+*.zip binary
