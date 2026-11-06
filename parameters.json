@@ -573,10 +573,10 @@
         "tray": "#767b80",
         "flange": "#5d6267",
         "stripe": "#4b4f53",
-        "keys": "#deded6",
-        "mod_keys": "#9ca2a7",
-        "accent_keys": "#355b88",
-        "kb_body": "#b9b9b5",
+        "keys": "#f3f2ed",
+        "mod_keys": "#aba79f",
+        "accent_keys": "#7e7b74",
+        "kb_body": "#eceae4",
         "drive": "#26282b",
         "drawer": "#3b3f43",
         "metal": "#a7abaf",
@@ -588,6 +588,29 @@
         "led_drive": "#46c25a",
         "text": "#c9ccce",
         "label": "Charcoal case + stock 8BitDo M colours"
+      },
+      "m_edition": {
+        "shell": "#d8d5cd",
+        "fascia": "#8c887f",
+        "bezel": "#2c2c2b",
+        "tray": "#6f6b64",
+        "flange": "#9e9a91",
+        "stripe": "#6f6b64",
+        "keys": "#e9e7e0",
+        "mod_keys": "#8f8b82",
+        "accent_keys": "#615e58",
+        "kb_body": "#d6d3cb",
+        "drive": "#26282b",
+        "drawer": "#9e9a91",
+        "metal": "#a7abaf",
+        "rubber": "#18191b",
+        "pcb": "#2f6b3a",
+        "glass": "#0d0f10",
+        "electronics": "#4a6f8a",
+        "led_power": "#d43a2f",
+        "led_drive": "#b8e04a",
+        "text": "#3d7cc9",
+        "label": "M Edition match (off-white, warm grey, blue accents)"
       }
     },
     "hinge": {
@@ -599,6 +622,7 @@
       "knuckle_radius": 4.5,
       "leaf": 22,
       "note": "Lift-off hinge pair on the bottom front edge. Open tilt angle is derived, not set."
-    }
+    },
+    "palette_note": "m_edition / stock keyboard colours eyeballed from an 8BitDo product photo; not measured"
   }
 }

@@ -26,7 +26,16 @@ This is a **concept model**. It sets the overall form, the transport scheme and 
 | Use empty space for storage | The space behind the screen holds a **rear pull-out drawer**. It has a diskette file on the left (about 26 3.5" disks standing on edge) and an accessory/cable bin on the right. |
 | Darker keyboard | The renders use charcoal keycaps. The housing and keyboard envelope are sized from the 8BitDo M Edition dimensions (376.6 × 169.6 × 46.8). |
 
-There are three colourways in the viewer: **charcoal** (Kaypro 10-like), **classic** (Kaypro II-like off-white with blue) and **charcoal + stock 8BitDo** (to judge the light keyboard against the dark case).
+There are four colourways in the viewer:
+
+- **charcoal** (Kaypro 10-like)
+- **classic** (Kaypro II-like off-white with blue)
+- **charcoal + stock 8BitDo**, to judge the light keyboard against the dark case
+- **M Edition match**: an off-white case, a warm-grey fascia and keyboard deck, and the keyboard in its stock white, warm-grey and dark-grey keys.
+
+The 8BitDo colours were picked by eye from a product photo, not measured, so expect to tune them against real filament samples.
+
+![M Edition match](../outputs/p2/previews/11_operating_m_edition.png)
 
 ## Key dimensions (from `outputs/p2/validation.json`)
 

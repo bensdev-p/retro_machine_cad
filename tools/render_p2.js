@@ -13,6 +13,8 @@ const shots = [
   ['08_side_closed', 'closed', 'charcoal', 'side'],
   ['09_side_operating', 'operating', 'charcoal', 'side_op'],
   ['10_operating_stock_keyboard', 'operating', 'charcoal_stock_kb', 'operating'],
+  ['11_operating_m_edition', 'operating', 'm_edition', 'operating'],
+  ['12_closed_m_edition', 'closed', 'm_edition', 'closed'],
 ];
 (async () => {
   const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
