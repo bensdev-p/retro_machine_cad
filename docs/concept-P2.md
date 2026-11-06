@@ -98,6 +98,44 @@ Suggestions for pairing names:
 
 I have not checked any of these names against existing trademarks or products. Phosphor is fictional, but do a quick search before you print anything you plan to sell or share widely.
 
+## Floppy subsystem: verified vs. still needed
+
+**Chosen parts** (in the cart):
+- 2× Adafruit 6037 Upcycled Sony MPF-920 drives
+- 2× 30 cm 34-pin ribbon cables
+- 2× Adafruit 5679 Floppy FeatherWing
+
+**Layout:** one **Feather RP2040 + Floppy FeatherWing** stack per drive, lying flat under its drive with the IDC header toward the rear. With one controller per drive, both drives can work at once (`DISKCOPY A: B:`) and no twisted cable is needed. Adafruit provides Greaseweazle-compatible firmware for this wing on the Feather RP2040.
+
+![Drive bay x-ray](../outputs/p2/previews/13_xray_drive_bay.png)
+
+**Verified** (manufacturer or retailer listings; adafruit.com and learn.adafruit.com are blocked in this session, so these figures come from search results that quote them):
+
+| Item | Value used | Source |
+|---|---|---|
+| MPF-920 (Adafruit 6037) outer size | **146.1 × 101.6 × 25.4 mm**, 403 g | [Adafruit 6037](https://www.adafruit.com/product/6037) (same figures at [Core Electronics](https://core-electronics.com.au/upcycled-3-5-inch-floppy-drive-sony-mpf-920-adafruit.html)) |
+| MPF-920 per Sony | 101.6 × 25.4 × 144.0 mm, ~430 g, **+5 V only**, 1.25 W normal operation | [Sony MPF920-Z manual](https://pro.sony/s3/cms-static-content/operation-manual/4668278111.pdf), [bitsavers](https://www.bitsavers.org/pdf/sony/floppy/MP-F920/MPF920Z.pdf). I used the larger Adafruit depth (146.1), which probably includes the bezel. |
+| Floppy FeatherWing | **50.8 × 22.8 × 13.6 mm** (IDC header fitted), 8.4 g; Feather M4 / RP2040 only; needs external drive power | [Adafruit 5679](https://www.adafruit.com/product/5679), [Pimoroni](https://shop.pimoroni.com/products/adafruit-floppy-featherwing-with-34-pin-idc-connector) |
+| Feather RP2040 | **50.8 × 22.8 × 7 mm** without headers, 4 mounting holes | [Adafruit 4884](https://www.adafruit.com/product/4884) (some retailers round this to 51 × 23 × 7.5 mm) |
+| Firmware | Greaseweazle-compatible build for Feather RP2040 (`feather_rp2040_tinyusb`) | [Adafruit guide: archiving with Greaseweazle-compatible firmware](https://learn.adafruit.com/adafruit-floppy-featherwing-with-34-pin-idc-connector/archiving-floppies-with-greaseweazle-compatible-firmware), [Adafruit_Floppy](https://github.com/adafruit/Adafruit_Floppy) |
+| Known issue | Back-powering from the drive supply can leave the Feather RP2040 stuck in its bootloader; press reset after power-up | Adafruit guide (via search) |
+
+**Still needed: please source or measure these.** The CAD holds clearly marked reservations for each until real numbers arrive.
+
+| # | Unknown | Why it matters | Current placeholder |
+|---|---|---|---|
+| 1 | MPF-920 **side and bottom screw-hole positions** and thread | Drive cage mounting | Drives sit in the cage with no holes yet |
+| 2 | MPF-920 **rear 34-pin and power-connector positions** (and eject-button position on the bezel) | Cable routing; eject access through the angled shroud | 28 mm cable keep-out behind the drives |
+| 3 | MPF-920 **spin-up / peak current** | Sizing the 5 V supply | Not budgeted yet |
+| 4 | Feather RP2040 and FeatherWing **mounting-hole positions and diameter** | Standoffs in the drive cage | Stacks float 3 mm above the floor |
+| 5 | **Assembled stack height** with your chosen headers | Clearance under the drives | 32 mm reservation (space available is about 38 mm) |
+| 6 | **IDC plug body size** on the 30 cm ribbon | Bend room behind the drives | Inside the 28 mm keep-out |
+| 7 | **Drive power cable** (4-pin floppy) choice | Connector clearance | — |
+| 8 | **5 V buck converter / power input** model | Real envelope and mounting | Reserved block in front of the controllers |
+| 9 | **USB cable** from each Feather (plug size, right-angle or straight) | Routing to the hub | — |
+
+All interference checks pass with the reserved volumes (`outputs/p2/validation.json`), but they only prove fit against placeholders where the table above says "placeholder".
+
 ## Key dimensions (from `outputs/p2/validation.json`)
 
 - Case: **400 W × 210 H × 265 D mm**, plus 6 mm feet.
@@ -116,7 +154,7 @@ All of the clearance and interference checks in `validation.json` pass. These co
 
 These are envelopes, not product models:
 
-1. **Sony MPF920 size and mounting.** I used 101.6 × 25.4 × 150 mm. The real side screw positions and front bezel are needed before the cage is detailed. The MPF920 is a 34-pin drive, so it needs a USB floppy controller (a Greaseweazle-class board, 60 × 50 envelope under the drives). One twisted cable serves both A and B.
+1. **Sony MPF-920 mounting.** The outer size is now verified (see "Floppy subsystem"). Screw holes, the rear connectors and the eject button are still needed.
 2. **8BitDo profile.** Only the overall box (376.6 × 169.6 × 46.8) is a real input. Its case-top slope (17 → 25 mm) is a guess and drives the deck angle. The keycaps are an illustrative TKL layout. If you change to a different charcoal keyboard, its height is what sets how deep the fascia sits. Its width and depth set the hood and lid size.
 3. **Power.** A 5 V distribution / USB-C PD input envelope (about 70 × 48 × 24) feeds the Pi, the hub and the drives. You still need to choose the actual parts.
 4. **USB hub.** The model reserves an 79 × 72 × 26 mm envelope with its ports facing the rear.

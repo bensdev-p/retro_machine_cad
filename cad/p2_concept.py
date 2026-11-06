@@ -240,18 +240,23 @@ cage = cage.fuse(box(cx0, cg_y0, z0 - 4, cx0 + 4, cg_y1, z1 + 4),
                  box(cx1 - 4, cg_y0, z0 - 4, cx1, cg_y1, z1 + 4),
                  box(drv_cx - 4, cg_y0, z0 - 4, drv_cx + 4, cg_y1, z1 + 4),
                  box(cx0, cg_y0, z1 + 1, cx1 + 0, D - 9, z1 + 4),
-                 box(cx0, cg_y0, fh + iw, cx1, cg_y0 + 10, z0 - 4),
-                 box(cx0, cg_y1 - 10, fh + iw, cx1, cg_y1, z0 - 4))
+                 *[box(xa, ya, fh + iw, xa + 6, ya + 10, z0 - 4) for xa in (cx0, cx1 - 6) for ya in (cg_y0, cg_y1 - 10)])  # corner posts
 cage -= box(cx0 + 10, cg_y0 + 20, z1 + 0.5, cx1 - 10, cg_y1 - 20, z1 + 5)   # lightening window
 add('drive_cage', cage, 'drawer', 'internal', note='Printed cradle; drives screw in through the side walls (MPF920 side holes to confirm).')
 
 # Electronics envelopes in the spare volume.
 hub = box(cx0 + 2, D - 9 - 72, z1 + 4, cx1 + 4, D - 9, z1 + 4 + 26)
 add('usb_hub', hub, 'electronics', 'electronics', note='Powered 4-port USB hub envelope, ports facing the rear I/O panel.')
-ctrl = box(cx0 + 6, glass_y + 30, fh + iw + 2, cx0 + 66, glass_y + 80, fh + iw + 18)
-add('floppy_controller', ctrl, 'pcb', 'electronics', note='USB floppy controller envelope (Greaseweazle-class; one 34-pin cable serves A and B).')
-pwr = box(cx0 + 4, glass_y + 92, fh + iw + 2, cx1 - 2, glass_y + 140, fh + iw + 26)
-add('power_board', pwr, 'electronics', 'electronics', note='5 V distribution / PD input envelope for Pi, hub and drives.')
+FC = Q['floppy_controller']; fw = FC['floppy_featherwing']
+st_y1 = cg_y1 - 14; st_y0 = st_y1 - fw['w']                      # stacks lie flat, long axis front-to-back
+st_z0 = fh + iw + FC['standoff']
+ctrls = [box(xc - fw['d'] / 2, st_y0, st_z0, xc + fw['d'] / 2, st_y1, st_z0 + FC['stack_height_reserved'])
+         for xc in (drive_x[0] + dw_x / 2, drive_x[1] + dw_x / 2)]
+add('floppy_controller', ctrls, 'pcb', 'electronics', note='2x Feather RP2040 + Floppy FeatherWing (50.8 x 22.8 mm, verified); stack height %.0f mm is a RESERVATION, not measured.' % FC['stack_height_reserved'])
+add('floppy_cable_zone', [box(cx0 + 4, cg_y1 + 0.5, fh + iw, cx1 - 4, cg_y1 + FC['cable_zone_depth'], z1)], 'cable', 'electronics',
+    note='Keep-out for the two 34-pin ribbons and drive power cables behind the drives (drive connector positions not yet sourced).')
+pwr = box(cx0 + 8, cg_y0 + 12, fh + iw + 2, cx1 - 8, st_y0 - 6, fh + iw + 26)
+add('power_board', pwr, 'electronics', 'electronics', note='RESERVED volume for the 5 V buck / power input (part not chosen yet).')
 
 # ---------------------------------------------------------------- rear panel + drawer
 rp_y0, rp_y1 = D - 7, D - 3
@@ -654,6 +659,8 @@ check('Display/Pi clear front and drives', ['display', 'pi5_board', 'pi5_cooler'
 check('Folded handle sits in tub', ['handle'], ['shell'], 'operating')
 check('Raised handle clears shell', ['handle'], ['shell'], 'closed')
 check('Hub/power/controller clear shell & cage', ['usb_hub', 'power_board', 'floppy_controller'], ['shell', 'drive_cage', 'rear_panel', 'drawer_rails'], 'operating')
+check('Controllers / power / cable zone clear each other, drives and hub', ['floppy_controller', 'floppy_cable_zone'], ['power_board', 'floppy_drives', 'usb_hub', 'drive_cage', 'shell', 'rear_panel'], 'operating')
+check('Floppy controllers clear power reservation', ['floppy_controller'], ['power_board'], 'operating')
 
 
 all_names = list(parts)

@@ -84,7 +84,7 @@ function setState(name,instant){
   const real=name==='xray'?'operating':name;xray=name==='xray';curState=name;
   const tg=target(real);for(const k in tg){from[k]=decomp(cur[k]||tg[k]);to[k]=decomp(tg[k]);}
   t0=performance.now();dur=instant?0:900;tick(instant?1:0);
-  for(const o of objs){const g=o.userData.group,n=o.userData.name;const ghost=xray&&(n==='shell'||n==='rear_panel'||n==='fascia'||n==='shield_frame'||n==='legend_plate');
+  for(const o of objs){const g=o.userData.group,n=o.userData.name;const ghost=xray&&(n==='shell'||n==='rear_panel'||n==='fascia'||n==='shield_frame'||n==='legend_plate'||n==='side_stripes'||n==='brand_side');
     o.material=ghost?ghostMat(o.userData.role):mat(o.userData.role);o.castShadow=!ghost;o.children[0].visible=!ghost;}
   document.querySelectorAll('#states button').forEach(b=>b.classList.toggle('on',b.dataset.k===name));
 }
@@ -99,7 +99,7 @@ function setPalette(name){curPal=name;const P=S.palettes[name];
   for(const r in mats){const c=P[r]||(r==='disks'?'#3d6fb0':'#888888');mats[r].color.set(c);}
   for(const r in ghosts)ghosts[r].color.copy(mats[r].color);
   document.querySelectorAll('#pals button').forEach(b=>b.classList.toggle('on',b.dataset.k===name));}
-const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],side_op:[[1450,20,150],[200,20,100]],top:[[200,-60,1250],[200,-60,0]]};
+const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],side_op:[[1450,20,150],[200,20,100]],bay:[[980,470,470],[310,160,70]],top:[[200,-60,1250],[200,-60,0]]};
 function setView(v){const c=views[v]||views.operating;camera.position.set(...c[0]);controls.target.set(...c[1]);controls.update();}
 const SB=[['operating','Operating'],['closed','Closed / carry'],['rear','Rear + drawer'],['xray','X-ray']];
 for(const [k,l] of SB){const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.onclick=()=>{setState(k);setView(k);};document.getElementById('states').append(b);}

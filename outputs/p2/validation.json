@@ -154,6 +154,18 @@
       "state": "operating",
       "overlap_mm3": 0.0,
       "pass": true
+    },
+    {
+      "check": "Controllers / power / cable zone clear each other, drives and hub",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Floppy controllers clear power reservation",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
     }
   ],
   "all_pass": true

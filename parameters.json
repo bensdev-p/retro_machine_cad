@@ -475,17 +475,22 @@
       "left_margin": 9
     },
     "drive": {
-      "model": "Sony MPF920 (3.5 in 1.44 MB, 34-pin)",
-      "status": "provisional envelope; confirm against a real drive",
+      "model": "Sony MPF-920 (Adafruit 6037 'Upcycled 3.5in Floppy Drive - Sony MPF-920 or Compatible')",
+      "status": "Outer envelope verified from listings; mounting holes, bezel/eject geometry and rear connector positions NOT yet sourced",
       "width": 101.6,
       "height": 25.4,
-      "depth": 150,
+      "depth": 146.1,
       "orientation": "vertical side-by-side",
       "gap": 14,
       "center_z": 100,
       "shroud_margin": 3,
       "shroud_widen": 8,
-      "shroud_depth": 10
+      "shroud_depth": 10,
+      "sources": {
+        "adafruit_6037": "146.1 x 101.6 x 25.4 mm, 403.2 g (Adafruit product listing, via search; adafruit.com blocked in this session)",
+        "sony_mpf920z_manual": "101.6 x 25.4 x 144.0 mm, approx 430 g, +5 V only, 1.25 W normal operation (Sony 4-668-278-11 / bitsavers MPF920Z.pdf, via search)",
+        "note": "Using the larger 146.1 mm depth (likely includes the front bezel). Spin-up/peak current not found."
+      }
     },
     "pi_stack": {
       "standoff": 6,
@@ -550,7 +555,8 @@
         "p16_cobalt": "#1F3BB3",
         "p16_sky": "#5C7CFA",
         "p16_aqua": "#5FE3E3",
-        "p16_white": "#F5F5F0"
+        "p16_white": "#F5F5F0",
+        "cable": "#c9a24a"
       },
       "classic": {
         "shell": "#e2e0d9",
@@ -582,7 +588,8 @@
         "p16_cobalt": "#1F3BB3",
         "p16_sky": "#5C7CFA",
         "p16_aqua": "#5FE3E3",
-        "p16_white": "#F5F5F0"
+        "p16_white": "#F5F5F0",
+        "cable": "#c9a24a"
       },
       "charcoal_stock_kb": {
         "shell": "#5d6267",
@@ -614,7 +621,8 @@
         "p16_cobalt": "#1F3BB3",
         "p16_sky": "#5C7CFA",
         "p16_aqua": "#5FE3E3",
-        "p16_white": "#F5F5F0"
+        "p16_white": "#F5F5F0",
+        "cable": "#c9a24a"
       },
       "m_edition": {
         "shell": "#d8d5cd",
@@ -646,7 +654,8 @@
         "p16_cobalt": "#1F3BB3",
         "p16_sky": "#5C7CFA",
         "p16_aqua": "#5FE3E3",
-        "p16_white": "#F5F5F0"
+        "p16_white": "#F5F5F0",
+        "cable": "#c9a24a"
       }
     },
     "hinge": {
@@ -671,6 +680,36 @@
       "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types.",
       "style": "italic",
       "style_note": "'italic' (default) = italic speed-cut wordmark everywhere, RetroOS diamond on lid face / deck / nameplate only; 'os' = Phosphor Mono pixel wordmark + diamonds incl. sides; 'stripes' = italic wordmark + green/amber/blue bars"
+    },
+    "floppy_controller": {
+      "layout": "one Feather RP2040 + Floppy FeatherWing stack per drive, lying flat under its drive, IDC header toward the rear",
+      "feather_rp2040": {
+        "w": 50.8,
+        "d": 22.8,
+        "h_no_headers": 7.0,
+        "source": "Adafruit 4884 listing: 50.8 x 22.8 x 7 mm without headers; 4 mounting holes, positions NOT sourced"
+      },
+      "floppy_featherwing": {
+        "w": 50.8,
+        "d": 22.8,
+        "h": 13.6,
+        "source": "Adafruit 5679 listing: 50.8 x 22.8 x 13.6 mm, 8.4 g (2x17 IDC header pre-attached); supports Feather M4 / RP2040 only"
+      },
+      "stack_height_reserved": 32.0,
+      "stack_height_status": "RESERVATION, not a measurement: depends on header type (stacking vs short) and USB plug; to be measured",
+      "standoff": 3.0,
+      "cable_zone_depth": 28.0,
+      "unknowns": [
+        "Feather RP2040 mounting hole positions/diameter",
+        "FeatherWing mounting holes",
+        "assembled stack height with chosen headers",
+        "IDC plug body size on the 30 cm ribbon",
+        "MPF-920 rear 34-pin and power connector positions",
+        "MPF-920 side/bottom screw hole positions",
+        "drive power cable (4-pin floppy) choice and connector body",
+        "5 V buck converter model and dimensions",
+        "Feather USB cable plug size (right-angle?)"
+      ]
     }
   }
 }
