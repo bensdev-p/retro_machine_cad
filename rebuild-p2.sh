@@ -3,5 +3,6 @@
 set -euo pipefail
 cd -- "$(dirname -- "$0")"
 python cad/p2_concept.py
+python tools/render_post_screen.py
 python tools/package_p2.py
 if command -v node >/dev/null; then NODE_PATH="${NODE_PATH:-$(npm root -g)}" node tools/render_p2.js || echo "Preview render skipped (Playwright not available)"; fi

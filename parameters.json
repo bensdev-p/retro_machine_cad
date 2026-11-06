@@ -543,10 +543,14 @@
         "text": "#c9ccce",
         "label": "Kaypro 10-style charcoal",
         "brand": "#d8dbdd",
-        "plate_text": "#d8dbdd",
+        "plate_text": "#F7E15A",
         "phos_green": "#4fae5f",
         "phos_amber": "#e2a03a",
-        "phos_blue": "#3d7cc9"
+        "phos_blue": "#3d7cc9",
+        "p16_cobalt": "#1F3BB3",
+        "p16_sky": "#5C7CFA",
+        "p16_aqua": "#5FE3E3",
+        "p16_white": "#F5F5F0"
       },
       "classic": {
         "shell": "#e2e0d9",
@@ -571,10 +575,14 @@
         "text": "#4f8fd0",
         "label": "Kaypro II-style off-white and blue",
         "brand": "#4f8fd0",
-        "plate_text": "#e2e0d9",
+        "plate_text": "#F7E15A",
         "phos_green": "#4fae5f",
         "phos_amber": "#e2a03a",
-        "phos_blue": "#3d7cc9"
+        "phos_blue": "#3d7cc9",
+        "p16_cobalt": "#1F3BB3",
+        "p16_sky": "#5C7CFA",
+        "p16_aqua": "#5FE3E3",
+        "p16_white": "#F5F5F0"
       },
       "charcoal_stock_kb": {
         "shell": "#5d6267",
@@ -599,10 +607,14 @@
         "text": "#c9ccce",
         "label": "Charcoal case + stock 8BitDo M colours",
         "brand": "#d8dbdd",
-        "plate_text": "#d8dbdd",
+        "plate_text": "#F7E15A",
         "phos_green": "#4fae5f",
         "phos_amber": "#e2a03a",
-        "phos_blue": "#3d7cc9"
+        "phos_blue": "#3d7cc9",
+        "p16_cobalt": "#1F3BB3",
+        "p16_sky": "#5C7CFA",
+        "p16_aqua": "#5FE3E3",
+        "p16_white": "#F5F5F0"
       },
       "m_edition": {
         "shell": "#d8d5cd",
@@ -627,10 +639,14 @@
         "text": "#3d7cc9",
         "label": "M Edition match (off-white, warm grey, blue accents)",
         "brand": "#5d5a54",
-        "plate_text": "#e9e7e0",
+        "plate_text": "#F7E15A",
         "phos_green": "#4fae5f",
         "phos_amber": "#e2a03a",
-        "phos_blue": "#3d7cc9"
+        "phos_blue": "#3d7cc9",
+        "p16_cobalt": "#1F3BB3",
+        "p16_sky": "#5C7CFA",
+        "p16_aqua": "#5FE3E3",
+        "p16_white": "#F5F5F0"
       }
     },
     "hinge": {
@@ -652,7 +668,9 @@
       "os": "RetroOS",
       "font_path": "/usr/share/fonts/opentype/inter/InterDisplay-BlackItalic.otf",
       "font_fallback": "DejaVu Sans",
-      "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types."
+      "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types.",
+      "style": "os",
+      "style_note": "'os' = Phosphor Mono pixel wordmark + diamond logo from RetroOS (default); 'stripes' = italic speed-stripe wordmark + phosphor bars"
     }
   }
 }

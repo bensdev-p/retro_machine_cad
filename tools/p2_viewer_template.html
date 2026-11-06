@@ -63,15 +63,11 @@ for(const p of S.parts){
   const edges=new THREE.LineSegments(new THREE.EdgesGeometry(g,28),lineMat);mesh.add(edges);
   scene.add(mesh);objs.push(mesh);p.v=null;p.f=null;}
 // Illustrative screen image (green phosphor), not CAD.
-const A=S.active,cw=1536,ch=Math.round(cw*(A[3]-A[1])/(A[2]-A[0]));
-const cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const x=cv.getContext('2d');
-x.fillStyle='#04100a';x.fillRect(0,0,cw,ch);x.font='bold 46px "DejaVu Sans Mono",monospace';x.fillStyle='#6cff9a';x.shadowColor='#3dff7a';x.shadowBlur=14;
-const B=S.brand||{company_full:'',model_no:'',model:'',os:''};
-const lines=[B.company_full,B.model_no+' '+B.model+' PORTABLE   '+B.os+' 1.0','(C) 1984 PHOSPHOR COMPUTER CO.','','A>DIR','A: WS       COM : MBASIC   COM : STAT     COM','A: PIP      COM : TURBO    COM : ZORK1    COM','A: README   TXT : LUGGABLE DOC : DISKCOPY COM','','A>STAT B:','B: R/W, SPACE: 1424K','A>_'];
-lines.forEach((l,i)=>x.fillText(l,90,96+i*62));
-[['#6cff9a',0],['#ffb347',1],['#7fb6ff',2]].forEach(([c,i])=>{x.fillStyle=c;x.shadowColor=c;x.fillRect(cw-400+i*18,62+i*26,300,16);});
-x.shadowBlur=0;for(let y=0;y<ch;y+=4){x.fillStyle='rgba(0,0,0,0.18)';x.fillRect(0,y,cw,2);}
-const tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=8;
+// Screen: the RetroOS Phosphor BIOS POST screen (tools/render_post_screen.py), embedded as a PNG.
+const A=S.active,cw=1920,ch=1200,POST='__POST__';
+const cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const x=cv.getContext('2d');x.fillStyle='#0A0A0F';x.fillRect(0,0,cw,ch);
+const tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=8;let screenReady=false;
+const img=new Image();img.onload=()=>{x.drawImage(img,0,0,cw,ch);tex.needsUpdate=true;screenReady=true;};img.onerror=()=>{screenReady=true;};img.src=POST;
 const screen=new THREE.Mesh(new THREE.PlaneGeometry(A[2]-A[0],A[3]-A[1]),new THREE.MeshBasicMaterial({map:tex,toneMapped:false}));
 screen.rotation.x=Math.PI/2;screen.position.set((A[0]+A[2])/2,S.glass_y-0.08,(A[1]+A[3])/2);screen.updateMatrix();const screenBase=screen.matrix.clone();screen.matrixAutoUpdate=false;scene.add(screen);
 
@@ -117,9 +113,10 @@ renderer.domElement.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clie
   document.getElementById('pick').innerHTML=hit?`<b>${hit.object.userData.name}</b>${hit.object.userData.note?' — '+hit.object.userData.note:''}`:'Click a part to identify it.';});
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
+window.__cam=(p,t)=>{camera.position.set(...p);controls.target.set(...t);controls.update();renderer.render(scene,camera);};
 window.__setup=(state,pal,view)=>{setPalette(pal);setState(state,true);setView(view||state);controls.update();renderer.render(scene,camera);};
 setPalette('charcoal');setState('operating',true);setView('operating');
 window.__pause=false;
 (function loop(){requestAnimationFrame(loop);if(window.__pause)return;if(dur)tick();controls.update();renderer.render(scene,camera);})();
-window.__ready=true;
+(function wait(){if(screenReady){window.__ready=true;}else setTimeout(wait,50);})();
 </script></body></html>

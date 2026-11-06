@@ -39,33 +39,40 @@ The 8BitDo colours were picked by eye from a product photo, not measured, so exp
 
 ## Branding: Phosphor Computer Company
 
-The case is branded for the fictional **Phosphor Computer Company**, maker of RetroOS. The current placeholder model name is **P-31 Afterglow**. All of the text lives in `p2.branding` in `parameters.json`, so a rename only needs a rebuild.
+The case is branded for the fictional **Phosphor Computer Company** (PCC), which "makes" RetroOS. The branding follows RetroOS's own style guide (`docs/STYLE.md` in the RetroOS repo): "one product, one hand", so the case uses the OS's logo, font and palette rather than artwork invented for the case.
 
-**The brand system:**
-- **Wordmark:** a heavy italic "PHOSPHOR" with two horizontal speed-stripe cuts through the lower half of the letters, a classic early-80s treatment.
-- **Phosphor stripes:** three slanted bars in the colours of real CRT phosphors: P1 green, P3 amber, and a cool blue that also matches the 8BitDo's A/B legends. They appear as one consistent mark everywhere the brand does.
+**The brand system** (`p2.branding.style = "os"`, the default):
+- **Logo:** the Phosphor BIOS mark, a "glowing phosphor dot" built from concentric pixel diamonds in Cobalt `#1F3BB3`, Sky `#5C7CFA`, Aqua `#5FE3E3` and White `#F5F5F0`. The diamond geometry is the same 25-pixel stepped shape that `retro-post` draws.
+- **Wordmark:** "PHOSPHOR" built from RetroOS's own **Phosphor Mono 8×16** pixel font (SIL OFL 1.1, vendored in `tools/vendor/phosphor-mono`). Each pixel is a raised printed square.
+- **Nameplate:** the dark front-panel plate copies the POST-screen logo: the diamond plus "PHOSPHOR" in Lemon `#F7E15A` on black.
+- The earlier italic speed-stripe wordmark with green/amber/blue bars is still available as `style = "stripes"`, but it is no longer the default.
 
 **Where it appears:**
 
 | Place | What |
 |---|---|
-| Both sides | A large raised wordmark (26 mm type) low on the side, over the ribs (Kaypro 2-style), with the stripes ahead of it. |
-| Closed lid (front face) | A large wordmark plus full-width stripes and "P-31 AFTERGLOW". This is the face you see when the machine is packed up. |
-| Keyboard deck | A small wordmark and model name on the front band, with mini stripes on the right. |
-| Front panel | A dark nameplate under the floppy drives reading "PHOSPHOR · P-31". The POWER/A/B legend sits above the drives. |
-| Rear I/O plate | "PHOSPHOR COMPUTER COMPANY" and "MODEL P-31 AFTERGLOW / RetroOS" engraved, like a period rating plate. |
-| Screen (illustrative) | A green-phosphor boot banner with the company, model, RetroOS 1.0, a "(C) 1984" line and the three stripes. |
+| Both sides | A Phosphor Mono wordmark (1.7 mm pixels) low over the ribs, with the diamond ahead of it. |
+| Closed lid (front face) | A large diamond and wordmark plus "P-31 AFTERGLOW". |
+| Keyboard deck | A small diamond, wordmark and model on the front band. |
+| Front panel | The dark nameplate under the drives with the diamond, "PHOSPHOR" in Lemon, and the model number. |
+| Rear I/O plate | "PHOSPHOR COMPUTER COMPANY" and the model/RetroOS line, engraved. |
+| Screen | The **Phosphor BIOS POST screen**, redrawn from the RetroOS source (see below). |
+
+**POST screen on the model:** `tools/render_post_screen.py` redraws the `retro-post` POST screen at the Touch Display 2's 1920×1200 resolution (integer scale 3, an exact 80×25 fit). It transcribes the layout and colours of `post_grid`/`draw_logo`, uses the sample data from `probe::fake()`, and draws in the Phosphor Mono font. The result is `outputs/p2/screens/post.png`, which the viewer and renders use. It is a re-drawing, not output from the real binary, so compare it with a real screenshot. On the real machine the Video line will report the DSI panel instead of HDMI.
 
 **Printing notes:**
-- The raised logos (0.5–0.8 mm) are meant to be printed as colour swaps, using the AMS on the H2C/X2D, or as separate inlays.
-- The wordmark font is Inter Display Black Italic (SIL OFL), read from the system fonts. The model falls back to DejaVu Sans Bold if it is missing.
-- The speed-stripe gaps are about 0.6–1.7 mm depending on where the logo is. Check that the smallest (on the deck) survives your nozzle.
+- The raised logo layers (0.4–0.8 mm) are meant to be printed as AMS colour swaps or as separate inlays.
+- The smallest pixels (about 0.34 mm, on the deck and nameplate diamonds) are below a 0.4 mm nozzle line width. Scale those up, or print the deck/nameplate badges as separate parts, for example on a 0.2 mm nozzle.
 
 ### Model name ideas
 
 These are grouped by theme. ★ marks my favourites.
 
-**CRT / phosphor science** (the strongest fit with the company name)
+**From the RetroOS lore** (the strongest fit)
+- ★ **PCC Model 5 Portable**: RetroOS's design doc already shows the POST line `PCC Model 5 — ARM Cortex-A76…` for the Pi 5. The lore also says PCC shipped the **Model 1** in 1984, so the Pi 5 luggable is naturally the **Model 5**. The portable could be **Model 5P** or **Model 5 Portable**, with "P-31" kept as a nod in the colourway or the screen theme.
+- **Model 5 Executive**, **Model 5 Transportable**
+
+**CRT / phosphor science**
 - ★ **P-31 Afterglow**: P31 is the green phosphor used in classic monochrome terminals, and "afterglow" is the term for phosphor persistence. This is the current placeholder.
 - ★ **Persistence 10**: phosphor persistence, plus the 10.1" screen. It also hints at "a computer that lasts".
 - **Raster**, **Scanline 2**, **Raster Portable**

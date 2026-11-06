@@ -410,44 +410,107 @@ def phos_bars(plane, x0, y0, length, thick, gap, height, slant=0.35):
                           (x0 + length + slant * (yb + thick - y0), yb + thick), (x0 + slant * (yb + thick - y0), yb + thick), close=True)
         out.append(plane.location * b.extrude(b.make_face(prof), amount=height))
     return out
-brand, plate_text, bars = [], [], [[], [], []]
-def add_bars(lst):
-    for i, s_ in enumerate(lst): bars[i].append(s_)
-# Side wordmarks, Kaypro-style, low on both sides across the ribs, with phosphor bars ahead of them.
-for side in ('right', 'left'):
-    xs, xd, zd = (W, (0, 1, 0), (1, 0, 0)) if side == 'right' else (0, (0, -1, 0), (-1, 0, 0))
-    yc = 176
-    pl = b.Plane(origin=(xs, yc, fh + 27), x_dir=xd, z_dir=zd)
-    brand.append(brand_text(BR['company'], 26, pl, 0.8))
-    # bars in front of the wordmark (toward the lid side of the case)
-    sgn = 1 if side == 'right' else -1
-    pb = b.Plane(origin=(xs, 0, fh + 27), x_dir=xd, z_dir=zd)
-    add_bars(phos_bars(pb, (56 if side == 'right' else -96), 6.5, 40, 3.2, 1.8, 0.8))
-# Lid outer face (front of the closed machine): big wordmark + full-width phosphor bars.
+# Pixel elements taken from RetroOS itself: the Phosphor Mono 8x16 font and the POST-screen logo
+# (concentric pixel diamonds in Cobalt / Sky / Aqua / White, crates/retro-post draw_logo).
+def _load_glyphs(path):
+    font, cp, first, rows = {}, None, 0, []
+    def flush():
+        if cp is not None:
+            font[cp] = [(first + i, r) for i, r in enumerate(rows)]
+    for line in _P(path).read_text().splitlines():
+        if line.startswith('@ '):
+            flush(); parts_ = line.split(); cp = int(parts_[1], 16); first = 0; rows = []
+            for t in parts_[3:]:
+                if t.startswith('+'): first = int(t[1:])
+        elif line[:1] in ('.', '#') and cp is not None:
+            rows.append(line.strip()[:8])
+    flush(); return font
+GLYPHS = _load_glyphs(ROOT / 'tools/vendor/phosphor-mono/phosphor-mono-8x16.glyphs')
+def pixel_text(txt, pix, plane, height):
+    """Phosphor Mono text as raised pixel runs, centred on the plane origin (cap height centred)."""
+    w_tot = len(txt) * 8 * pix
+    out = []
+    for k, ch_ in enumerate(txt):
+        for r, row in GLYPHS.get(ord(ch_), []):
+            c = 0
+            while c < len(row):
+                if row[c] == '#':
+                    c0 = c
+                    while c < len(row) and row[c] == '#': c += 1
+                    x0 = -w_tot / 2 + (k * 8 + c0) * pix
+                    y0 = (6.5 - r) * pix - pix / 2      # rows 2..11 are caps -> centred on y = 0
+                    out.append(box(x0, y0, 0, x0 + (c - c0) * pix, y0 + pix, height))
+                else:
+                    c += 1
+    return [plane.location * s_ for s_ in out]
+def pixel_diamond(plane, pix, height, size=12):
+    """Four ring lists (outer Cobalt -> centre White), 2*size+1 pixels tall, centred on the plane origin."""
+    rings = []
+    for k, r in enumerate((size, size - 3, size - 6, size - 9)):
+        inner = r - 3 if k < 3 else -1
+        lst = []
+        for dy in range(-r, r + 1):
+            w_ = r - abs(dy)
+            wi = inner - abs(dy) if inner >= 0 and abs(dy) <= inner else None
+            spans = [(-w_, w_)] if wi is None else [(-w_, -wi - 1), (wi + 1, w_)]
+            for a, c_ in spans:
+                lst.append(box(a * pix - pix / 2, -dy * pix - pix / 2, 0, c_ * pix + pix / 2, -dy * pix + pix / 2, height))
+        rings.append([plane.location * s_ for s_ in lst])
+    return rings
+style = BR.get('style', 'os')
+brand, plate_text = [], []
+acc_case, acc_lid = [[] for _ in range(4)], [[] for _ in range(4)]
+def add_acc(target, lst):
+    for i, s_ in enumerate(lst): target[i] += s_ if isinstance(s_, list) else [s_]
 lid_face = b.Plane(origin=(0, 0, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1))   # local up = -Y (closed: up)
-lid_brand = [brand_text(BR['company'], 22, b.Plane(origin=(112, H - 32, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1)), 0.6)]
-lid_bars = phos_bars(lid_face, 182, -(H - 37), 172, 3.6, 2.2, 0.6)
-lid_model = [brand_text('%s  %s' % (BR['model_no'], BR['model']), 5.2, b.Plane(origin=(318, H - 41, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1)), 0.6, stripes=False, bold_font=False)]
-# Deck badge on the front band of the keyboard housing (seen while typing).
+def lid_plane(x, Y): return b.Plane(origin=(x, Y, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1))
 phi = math.atan(deck_slope); dn = (0, -math.sin(phi), math.cos(phi))
-def deck_plane(x, Y):
-    return b.Plane(origin=(x, Y, deck_z(Y)), x_dir=(1, 0, 0), z_dir=dn)
-deck_Y = 16.5
-deck_brand = [brand_text(BR['company'], 8.5, deck_plane(48, deck_Y), 0.5)]
-deck_model = [brand_text('%s %s' % (BR['model_no'], BR['model']), 3.6, deck_plane(118, deck_Y - 0.6), 0.5, stripes=False, bold_font=False)]
-deck_bars = phos_bars(deck_plane(0, deck_Y), 300, 1.6, 60, 1.6, 1.0, 0.5)
-# Front-panel nameplate under the drive shroud (dark plate, light lettering).
-np_z0, np_z1 = vis[1] + 3, DRV_FRONT[1] - 3
+def deck_plane(x, Y): return b.Plane(origin=(x, Y, deck_z(Y)), x_dir=(1, 0, 0), z_dir=dn)
+deck_Y = 13.0
+np_z0, np_z1 = vis[1] + 3, DRV_FRONT[1] - 3; np_zc = (np_z0 + np_z1) / 2
 nameplate = box(DRV_FRONT[0], fy - 1.0, np_z0, DRV_FRONT[2], fy, np_z1)
-npl = FRONT_PLANE((DRV_FRONT[0] + DRV_FRONT[2]) / 2 - 12, fy - 1.0, (np_z0 + np_z1) / 2)
-plate_text.append(brand_text(BR['company'], 6.4, npl, 0.4))
-plate_text.append(brand_text(BR['model_no'], 4.2, FRONT_PLANE(DRV_FRONT[2] - 13, fy - 1.0, (np_z0 + np_z1) / 2), 0.4, stripes=False, bold_font=False))
+model_line = '%s %s' % (BR['model_no'], BR['model'])
+side_planes = [((W, (0, 1, 0), (1, 0, 0)), 1), ((0, (0, -1, 0), (-1, 0, 0)), -1)]
+if style == 'os':
+    # Sides: Phosphor Mono wordmark + the diamond, low on the side across the ribs (Kaypro-style).
+    for (xs, xd, zd), sg in side_planes:
+        brand += pixel_text(BR['company'], 1.7, b.Plane(origin=(xs, 178, fh + 27), x_dir=xd, z_dir=zd), 0.8)
+        add_acc(acc_case, pixel_diamond(b.Plane(origin=(xs, 84, fh + 27), x_dir=xd, z_dir=zd), 1.25, 0.8))
+    # Closed lid face: diamond + big wordmark + model line.
+    add_acc(acc_lid, pixel_diamond(lid_plane(46, H - 40), 1.4, 0.6))
+    lid_brand = pixel_text(BR['company'], 2.0, lid_plane(162, H - 44), 0.6)
+    lid_model = pixel_text(model_line, 0.75, lid_plane(162, H - 26), 0.6)
+    # Keyboard deck: small diamond + wordmark + model.
+    add_acc(acc_lid, pixel_diamond(deck_plane(34, deck_Y), 0.34, 0.5))
+    deck_brand = pixel_text(BR['company'], 0.62, deck_plane(78, deck_Y), 0.5)
+    deck_model = pixel_text(model_line, 0.42, deck_plane(160, deck_Y), 0.5)
+    # Front nameplate = the POST-screen logo: diamond + PHOSPHOR in Lemon on black.
+    add_acc(acc_case, pixel_diamond(FRONT_PLANE(DRV_FRONT[0] + 9, fy - 1.0, np_zc), 0.34, 0.4))
+    plate_text += pixel_text(BR['company'], 0.6, FRONT_PLANE(DRV_FRONT[0] + 42, fy - 1.0, np_zc), 0.4)
+    plate_text += pixel_text(BR['model_no'], 0.45, FRONT_PLANE(DRV_FRONT[2] - 13, fy - 1.0, np_zc), 0.4)
+    acc_roles = ('p16_cobalt', 'p16_sky', 'p16_aqua', 'p16_white')
+    acc_note = 'Phosphor logo diamond (Cobalt / Sky / Aqua / White, as on the Phosphor BIOS screen).'
+else:
+    # Alternative: italic speed-stripe wordmark + green/amber/blue phosphor bars.
+    for (xs, xd, zd), sg in side_planes:
+        brand.append(brand_text(BR['company'], 26, b.Plane(origin=(xs, 176, fh + 27), x_dir=xd, z_dir=zd), 0.8))
+        add_acc(acc_case, phos_bars(b.Plane(origin=(xs, 0, fh + 27), x_dir=xd, z_dir=zd), (56 if sg > 0 else -96), 6.5, 40, 3.2, 1.8, 0.8))
+    add_acc(acc_lid, phos_bars(lid_face, 182, -(H - 37), 172, 3.6, 2.2, 0.6))
+    lid_brand = [brand_text(BR['company'], 22, lid_plane(112, H - 32), 0.6)]
+    lid_model = [brand_text(model_line, 5.2, lid_plane(318, H - 41), 0.6, stripes=False, bold_font=False)]
+    add_acc(acc_lid, phos_bars(deck_plane(0, deck_Y), 300, 1.6, 60, 1.6, 1.0, 0.5))
+    deck_brand = [brand_text(BR['company'], 8.5, deck_plane(48, deck_Y), 0.5)]
+    deck_model = [brand_text(model_line, 3.6, deck_plane(118, deck_Y - 0.6), 0.5, stripes=False, bold_font=False)]
+    plate_text.append(brand_text(BR['company'], 6.4, FRONT_PLANE((DRV_FRONT[0] + DRV_FRONT[2]) / 2 - 12, fy - 1.0, np_zc), 0.4))
+    plate_text.append(brand_text(BR['model_no'], 4.2, FRONT_PLANE(DRV_FRONT[2] - 13, fy - 1.0, np_zc), 0.4, stripes=False, bold_font=False))
+    acc_roles = ('phos_green', 'phos_amber', 'phos_blue')
+    acc_note = 'Phosphor stripe (P1 green / P3 amber / blue).'
 add('nameplate', nameplate, 'bezel', 'front', note='Front-panel nameplate under the drives.')
 add('nameplate_text', plate_text, 'plate_text', 'front')
 add('brand_side', brand, 'brand', 'case', note='%s wordmark, raised 0.8 mm (print as a colour swap or a separate inlay).' % BR['company_full'])
-for i, (nm, role) in enumerate((('phos_bar_green', 'phos_green'), ('phos_bar_amber', 'phos_amber'), ('phos_bar_blue', 'phos_blue'))):
-    add(nm, bars[i], role, 'case', note='Phosphor stripe (P1 green / P3 amber / blue).')
-    add(nm + '_lid', [lid_bars[i], deck_bars[i]], role, 'keyboard', 'tray')
+for i, role in enumerate(acc_roles):
+    if acc_case[i]: add('accent_%d' % i, acc_case[i], role, 'case', note=acc_note)
+    if acc_lid[i]: add('accent_%d_lid' % i, acc_lid[i], role, 'keyboard', 'tray', note=acc_note)
 add('brand_lid', lid_brand + deck_brand, 'brand', 'keyboard', 'tray', note='Wordmark on the closed front face and on the keyboard deck.')
 add('brand_lid_model', lid_model + deck_model, 'brand', 'keyboard', 'tray')
 
@@ -553,9 +616,9 @@ def gap(label, a, c, state, need):
     d = solids(a, state).distance_to(solids(c, state))
     checks.append({'check': label, 'state': state, 'min_gap_mm': round(d, 2), 'required_mm': need, 'pass': d >= need - 1e-6})
 
-front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud', 'nameplate', 'nameplate_text', 'brand_side', 'phos_bar_green', 'phos_bar_amber', 'phos_bar_blue']
+front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud', 'nameplate', 'nameplate_text', 'brand_side'] + [n for n in parts if n.startswith('accent_') and not n.endswith('_lid')]
 inside = ['display', 'pi5_board', 'pi5_cooler', 'floppy_drives', 'drive_cage', 'usb_hub', 'floppy_controller', 'power_board', 'drawer_rails']
-lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet', 'brand_lid', 'brand_lid_model', 'phos_bar_green_lid', 'phos_bar_amber_lid', 'phos_bar_blue_lid']
+lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet', 'brand_lid', 'brand_lid_model'] + [n for n in parts if n.startswith('accent_') and n.endswith('_lid')]
 check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes'], 'closed')
 gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip_gap'] - 0.05)
 gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
