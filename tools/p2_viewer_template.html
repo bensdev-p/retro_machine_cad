@@ -98,7 +98,7 @@ function setPalette(name){curPal=name;const P=S.palettes[name];
   for(const r in mats){const c=P[r]||(r==='disks'?'#3d6fb0':'#888888');mats[r].color.set(c);}
   for(const r in ghosts)ghosts[r].color.copy(mats[r].color);
   document.querySelectorAll('#pals button').forEach(b=>b.classList.toggle('on',b.dataset.k===name));}
-const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],top:[[200,-60,1250],[200,-60,0]]};
+const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],side_op:[[1500,-60,160],[200,-60,90]],top:[[200,-60,1250],[200,-60,0]]};
 function setView(v){const c=views[v]||views.operating;camera.position.set(...c[0]);controls.target.set(...c[1]);controls.update();}
 const SB=[['operating','Operating'],['closed','Closed / carry'],['rear','Rear + drawer'],['xray','X-ray']];
 for(const [k,l] of SB){const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.onclick=()=>{setState(k);setView(k);};document.getElementById('states').append(b);}

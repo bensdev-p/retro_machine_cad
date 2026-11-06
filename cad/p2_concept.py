@@ -63,18 +63,32 @@ def add(name, shape, role, group, state_key=None, note=''):
 W, D = C['width'], C['depth']
 fh = C['feet_height']
 kb_w, kb_d, kb_h = KB['width'], KB['depth'], KB['height']
-pocket_w = kb_w + 2 * T['pocket_clearance_x']
-pocket_d = kb_d + T['pocket_clearance_front'] + T['pocket_clearance_rear']
-rim_w, rim_d = pocket_w + 2 * T['rim_wall'], pocket_d + 2 * T['rim_wall']
-hood_w, hood_h = rim_w + 2 * T['hood_clearance'], rim_d + 2 * T['hood_clearance']
-assert abs(hood_w - (W - 2 * C['side_wall'])) < 1e-6, (hood_w, W)
+sw, iw = C['side_wall'], C['inner_wall']
+hood_w, hood_h = W - 2 * sw, C['hood_height']
 H = C['bottom_wall'] + hood_h + C['top_wall']
-HOOD = (C['side_wall'], fh + C['bottom_wall'], C['side_wall'] + hood_w, fh + C['bottom_wall'] + hood_h)
+HOOD = (sw, fh + C['bottom_wall'], sw + hood_w, fh + C['bottom_wall'] + hood_h)
 hood_cz = (HOOD[1] + HOOD[3]) / 2
 TOP = fh + H
-# Closed keyboard reaches y = foam + keyboard height (flange outer face is y = -flange).
-kb_reach = T['foam'] + kb_h
-fy = math.ceil(kb_reach + SH['keycap_clearance'])          # fascia front plane
+
+# Wedge lid, local frame: X 0..W, Y 0..H (Y=0 = user edge), Z up from the lid underside.
+# Closed, local Y maps to world z = TOP - Y and local Z to world y = Z - FT_ (underside forms the front face).
+FT_ = 4.0
+tilt = math.radians(T['platform_tilt_deg'])
+kpc = T['pocket_clearance']
+kx0 = (W - kb_w) / 2
+ky0 = (TOP - hood_cz) - kb_d * math.cos(tilt) / 2          # keyboard centred in the hood when closed
+kz0 = T['platform_base'] + T['foam']                        # keyboard underside at its front edge
+def case_top(yk):  # keyboard's own case top above its underside, yk from its front edge (envelope guess)
+    return 17 + 8 * yk / kb_d
+deck_slope = math.tan(tilt) + 8 / kb_d
+def deck_z(Y):     # lid top (deck) surface height in lid-local coords
+    return kz0 + case_top(0) - T['deck_recess'] + deck_slope * (Y - ky0)
+def lip_y(z):      # world y of the slanted case lip at height z (matches the closed deck + gap)
+    return deck_z(TOP - z) - FT_ + T['lip_gap']
+# Closed keyboard envelope: full spec height everywhere, tilted -> conservative reach toward the fascia.
+env_reach = kz0 + kb_d * math.sin(tilt) + kb_h * math.cos(tilt) - FT_
+kb_reach = env_reach
+fy = math.ceil(env_reach + SH['keycap_clearance'])        # fascia front plane
 glass_y = fy + SS['depth']
 vis = grow(HOOD, -SH['inset'])                               # visible fascia after the shield frame
 
@@ -100,13 +114,14 @@ DRV_FRONT = grow(DRV_BACK, DR['shroud_widen'])
 drive_x = [drv_cx - cluster_w / 2, drv_cx + DR['gap'] / 2]
 
 # ---------------------------------------------------------------- shell (one visual body)
-sw, iw = C['side_wall'], C['inner_wall']
 outer = box(0, 0, fh, W, D, TOP)
 outer = b.fillet(outer.edges(), C['outer_radius'])
 shell = outer - box(sw, fy, fh + iw, W - sw, D + 1, TOP - iw)        # main cavity, rear open
 shell -= box(HOOD[0], -1, HOOD[1], HOOD[2], fy + 0.01, HOOD[3])      # hood
-li = C['hood_lead_in']
-shell -= frustum(-0.01, grow(HOOD, li), li, HOOD)                    # chamfered lead-in at the lip
+# Slanted Kaypro lip: the case reaches further forward at the top, matching the wedge lid.
+z_a, z_b = fh - 1, TOP + 1
+lip_cut = b.Pos(-1, 0, 0) * b.extrude(b.Plane.YZ * b.make_face(b.Polyline((-20, z_a), (lip_y(z_a), z_a), (lip_y(z_b), z_b), (-20, z_b), close=True)), amount=W + 2)
+shell -= lip_cut
 # Handle tub in the top panel.
 px0, px1 = HD['pocket_x']; pivot_y = HD['pivot_y']; leg = HD['leg_length']
 pk_y0, pk_y1 = pivot_y - 10, pivot_y + leg + 10
@@ -115,17 +130,27 @@ shell -= box(px0, pk_y0, TOP - HD['pocket_depth'], px1, pk_y1, TOP + 1)
 # Side ribs (Kaypro 10 style).  On the left the ribs beside the Pi are cut through as intake vents.
 tools = []
 rib_z = [fh + 34 + 12 * i for i in range(13)]
+rib_y0 = math.ceil(lip_y(fh) + 34)
+vent_y = (glass_y + 18, glass_y + 72)
 for z in rib_z:
-    tools += [box(-1, 40, z, 1.0, D - 14, z + 2.2), box(W - 1.0, 40, z, W + 1, D - 14, z + 2.2)]
+    tools += [box(-1, rib_y0, z, 1.0, D - 14, z + 2.2), box(W - 1.0, rib_y0, z, W + 1, D - 14, z + 2.2)]
     if 60 < z - fh < 160:
-        tools.append(box(-1, 74, z, sw + 1, 128, z + 2.2))
+        tools.append(box(-1, vent_y[0], z, sw + 1, vent_y[1], z + 2.2))
 # Top louvres over the Pi (exhaust).
 for i in range(6):
-    tools.append(box(64, 74 + i * 8, TOP - iw - 1, 228, 77.5 + i * 8, TOP + 1))
+    tools.append(box(64, glass_y + 4 + i * 8, TOP - iw - 1, 228, glass_y + 7.5 + i * 8, TOP + 1))
 # Keyboard USB-C (charge / wired mode) on the left side, behind the fascia.
-tools.append(box(-1, 82, fh + 20, sw + 1, 91.5, fh + 23.5))
+tools.append(box(-1, glass_y + 4, fh + 20, sw + 1, glass_y + 13.5, fh + 23.5))
 shell = cut_all(shell, tools)
-add('shell', shell, 'shell', 'case', note='Outer wrap: hood, top handle tub, ribbed sides, louvres. Will be split into printable panels in P2-detail.')
+stripes = []
+for z in rib_z:
+    stripes.append(box(W - 1.0, rib_y0, z, W - 0.3, D - 14, z + 2.2))
+    if 60 < z - fh < 160:
+        stripes += [box(0.3, rib_y0, z, 1.0, vent_y[0], z + 2.2), box(0.3, vent_y[1], z, 1.0, D - 14, z + 2.2)]
+    else:
+        stripes.append(box(0.3, rib_y0, z, 1.0, D - 14, z + 2.2))
+add('side_stripes', stripes, 'stripe', 'case', note='Inlays in the side grooves (blue on the Kaypro II colourway).')
+add('shell', shell, 'shell', 'case', note='Outer wrap with slanted Kaypro lip, top handle tub, ribbed sides, louvres. Will be split into printable panels in P2-detail.')
 
 # Shield frame: the angled ring between hood walls and fascia.
 sh_y0 = fy - SH['depth']
@@ -248,7 +273,7 @@ tools += [text_cut('RETRO / M', REAR_PLANE(io_x + 40, rp_y1, fh + 90), 6, 0.5)]
 rear = cut_all(rear, tools)
 add('rear_panel', rear, 'fascia', 'case', note='Inset rear panel: drawer opening, exhaust louvres and I/O plate.')
 
-dy0, dy1 = DW['y0'], rp_y1
+dy0, dy1 = math.ceil(pi_back + DW['cooler_gap']), rp_y1
 wt = DW['wall']
 drawer = box(DW['x0'], dy0, dz0, DW['x1'], dy1 - 4, dz0 + DW['wall_height'])
 drawer -= box(DW['x0'] + wt, dy0 + wt, dz0 + wt, DW['x1'] - wt, dy1 - 4 - 0.01, dz0 + DW['wall_height'] + 1)
@@ -274,16 +299,16 @@ add('drawer_rails', rails, 'drawer', 'internal')
 feet = [cyl(x, y, 0, C['feet_diameter'] / 2, fh + 0.5) for x in (28, W - 28) for y in (28, D - 28)]
 add('feet', feet, 'rubber', 'case')
 
+latch_y0 = lip_y(hood_cz) + 3
 def latch_parts(side):
-    s = 1 if side == 'right' else -1
+    s_ = 1 if side == 'right' else -1
     xb = W if side == 'right' else 0
-    base = box(min(xb, xb + s * 9), 6, hood_cz - 22, max(xb, xb + s * 9), 36, hood_cz + 22)
+    base = box(min(xb, xb + s_ * 9), latch_y0, hood_cz - 22, max(xb, xb + s_ * 9), latch_y0 + 30, hood_cz + 22)
     base = b.fillet(base.edges().filter_by(b.Axis.Y), 2.5)
-    pin = (xb + s * 5, 24, hood_cz)
-    lever = box(min(xb + s * 2, xb + s * 13), -9, hood_cz - 11, max(xb + s * 2, xb + s * 13), 28, hood_cz + 11)
-    hook = box(min(xb - s * 6, xb + s * 13), -9, hood_cz - 11, max(xb - s * 6, xb + s * 13), -5.2, hood_cz + 11)
-    lever = lever.fuse(hook)
-    return base, lever, pin
+    pin = (xb + s_ * 5, latch_y0 + 20, hood_cz)
+    lever = box(min(xb + s_ * 9, xb + s_ * 13), -9, hood_cz - 11, max(xb + s_ * 9, xb + s_ * 13), latch_y0 + 26, hood_cz + 11)
+    hook = box(min(xb - s_ * 6, xb + s_ * 13), -9, hood_cz - 11, max(xb - s_ * 6, xb + s_ * 13), -5.2, hood_cz + 11)
+    return base, lever.fuse(hook), pin
 
 latch_bases, levers, pins = [], {}, {}
 for side in ('left', 'right'):
@@ -304,31 +329,27 @@ add('handle_pivots', [box(px0, pivot_y - 7, TOP - HD['pocket_depth'], px0 + 9, p
                       box(px1 - 9, pivot_y - 7, TOP - HD['pocket_depth'], px1, pivot_y + 7, TOP - 2)], 'metal', 'case')
 
 # ---------------------------------------------------------------- keyboard housing / lid (local coords)
-# Local tray frame: X 0..W, Y 0..H (Y=0 = user-facing edge), Z 0 = flange underside.
-FT_ = T['flange_thickness']; RH = T['rim_height']; RW = T['rim_wall']
-rim_cy = H - (hood_cz - fh)                     # so the rim lands centred in the hood when closed
-RX0, RX1 = (W - rim_w) / 2, (W + rim_w) / 2
-RY0, RY1 = rim_cy - rim_d / 2, rim_cy + rim_d / 2
-flange = b.fillet(box(0, 0, 0, W, H, FT_).edges().filter_by(b.Axis.Z), C['outer_radius'])
-flange = b.chamfer(flange.edges().group_by(b.Axis.Z)[0], 1.2)
-rim = box(RX0, RY0, FT_ - 0.01, RX1, RY1, FT_ + RH) - box(RX0 + RW, RY0 + RW, FT_ - 1, RX1 - RW, RY1 - RW, FT_ + RH + 1)
-rim = b.chamfer(rim.edges().group_by(b.Axis.Z)[-1], 1.0)
-rim -= box(W / 2 - 22, RY1 - RW - 1, FT_ + RH - 12, W / 2 + 22, RY1 + 1, FT_ + RH + 1)   # cable notch
-flange = flange.fuse(rim)
-add('lid_tray', flange, 'tray', 'keyboard', 'tray', note='Keyboard housing: in use it is the keyboard surround, closed it is the front lid.')
-# Accent skirt on the flange edge (blue on the classic colourway).
-skirt = box(0.6, 0.6, 0.8, W - 0.6, H - 0.6, 2.4) - box(2, 2, 0, W - 2, H - 2, 3)
-add('lid_skirt', skirt, 'flange', 'keyboard', 'tray')
+# Wedge housing: taller at the rear like the Kaypro keyboard. Body (blue on classic) + grey deck.
+kb_axis = b.Axis((0, ky0, kz0), (1, 0, 0))
+def tilted(shape):
+    return shape.rotate(kb_axis, T['platform_tilt_deg'])
+dt = T['deck_thickness']
+def wedge(z_off):
+    prof = b.Polyline((0, 0), (H, 0), (H, deck_z(H) + z_off), (0, deck_z(0) + z_off), close=True)
+    return b.extrude(b.Plane.YZ * b.make_face(prof), amount=W)
+pocket = tilted(box(kx0 - kpc, ky0 - kpc, kz0 - T['foam'], kx0 + kb_w + kpc, ky0 + kb_d + kpc, kz0 + 120))
+lid_body = b.fillet(wedge(-dt).edges().filter_by(b.Axis.Z), C['outer_radius']) - pocket
+lid_deck = (wedge(0) - wedge(-dt) - pocket)
+lid_deck = lid_deck - (box(-1, -1, -1, W + 1, H + 1, 100) - b.fillet(box(0, 0, -1, W, H, 100).edges().filter_by(b.Axis.Z), C['outer_radius']))
+add('lid_body', lid_body, 'flange', 'keyboard', 'tray', note='Wedge keyboard housing (%.0f mm at the front, %.0f mm at the rear). Its underside is the front face when closed.' % (deck_z(0), deck_z(H)))
+add('lid_deck', lid_deck, 'tray', 'keyboard', 'tray', note='Sloped deck around the keyboard, following its slope + %.0f deg platform tilt.' % T['platform_tilt_deg'])
 tfeet = [cyl(x, y, -2, 6, 2.2) for x in (24, W - 24) for y in (20, H - 20)]
 add('lid_feet', tfeet, 'rubber', 'keyboard', 'tray')
 
-# Keyboard envelope: case wedge + illustrative TKL keycaps (not a product model).
-kx0 = RX0 + RW + T['pocket_clearance_x']; ky0 = RY0 + RW + T['pocket_clearance_front']; kz0 = FT_ + T['foam']
-def case_top(yk):  # yk measured from keyboard front edge
-    return 17 + 8 * yk / kb_d
+# Keyboard envelope: case wedge + illustrative TKL keycaps (not a product model), built flat then tilted.
 prof = b.Polyline((ky0, kz0), (ky0 + kb_d, kz0), (ky0 + kb_d, kz0 + case_top(kb_d)), (ky0, kz0 + case_top(0)), close=True)
 kb_body = b.Pos(kx0, 0, 0) * b.extrude(b.Plane.YZ * b.make_face(prof), amount=kb_w)
-kb_body = b.fillet(kb_body.edges().filter_by(b.Axis.Z), 4)
+kb_body = tilted(b.fillet(kb_body.edges().filter_by(b.Axis.Z), 4))
 add('keyboard_body', kb_body, 'kb_body', 'keyboard', 'tray', note='8BitDo Retro Mechanical Keyboard M Edition envelope (%.1f x %.1f x %.1f).' % (kb_w, kb_d, kb_h))
 u = 19.05
 rows = [  # (row, [(label, width_u, kind)]) ; kind: a=alpha m=mod x=accent g=gap
@@ -352,16 +373,19 @@ for r, row in enumerate(rows):
             cap = b.Solid.make_loft([
                 b.Wire.make_polygon([b.Vector(x + .5, yk + .5, base_z), b.Vector(x + wu * u - .5, yk + .5, base_z), b.Vector(x + wu * u - .5, yk + u - .5, base_z), b.Vector(x + .5, yk + u - .5, base_z)], close=True),
                 b.Wire.make_polygon([b.Vector(x + 2.6, yk + 2.2, base_z + top_h), b.Vector(x + wu * u - 2.6, yk + 2.2, base_z + top_h), b.Vector(x + wu * u - 2.6, yk + u - 3.4, base_z + top_h), b.Vector(x + 2.6, yk + u - 3.4, base_z + top_h)], close=True)], ruled=True)
-            keys[kind].append(cap)
+            keys[kind].append(tilted(cap))
         x += wu * u
 add('keycaps', keys['a'], 'keys', 'keyboard', 'tray', note='Illustrative TKL layout.')
 add('keycaps_mod', keys['m'], 'mod_keys', 'keyboard', 'tray')
 add('keycaps_accent', keys['x'], 'accent_keys', 'keyboard', 'tray')
-# Retention: two cam clips on the rim side walls hold the keyboard when the lid is closed.
-clip_z0 = kz0 + case_top(kb_d / 2) + 0.6
-clip_top = max(FT_ + RH, clip_z0 + 5)
-clips = [box(RX0 - 0.01 + 0, rim_cy - 20, clip_z0, kx0 + 5, rim_cy + 20, clip_top),
-         box(kx0 + kb_w - 5, rim_cy - 20, clip_z0, RX1 + 0.01, rim_cy + 20, clip_top)]
+# Retention: two swing clips on the deck reach over the keyboard's case edge so it stays put when carried.
+ym = ky0 + kb_d / 2
+kb_top_m = kz0 + math.sin(tilt) * (kb_d / 2 + 12) + case_top(kb_d / 2 + 12) * math.cos(tilt)  # highest point under the clip
+clips = []
+for xa, xb_, xc in ((sw + 1, kx0 - kpc, kx0 + 4), (kx0 + kb_w + kpc, W - sw - 1, kx0 + kb_w - 4)):  # posts stay inside the hood walls when closed
+    post = box(xa, ym - 12, deck_z(ym) - 0.5, xb_, ym + 12, kb_top_m + 4)
+    over = box(min(xa, xc), ym - 12, kb_top_m + 1.2, max(xb_, xc), ym + 12, kb_top_m + 4)
+    clips.append(post.fuse(over))
 add('keyboard_clips', clips, 'rubber', 'keyboard', 'tray', note='Hold the keyboard by its case edge so it cannot fall out when the lid is carried.')
 
 # ---------------------------------------------------------------- states
@@ -376,9 +400,9 @@ def M_rotz(deg, about):
     r = np.eye(4); r[0, 0], r[0, 1], r[1, 0], r[1, 1] = c, -s, s, c
     return M_pos(*about) @ r @ M_pos(*(-v for v in about))
 
-tray_operating = M_pos(0, -H - T['operating_gap'], 0) @ M_pos(0, 0, 2.2)
+tray_operating = M_pos(0, -H - T['operating_gap'] - lip_y(fh), 2.2)
 tray_closed = M_pos(0, -FT_, fh + H) @ M_rotx(-90)
-latch_open = {s: M_rotz((-1 if s == 'right' else 1) * 0, pins[s]) @ M_pos(0, 18, 0) for s in pins}
+latch_open = {k: M_rotx(90, pins[k]) for k in pins}
 STATES = {
     'operating': {'tray': tray_operating, 'handle': np.eye(4), 'drawer': np.eye(4), 'latch_left': latch_open['left'], 'latch_right': latch_open['right']},
     'closed': {'tray': tray_closed, 'handle': M_rotx(90, (0, pivot_y, pz)), 'drawer': np.eye(4), 'latch_left': np.eye(4), 'latch_right': np.eye(4)},
@@ -420,13 +444,14 @@ def gap(label, a, c, state, need):
     d = solids(a, state).distance_to(solids(c, state))
     checks.append({'check': label, 'state': state, 'min_gap_mm': round(d, 2), 'required_mm': need, 'pass': d >= need - 1e-6})
 
-lid = ['lid_tray', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_skirt']
 front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud']
 inside = ['display', 'pi5_board', 'pi5_cooler', 'floppy_drives', 'drive_cage', 'usb_hub', 'floppy_controller', 'power_board', 'drawer_rails']
-check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases'], 'closed')
+lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet']
+check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes'], 'closed')
+gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip_gap'] - 0.05)
 gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
 gap('Closed keycaps to shield frame', 'keycaps', 'shield_frame', 'closed', 3)
-gap('Closed keyboard body to shield frame', 'keyboard_body', 'shield_frame', 'closed', 2)
+check('Keyboard seated in lid (no overlap with body/deck/clips)', ['keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent'], ['lid_body', 'lid_deck', 'keyboard_clips'], 'operating')
 check('Drawer closed vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'operating')
 check('Drawer pulled out vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'rear')
 gap('Cooler to drawer air gap', 'pi5_cooler', 'drawer', 'operating', 10)
@@ -450,14 +475,17 @@ report = {
         'case_height_incl_feet': round(TOP, 1),
         'closed_W_H_D_incl_lid_feet_latches_excl_raised_handle': [round(closed_bb[3] - closed_bb[0], 1), round(closed_bb[5] - closed_bb[2], 1), round(closed_bb[4] - closed_bb[1], 1)],
         'keyboard_unit_W_D_H': [W, round(H, 1), round(bbox_of(lid, 'operating')[5], 1)],
-        'operating_footprint_depth': round(D + H + T['operating_gap'], 1),
+        'operating_footprint_depth': round(D + H + T['operating_gap'] + lip_y(fh), 1),
+        'lid_wedge_height_front_rear': [round(deck_z(0), 1), round(deck_z(H), 1)],
+        'lid_deck_angle_deg': round(math.degrees(math.atan(deck_slope)), 1),
+        'case_lip_y_top_bottom': [round(lip_y(TOP), 1), round(lip_y(fh), 1)],
         'hood_opening_W_H': [round(hood_w, 1), round(hood_h, 1)],
         'fascia_plane_y': fy, 'screen_glass_y': glass_y,
         'closed_keyboard_envelope_to_fascia_mm': round(fy - kb_reach, 2),  # full 46.8 mm spec height, not the illustrative keys
         'screen_active_window_x0_z0_x1_z1': [round(v, 2) for v in ACTIVE],
         'drive_slot_centres_x': [round(x + dw_x / 2, 2) for x in drive_x],
-        'pi_cooler_back_y': round(pi_back, 2), 'drawer_front_y': DW['y0'],
-        'diskette_capacity_estimate': int((rp_y0 - 4 - DW['y0'] - 2 * wt - 6) // (dk[2] + 0.2)),
+        'pi_cooler_back_y': round(pi_back, 2), 'drawer_front_y': dy0,
+        'diskette_capacity_estimate': int((rp_y0 - 4 - dy0 - 2 * wt - 6) // (dk[2] + 0.2)),
     },
     'checks': checks,
     'all_pass': all(c['pass'] for c in checks),

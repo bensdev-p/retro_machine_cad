@@ -432,7 +432,7 @@
     }
   },
   "p2": {
-    "revision": "P2 concept: Kaypro-style luggable massing, closed-lid keyboard, shielded fascia. Not yet split for printing.",
+    "revision": "P2 concept rev B: wedge keyboard lid, slanted Kaypro-style case lip, shielded fascia. Not yet split for printing.",
     "status": "design",
     "case": {
       "width": 400,
@@ -440,23 +440,22 @@
       "top_wall": 9,
       "bottom_wall": 12,
       "inner_wall": 4,
-      "depth": 250,
+      "depth": 265,
       "outer_radius": 3,
-      "hood_lead_in": 2.5,
       "feet_height": 6,
-      "feet_diameter": 22
+      "feet_diameter": 22,
+      "hood_height": 189
     },
     "tray": {
-      "flange_thickness": 4,
-      "rim_height": 18,
-      "rim_wall": 4,
-      "pocket_clearance_x": 1.7,
-      "pocket_clearance_front": 2.0,
-      "pocket_clearance_rear": 7.4,
-      "hood_clearance": 1.0,
+      "platform_tilt_deg": 4.0,
+      "platform_base": 3.0,
+      "deck_recess": 2.0,
+      "deck_thickness": 3.0,
+      "pocket_clearance": 1.5,
       "foam": 1.0,
+      "lip_gap": 0.6,
       "operating_gap": 28,
-      "note": "Keyboard housing doubles as the front lid. Rear pocket slack is cable/foam space."
+      "note": "Wedge keyboard housing that is also the front lid. Deck slope = keyboard's own case slope + platform tilt; the case lip is cut to the same slope so the closed lid meets it flush."
     },
     "shield": {
       "depth": 8,
@@ -498,7 +497,6 @@
     "drawer": {
       "x0": 10,
       "x1": 262,
-      "y0": 135,
       "z0": 6,
       "wall": 2.5,
       "wall_height": 70,
@@ -509,10 +507,11 @@
         94,
         3.3
       ],
-      "note": "Rear-loading drawer in the empty space behind the screen: diskette file on the left, accessory bin on the right."
+      "note": "Rear-loading drawer in the empty space behind the screen: diskette file on the left, accessory bin on the right.",
+      "cooler_gap": 18
     },
     "handle": {
-      "pivot_y": 136,
+      "pivot_y": 140,
       "leg_length": 44,
       "grip_diameter": 12,
       "pocket_x": [
@@ -527,7 +526,7 @@
         "fascia": "#686d72",
         "bezel": "#1e2023",
         "tray": "#767b80",
-        "flange": "#767b80",
+        "flange": "#5d6267",
         "stripe": "#4b4f53",
         "keys": "#2a2c2f",
         "mod_keys": "#3b3e42",
@@ -567,6 +566,29 @@
         "led_drive": "#46c25a",
         "text": "#4f8fd0",
         "label": "Kaypro II-style off-white and blue"
+      },
+      "charcoal_stock_kb": {
+        "shell": "#5d6267",
+        "fascia": "#686d72",
+        "bezel": "#1e2023",
+        "tray": "#767b80",
+        "flange": "#5d6267",
+        "stripe": "#4b4f53",
+        "keys": "#deded6",
+        "mod_keys": "#9ca2a7",
+        "accent_keys": "#355b88",
+        "kb_body": "#b9b9b5",
+        "drive": "#26282b",
+        "drawer": "#3b3f43",
+        "metal": "#a7abaf",
+        "rubber": "#18191b",
+        "pcb": "#2f6b3a",
+        "glass": "#0d0f10",
+        "electronics": "#4a6f8a",
+        "led_power": "#d43a2f",
+        "led_drive": "#46c25a",
+        "text": "#c9ccce",
+        "label": "Charcoal case + stock 8BitDo M colours"
       }
     }
   }

@@ -1,30 +1,39 @@
 {
-  "revision": "P2 concept: Kaypro-style luggable massing, closed-lid keyboard, shielded fascia. Not yet split for printing.",
+  "revision": "P2 concept rev B: wedge keyboard lid, slanted Kaypro-style case lip, shielded fascia. Not yet split for printing.",
   "dimensions_mm": {
     "case_W_H_D_excl_feet": [
       400,
-      210.0,
-      250
+      210,
+      265
     ],
-    "case_height_incl_feet": 216.0,
+    "case_height_incl_feet": 216,
     "closed_W_H_D_incl_lid_feet_latches_excl_raised_handle": [
       426.0,
       216.0,
-      259.0
+      274.0
     ],
     "keyboard_unit_W_D_H": [
       400,
-      210.0,
-      44.7
+      210,
+      52.8
     ],
-    "operating_footprint_depth": 488.0,
+    "operating_footprint_depth": 541.0,
+    "lid_wedge_height_front_rear": [
+      16.8,
+      41.4
+    ],
+    "lid_deck_angle_deg": 6.7,
+    "case_lip_y_top_bottom": [
+      13.4,
+      38.0
+    ],
     "hood_opening_W_H": [
-      390.0,
-      189.0
+      390,
+      189
     ],
-    "fascia_plane_y": 56,
-    "screen_glass_y": 66,
-    "closed_keyboard_envelope_to_fascia_mm": 8.2,
+    "fascia_plane_y": 67,
+    "screen_glass_y": 77,
+    "closed_keyboard_envelope_to_fascia_mm": 8.48,
     "screen_active_window_x0_z0_x1_z1": [
       32,
       44.82,
@@ -35,9 +44,9 @@
       303.09,
       342.49
     ],
-    "pi_cooler_back_y": 113.15,
-    "drawer_front_y": 135,
-    "diskette_capacity_estimate": 26
+    "pi_cooler_back_y": 124.15,
+    "drawer_front_y": 143,
+    "diskette_capacity_estimate": 28
   },
   "checks": [
     {
@@ -47,24 +56,30 @@
       "pass": true
     },
     {
+      "check": "Closed lid deck to slanted case lip",
+      "state": "closed",
+      "min_gap_mm": 0.6,
+      "required_mm": 0.5499999999999999,
+      "pass": true
+    },
+    {
       "check": "Closed keycaps to fascia",
       "state": "closed",
-      "min_gap_mm": 19.39,
+      "min_gap_mm": 24.23,
       "required_mm": 5,
       "pass": true
     },
     {
       "check": "Closed keycaps to shield frame",
       "state": "closed",
-      "min_gap_mm": 23.18,
+      "min_gap_mm": 26.6,
       "required_mm": 3,
       "pass": true
     },
     {
-      "check": "Closed keyboard body to shield frame",
-      "state": "closed",
-      "min_gap_mm": 23.16,
-      "required_mm": 2,
+      "check": "Keyboard seated in lid (no overlap with body/deck/clips)",
+      "state": "operating",
+      "overlap_mm3": 0.0,
       "pass": true
     },
     {
@@ -82,7 +97,7 @@
     {
       "check": "Cooler to drawer air gap",
       "state": "operating",
-      "min_gap_mm": 22.42,
+      "min_gap_mm": 19.51,
       "required_mm": 10,
       "pass": true
     },
