@@ -296,7 +296,7 @@ rails = [box(DW['x0'] - 0.5 - 4, dy0, fh + iw, DW['x0'] - 0.5, rp_y0, dz0 + 10),
 add('drawer_rails', rails, 'drawer', 'internal')
 
 # ---------------------------------------------------------------- feet, latches, handle
-feet = [cyl(x, y, 0, C['feet_diameter'] / 2, fh + 0.5) for x in (28, W - 28) for y in (28, D - 28)]
+feet = [cyl(x, y, 0, C['feet_diameter'] / 2, fh + 0.5) for x in (28, W - 28) for y in (math.ceil(lip_y(fh)) + 30, D - 28)]
 add('feet', feet, 'rubber', 'case')
 
 latch_y0 = lip_y(hood_cz) + 3
@@ -388,6 +388,32 @@ for xa, xb_, xc in ((sw + 1, kx0 - kpc, kx0 + 4), (kx0 + kb_w + kpc, W - sw - 1,
     clips.append(post.fuse(over))
 add('keyboard_clips', clips, 'rubber', 'keyboard', 'tray', note='Hold the keyboard by its case edge so it cannot fall out when the lid is carried.')
 
+# ---------------------------------------------------------------- hinges (lid <-> case bottom front edge)
+# Axis along X at the bottom of the slanted lip. On the lid it is the deck's rear top edge, which
+# sits high when the lid lies on the desk, so the open lid lifts the front of the case.
+HG = Q['hinge']
+hinge_y, hinge_z = lip_y(fh) - T['lip_gap'] / 2, fh            # case frame
+hinge_Z = hinge_y + FT_                                          # lid frame (Y = H)
+hk_r = HG['knuckle_radius']
+case_leaves, lid_leaves, notch_c, notch_l = [], [], [], []
+for hx in HG['x']:
+    x0h, x1h = hx - HG['length'] / 2, hx + HG['length'] / 2
+    q1, q3 = x0h + HG['length'] / 4, x1h - HG['length'] / 4
+    # Case half: middle knuckle + leaf under the case bottom.  Lid half: two end knuckles + leaf on the lid's rear face.
+    case_leaves.append(cyl(q1, hinge_y, hinge_z, hk_r, q3 - q1, 'x').fuse(
+        box(q1, hinge_y, hinge_z - 2, q3, hinge_y + HG['leaf'], hinge_z)))
+    lid_leaves.append(b.Compound(children=[
+        box(x0h, H, hinge_Z - HG['leaf'], x1h, H + 2, hinge_Z - hk_r - 0.5),
+        cyl(x0h, H, hinge_Z, hk_r, q1 - x0h - 0.5, 'x').fuse(box(x0h, H, hinge_Z - hk_r - 1, q1 - 0.5, H + 2, hinge_Z)),
+        cyl(q3 + 0.5, H, hinge_Z, hk_r, x1h - q3 - 0.5, 'x').fuse(box(q3 + 0.5, H, hinge_Z - hk_r - 1, x1h, H + 2, hinge_Z))]))
+    notch_c.append(cyl(x0h - 0.5, hinge_y, hinge_z, hk_r + 0.5, HG['length'] + 1, 'x'))
+    notch_l.append(cyl(x0h - 0.5, H, hinge_Z, hk_r + 0.5, HG['length'] + 1, 'x'))
+parts['shell']['shape'] = cut_all(parts['shell']['shape'], notch_c)
+parts['lid_body']['shape'] = cut_all(parts['lid_body']['shape'], notch_l)
+parts['lid_deck']['shape'] = cut_all(parts['lid_deck']['shape'], notch_l)
+add('hinges', case_leaves, 'metal', 'case', note='Lift-off hinges on the bottom front edge; the lid can still be detached.')
+add('hinge_leaves_lid', lid_leaves, 'metal', 'keyboard', 'tray')
+
 # ---------------------------------------------------------------- states
 def M_pos(x, y, z):
     m = np.eye(4); m[:3, 3] = (x, y, z); return m
@@ -400,18 +426,34 @@ def M_rotz(deg, about):
     r = np.eye(4); r[0, 0], r[0, 1], r[1, 0], r[1, 1] = c, -s, s, c
     return M_pos(*about) @ r @ M_pos(*(-v for v in about))
 
-tray_operating = M_pos(0, -H - T['operating_gap'] - lip_y(fh), 2.2)
 tray_closed = M_pos(0, -FT_, fh + H) @ M_rotx(-90)
+# Open: lid flat on the desk (on its feet), case pivots back on the rear edge of its rear feet
+# until the hinge points coincide.  Solve the tilt angle from that.
+lid_rest = 2.0
+pivot = (0, D - 28 + C['feet_diameter'] / 2, 0)
+def tilt_world(a_deg): return M_rotx(-a_deg, pivot)
+def hinge_world_z(a_deg): return (tilt_world(a_deg) @ np.array([0, hinge_y, hinge_z, 1]))[2]
+lo, hi = 0.0, 45.0
+for _ in range(60):
+    mid = (lo + hi) / 2
+    lo, hi = (mid, hi) if hinge_world_z(mid) < lid_rest + hinge_Z else (lo, mid)
+case_tilt = (lo + hi) / 2
+W_OPEN = tilt_world(case_tilt)
+hw = W_OPEN @ np.array([0, hinge_y, hinge_z, 1])
+lid_world_open = M_pos(0, hw[1] - H, lid_rest)
+tray_operating = np.linalg.inv(W_OPEN) @ lid_world_open        # in the case frame
 latch_open = {k: M_rotx(90, pins[k]) for k in pins}
 STATES = {
-    'operating': {'tray': tray_operating, 'handle': np.eye(4), 'drawer': np.eye(4), 'latch_left': latch_open['left'], 'latch_right': latch_open['right']},
-    'closed': {'tray': tray_closed, 'handle': M_rotx(90, (0, pivot_y, pz)), 'drawer': np.eye(4), 'latch_left': np.eye(4), 'latch_right': np.eye(4)},
-    'rear': {'tray': tray_operating, 'handle': np.eye(4), 'drawer': M_pos(0, DW['pull_out'], 0), 'latch_left': latch_open['left'], 'latch_right': latch_open['right']},
+    'operating': {'_world': W_OPEN, 'tray': tray_operating, 'handle': np.eye(4), 'drawer': np.eye(4), 'latch_left': latch_open['left'], 'latch_right': latch_open['right']},
+    'closed': {'_world': np.eye(4), 'tray': tray_closed, 'handle': M_rotx(90, (0, pivot_y, pz)), 'drawer': np.eye(4), 'latch_left': np.eye(4), 'latch_right': np.eye(4)},
+    'rear': {'_world': W_OPEN, 'tray': tray_operating, 'handle': np.eye(4), 'drawer': M_pos(0, DW['pull_out'], 0), 'latch_left': latch_open['left'], 'latch_right': latch_open['right']},
 }
 
-def placed(name, state):
+def placed(name, state, world=False):
     p = parts[name]
     m = STATES[state].get(p['state'], np.eye(4)) if p['state'] else np.eye(4)
+    if world:
+        m = STATES[state]['_world'] @ m
     if np.allclose(m, np.eye(4)):
         return p['shape']
     from OCP.gp import gp_Trsf
@@ -430,6 +472,10 @@ def vol_overlap(a, c):
 
 def solids(name, state):
     return placed(name, state)
+
+def bbox_of(names, state, world=False):
+    bb = b.Compound(children=[placed(n, state, world) for n in names]).bounding_box()
+    return [round(bb.min.X, 1), round(bb.min.Y, 1), round(bb.min.Z, 1), round(bb.max.X, 1), round(bb.max.Y, 1), round(bb.max.Z, 1)]
 
 checks = []
 def check(label, a_names, b_names, state, tol=1e-3):
@@ -452,6 +498,13 @@ gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip
 gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
 gap('Closed keycaps to shield frame', 'keycaps', 'shield_frame', 'closed', 3)
 check('Keyboard seated in lid (no overlap with body/deck/clips)', ['keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent'], ['lid_body', 'lid_deck', 'keyboard_clips'], 'operating')
+check('Open lid + hinges clear the case', lid + ['hinge_leaves_lid'], ['shell', 'feet', 'latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes', 'hinges'], 'operating')
+check('Closed hinges clear lid and feet', ['hinges'], lid + ['feet'], 'closed')
+all_names = list(parts)
+_case_min = bbox_of(['feet', 'shell'], 'operating', True)[2]
+_lid_min = bbox_of(['lid_feet', 'lid_body'], 'operating', True)[2]
+checks.append({'check': 'Open: case (rear feet) and lid (feet) rest on the desk, nothing below it', 'state': 'operating',
+               'case_min_z': round(_case_min, 2), 'lid_min_z': round(_lid_min, 2), 'pass': abs(_case_min) < 0.3 and abs(_lid_min) < 0.3})
 check('Drawer closed vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'operating')
 check('Drawer pulled out vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'rear')
 gap('Cooler to drawer air gap', 'pi5_cooler', 'drawer', 'operating', 10)
@@ -461,9 +514,6 @@ check('Folded handle sits in tub', ['handle'], ['shell'], 'operating')
 check('Raised handle clears shell', ['handle'], ['shell'], 'closed')
 check('Hub/power/controller clear shell & cage', ['usb_hub', 'power_board', 'floppy_controller'], ['shell', 'drive_cage', 'rear_panel', 'drawer_rails'], 'operating')
 
-def bbox_of(names, state):
-    bb = b.Compound(children=[solids(n, state) for n in names]).bounding_box()
-    return [round(bb.min.X, 1), round(bb.min.Y, 1), round(bb.min.Z, 1), round(bb.max.X, 1), round(bb.max.Y, 1), round(bb.max.Z, 1)]
 
 all_names = list(parts)
 case_names = [n for n in all_names if parts[n]['group'] != 'keyboard']
@@ -474,8 +524,10 @@ report = {
         'case_W_H_D_excl_feet': [W, round(H, 1), D],
         'case_height_incl_feet': round(TOP, 1),
         'closed_W_H_D_incl_lid_feet_latches_excl_raised_handle': [round(closed_bb[3] - closed_bb[0], 1), round(closed_bb[5] - closed_bb[2], 1), round(closed_bb[4] - closed_bb[1], 1)],
-        'keyboard_unit_W_D_H': [W, round(H, 1), round(bbox_of(lid, 'operating')[5], 1)],
-        'operating_footprint_depth': round(D + H + T['operating_gap'] + lip_y(fh), 1),
+        'keyboard_unit_W_D_H': [W, round(H, 1), round(deck_z(H) + 13, 1)],
+        'open_case_tilt_deg': round(case_tilt, 1),
+        'hinge_axis_case_y_z': [round(hinge_y, 1), round(hinge_z, 1)],
+        'operating_footprint_depth': round(bbox_of(all_names, 'operating', True)[4] - bbox_of(all_names, 'operating', True)[1], 1),
         'lid_wedge_height_front_rear': [round(deck_z(0), 1), round(deck_z(H), 1)],
         'lid_deck_angle_deg': round(math.degrees(math.atan(deck_slope)), 1),
         'case_lip_y_top_bottom': [round(lip_y(TOP), 1), round(lip_y(fh), 1)],
@@ -499,7 +551,7 @@ pal = Q['palettes']['charcoal']
 for state in ('operating', 'closed'):
     kids = []
     for n, p in parts.items():
-        s = placed(n, state).copy() if hasattr(placed(n, state), 'copy') else placed(n, state)
+        s = placed(n, state, True)
         s.label = n; s.color = b.Color(pal.get(p['role'], '#888888'))
         kids.append(s)
     b.export_step(b.Compound(children=kids, label='retro_m_p2_' + state), str(OUT / f'p2_{state}.step'))

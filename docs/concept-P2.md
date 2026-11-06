@@ -1,6 +1,9 @@
-# P2 concept: Kaypro-style luggable (rev B)
+# P2 concept: Kaypro-style luggable (rev C)
 
-**Rev B changes:** the keyboard housing is now a Kaypro-style **wedge**: 17 mm tall at the front and 41 mm at the rear, with the deck at 6.7°. The deck angle is the 8BitDo's own case slope plus a 4° platform tilt (`p2.tray.platform_tilt_deg`). The **case lip is cut on the same slant**: the lip sits 13 mm behind the closed lid's front face at the top and 38 mm at the bottom, so the case reaches further forward at the top. When closed, the wedge meets the lip flush, and the underside of the lid becomes the vertical front face, as on the Kaypro. In use, the wedge gives the keyboard its typing tilt, so it takes the place of a separate fold-out foot. The side grooves now carry inlays, which show as blue stripes in the classic colourway. There is also a third colourway that pairs the charcoal case with the stock 8BitDo M colours. Its colours are approximate and come from the P1 palette.
+**Rev C changes:** the wedge lid is now **hinged** to the bottom front edge of the case with a pair of lift-off hinges at x = 70 and 330 mm. The hinge axis is on the lid's thick rear edge, at deck height (41.7 mm above the desk when open). Folding the lid down onto the desk therefore **lifts the front of the case**. The case pivots on its rear feet and tilts back **10.3°**, which angles the screen and touchscreen up toward the user, and the lid becomes the foot. The tilt angle comes out of the wedge geometry rather than being set directly. The front feet now sit behind the slanted lip; when the case is open they lift off the desk. Lift-off pins still let you detach the keyboard if you want.
+
+
+**Rev B changes:** the keyboard housing is now a Kaypro-style **wedge**: 17 mm tall at the front and 41 mm at the rear, with the deck at 6.7°. The deck angle is the 8BitDo's own case slope plus a 4° platform tilt (`p2.tray.platform_tilt_deg`). The **case lip is cut on the same slant**: the lip sits 13 mm behind the closed lid's front face at the top and 38 mm at the bottom, so the case reaches further forward at the top. When closed, the wedge meets the lip flush, and the underside of the lid becomes the vertical front face, as on the Kaypro. In use, the wedge gives the keyboard its typing tilt. The side grooves now carry inlays, which show as blue stripes in the classic colourway. There is also a third colourway that pairs the charcoal case with the stock 8BitDo M colours. Its colours are approximate and come from the P1 palette.
 
 ![Side, operating](../outputs/p2/previews/09_side_operating.png)
 
@@ -34,9 +37,10 @@ There are three colourways in the viewer: **charcoal** (Kaypro 10-like), **class
 - Fascia plane: 67 mm behind the lid's front face. With the full 46.8 mm spec height applied over the whole tilted keyboard (deliberately pessimistic), the closed keyboard leaves **8.5 mm** to the fascia.
 - Screen glass: 77 mm back. The visible active window is 216.6 × 135.4 mm (Touch Display 2, 10.1").
 - Pi 5 sits on the display's inner 58 × 49 M2.5 pattern. Behind the Active Cooler there is an air gap before the drawer, which starts at y = 143 mm.
-- Operating footprint: about 541 mm deep with the keyboard 28 mm in front of the case.
+- Open (lid folded down): the case tilts back **10.3°** on its rear feet, carried by the hinged lid. Hinge axis: y = 37.7 mm, at the case bottom.
+- Operating footprint: about 541 mm deep from the front of the keyboard to the back of the case.
 
-All of the clearance and interference checks in `validation.json` pass. These cover the closed lid against the front parts and the slanted lip (0.6 mm gap), the keyboard seated in the wedge and clips, the drawer (in and pulled out) against the internals, the drives, the display/Pi, and the handle in both positions.
+All of the clearance and interference checks in `validation.json` pass. These cover the open lid and hinges against the case, both resting on the desk with nothing below it, the closed lid against the front parts and the slanted lip (0.6 mm gap), the keyboard seated in the wedge and clips, the drawer (in and pulled out) against the internals, the drives, the display/Pi, and the handle in both positions.
 
 ## Hardware assumptions to confirm
 
@@ -51,7 +55,8 @@ These are envelopes, not product models:
 ## Open design questions
 
 - **Handle.** P2 uses a fold-flat bail handle in a top tub, pivoting about 136 mm behind the lip, roughly over the centre of mass with the lid on. A side strap handle is another option.
-- **Wedge angle.** At 6.7° it is shallower than a real Kaypro (which looks closer to 10–15°). Raising `platform_tilt_deg` steepens both the deck and the case lip together, but it pushes the fascia back and makes the keyboard sit higher.
+- **Hinge.** A concept-level knuckle pair. It still needs a real hinge part, which could be a printed knuckle with a steel pin or a stock lift-off hinge. It also needs a check that the lid can carry the case's front load. Any change to the wedge's rear height changes the open tilt.
+- **Wedge angle.** At 6.7° it is shallower than a real Kaypro (which looks closer to 10–15°). Raising `platform_tilt_deg` steepens both the deck and the case lip together, but it pushes the fascia back, makes the keyboard sit higher, and also increases the open case tilt.
 - **Keyboard link.** The 8BitDo works over 2.4 GHz or Bluetooth, so there is no fixed cable. There is a USB-C port on the left side for wired use or charging, and a cable notch in the lid rim.
 - **Branding.** The case uses the project name "RETRO / M". It deliberately avoids Kaypro marks.
 

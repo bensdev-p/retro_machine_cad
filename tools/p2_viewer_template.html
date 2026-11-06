@@ -71,13 +71,15 @@ lines.forEach((l,i)=>x.fillText(l,90,96+i*62));
 x.shadowBlur=0;for(let y=0;y<ch;y+=4){x.fillStyle='rgba(0,0,0,0.18)';x.fillRect(0,y,cw,2);}
 const tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=8;
 const screen=new THREE.Mesh(new THREE.PlaneGeometry(A[2]-A[0],A[3]-A[1]),new THREE.MeshBasicMaterial({map:tex,toneMapped:false}));
-screen.rotation.x=Math.PI/2;screen.position.set((A[0]+A[2])/2,S.glass_y-0.08,(A[1]+A[3])/2);scene.add(screen);
+screen.rotation.x=Math.PI/2;screen.position.set((A[0]+A[2])/2,S.glass_y-0.08,(A[1]+A[3])/2);screen.updateMatrix();const screenBase=screen.matrix.clone();screen.matrixAutoUpdate=false;scene.add(screen);
 
 // States with tweened rigid transforms.
 const cur={},from={},to={};let t0=0,dur=0;
 function M(a){const m=new THREE.Matrix4();m.set(...a);return m;}
 function target(state){const st=S.states[state];const r={};for(const k in st)r[k]=M(st[k]);return r;}
-function apply(k,m){for(const o of objs)if(o.userData.state===k){o.matrix.copy(m);o.matrixWorldNeedsUpdate=true;}}
+function applyAll(){const W=cur._world||new THREE.Matrix4();
+  for(const o of objs){const k=o.userData.state;o.matrix.copy(W);if(k&&cur[k])o.matrix.multiply(cur[k]);o.matrixWorldNeedsUpdate=true;}
+  screen.matrix.copy(W).multiply(screenBase);screen.matrixWorldNeedsUpdate=true;}
 function decomp(m){const p=new THREE.Vector3(),q=new THREE.Quaternion(),s=new THREE.Vector3();m.decompose(p,q,s);return{p,q};}
 let xray=false,curState='operating',curPal='charcoal';
 function setState(name,instant){
@@ -91,14 +93,15 @@ function setState(name,instant){
 const ghosts={};function ghostMat(role){return ghosts[role]||(ghosts[role]=new THREE.MeshStandardMaterial({color:mat(role).color,transparent:true,opacity:0.12,depthWrite:false,side:THREE.DoubleSide}));}
 function tick(force){
   const t=force===1?1:Math.min(1,(performance.now()-t0)/Math.max(dur,1));const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  for(const k in to){const p=from[k].p.clone().lerp(to[k].p,e),q=from[k].q.clone().slerp(to[k].q,e);const m=new THREE.Matrix4().compose(p,q,new THREE.Vector3(1,1,1));cur[k]=m;apply(k,m);}
+  for(const k in to){const p=from[k].p.clone().lerp(to[k].p,e),q=from[k].q.clone().slerp(to[k].q,e);const m=new THREE.Matrix4().compose(p,q,new THREE.Vector3(1,1,1));cur[k]=m;}
+  applyAll();
   return t<1;
 }
 function setPalette(name){curPal=name;const P=S.palettes[name];
   for(const r in mats){const c=P[r]||(r==='disks'?'#3d6fb0':'#888888');mats[r].color.set(c);}
   for(const r in ghosts)ghosts[r].color.copy(mats[r].color);
   document.querySelectorAll('#pals button').forEach(b=>b.classList.toggle('on',b.dataset.k===name));}
-const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],side_op:[[1500,-60,160],[200,-60,90]],top:[[200,-60,1250],[200,-60,0]]};
+const views={operating:[[-430,-760,470],[200,-40,90]],closed:[[-520,-560,430],[200,110,105]],rear:[[760,820,430],[200,125,95]],xray:[[-560,-520,520],[200,120,100]],front:[[200,-980,150],[200,0,108]],side:[[1400,123,115],[200,123,108]],side_op:[[1450,20,150],[200,20,100]],top:[[200,-60,1250],[200,-60,0]]};
 function setView(v){const c=views[v]||views.operating;camera.position.set(...c[0]);controls.target.set(...c[1]);controls.update();}
 const SB=[['operating','Operating'],['closed','Closed / carry'],['rear','Rear + drawer'],['xray','X-ray']];
 for(const [k,l] of SB){const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.onclick=()=>{setState(k);setView(k);};document.getElementById('states').append(b);}

@@ -432,7 +432,7 @@
     }
   },
   "p2": {
-    "revision": "P2 concept rev B: wedge keyboard lid, slanted Kaypro-style case lip, shielded fascia. Not yet split for printing.",
+    "revision": "P2 concept rev C: hinged wedge keyboard lid that props the case back when open, slanted Kaypro lip, shielded fascia. Not yet split for printing.",
     "status": "design",
     "case": {
       "width": 400,
@@ -454,7 +454,6 @@
       "pocket_clearance": 1.5,
       "foam": 1.0,
       "lip_gap": 0.6,
-      "operating_gap": 28,
       "note": "Wedge keyboard housing that is also the front lid. Deck slope = keyboard's own case slope + platform tilt; the case lip is cut to the same slope so the closed lid meets it flush."
     },
     "shield": {
@@ -590,6 +589,16 @@
         "text": "#c9ccce",
         "label": "Charcoal case + stock 8BitDo M colours"
       }
+    },
+    "hinge": {
+      "x": [
+        70,
+        330
+      ],
+      "length": 44,
+      "knuckle_radius": 4.5,
+      "leaf": 22,
+      "note": "Lift-off hinge pair on the bottom front edge. Open tilt angle is derived, not set."
     }
   }
 }

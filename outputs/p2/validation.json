@@ -1,5 +1,5 @@
 {
-  "revision": "P2 concept rev B: wedge keyboard lid, slanted Kaypro-style case lip, shielded fascia. Not yet split for printing.",
+  "revision": "P2 concept rev C: hinged wedge keyboard lid that props the case back when open, slanted Kaypro lip, shielded fascia. Not yet split for printing.",
   "dimensions_mm": {
     "case_W_H_D_excl_feet": [
       400,
@@ -15,9 +15,14 @@
     "keyboard_unit_W_D_H": [
       400,
       210,
-      52.8
+      54.4
     ],
-    "operating_footprint_depth": 541.0,
+    "open_case_tilt_deg": 10.3,
+    "hinge_axis_case_y_z": [
+      37.7,
+      6
+    ],
+    "operating_footprint_depth": 470.8,
     "lid_wedge_height_front_rear": [
       16.8,
       41.4
@@ -80,6 +85,25 @@
       "check": "Keyboard seated in lid (no overlap with body/deck/clips)",
       "state": "operating",
       "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Open lid + hinges clear the case",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Closed hinges clear lid and feet",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Open: case (rear feet) and lid (feet) rest on the desk, nothing below it",
+      "state": "operating",
+      "case_min_z": -0.0,
+      "lid_min_z": -0.0,
       "pass": true
     },
     {
