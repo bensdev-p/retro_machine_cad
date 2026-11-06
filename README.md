@@ -1,5 +1,11 @@
 # Retro / M — Raspberry Pi luggable enclosure
 
+**Current direction: P2 concept, a Kaypro II / Kaypro 10-style luggable.** It has a recessed, angled "shielded" front, a keyboard housing that latches over the screen as the lid, two vertical floppy drives, a rear I/O panel and a rear diskette drawer. See **[docs/concept-P2.md](docs/concept-P2.md)**, open `outputs/p2/viewer.html` in a browser, or rebuild with `./rebuild-p2.sh`.
+
+![P2 operating](outputs/p2/previews/01_operating_charcoal.png)
+
+The P1 printable prototype below is the earlier flat layout. It is kept for reference and for its fastener and fit details.
+
 **P1 is now a detailed, printable reference-hardware prototype.** It includes 42 printed assembly pieces, seven fit coupons, a recessed screen fascia, two-drive cage, adjustable hub cradle, removable rear panels, front keyboard carrier, and bolted handle reinforcement. It is separate from the operating-system project.
 
 The shell is 400 × 200 × 220 mm (W × H × D); with carrier it is 400 × 200 × 284 mm, excluding feet, handle and screw heads. The styling follows the 8BitDo M Edition gray/blue palette. The intact stock keyboard is retained by padded straps across its underside, not its keys.

@@ -1,0 +1,121 @@
+{
+  "revision": "P2 concept: Kaypro-style luggable massing, closed-lid keyboard, shielded fascia. Not yet split for printing.",
+  "dimensions_mm": {
+    "case_W_H_D_excl_feet": [
+      400,
+      210.0,
+      250
+    ],
+    "case_height_incl_feet": 216.0,
+    "closed_W_H_D_incl_lid_feet_latches_excl_raised_handle": [
+      426.0,
+      216.0,
+      259.0
+    ],
+    "keyboard_unit_W_D_H": [
+      400,
+      210.0,
+      44.7
+    ],
+    "operating_footprint_depth": 488.0,
+    "hood_opening_W_H": [
+      390.0,
+      189.0
+    ],
+    "fascia_plane_y": 56,
+    "screen_glass_y": 66,
+    "closed_keyboard_envelope_to_fascia_mm": 8.2,
+    "screen_active_window_x0_z0_x1_z1": [
+      32,
+      44.82,
+      248.58,
+      180.18
+    ],
+    "drive_slot_centres_x": [
+      303.09,
+      342.49
+    ],
+    "pi_cooler_back_y": 113.15,
+    "drawer_front_y": 135,
+    "diskette_capacity_estimate": 26
+  },
+  "checks": [
+    {
+      "check": "Closed lid + keyboard do not collide with case/front",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Closed keycaps to fascia",
+      "state": "closed",
+      "min_gap_mm": 19.39,
+      "required_mm": 5,
+      "pass": true
+    },
+    {
+      "check": "Closed keycaps to shield frame",
+      "state": "closed",
+      "min_gap_mm": 23.18,
+      "required_mm": 3,
+      "pass": true
+    },
+    {
+      "check": "Closed keyboard body to shield frame",
+      "state": "closed",
+      "min_gap_mm": 23.16,
+      "required_mm": 2,
+      "pass": true
+    },
+    {
+      "check": "Drawer closed vs internals/rear panel",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Drawer pulled out vs internals/rear panel",
+      "state": "rear",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Cooler to drawer air gap",
+      "state": "operating",
+      "min_gap_mm": 22.42,
+      "required_mm": 10,
+      "pass": true
+    },
+    {
+      "check": "Drives clear cage, shroud, internals",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Display/Pi clear front and drives",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Folded handle sits in tub",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Raised handle clears shell",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Hub/power/controller clear shell & cage",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "all_pass": true
+}
