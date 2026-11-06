@@ -41,20 +41,19 @@ The 8BitDo colours were picked by eye from a product photo, not measured, so exp
 
 The case is branded for the fictional **Phosphor Computer Company** (PCC), which "makes" RetroOS. The branding follows RetroOS's own style guide (`docs/STYLE.md` in the RetroOS repo): "one product, one hand", so the case uses the OS's logo, font and palette rather than artwork invented for the case.
 
-**The brand system** (`p2.branding.style = "os"`, the default):
-- **Logo:** the Phosphor BIOS mark, a "glowing phosphor dot" built from concentric pixel diamonds in Cobalt `#1F3BB3`, Sky `#5C7CFA`, Aqua `#5FE3E3` and White `#F5F5F0`. The diamond geometry is the same 25-pixel stepped shape that `retro-post` draws.
-- **Wordmark:** "PHOSPHOR" built from RetroOS's own **Phosphor Mono 8×16** pixel font (SIL OFL 1.1, vendored in `tools/vendor/phosphor-mono`). Each pixel is a raised printed square.
-- **Nameplate:** the dark front-panel plate copies the POST-screen logo: the diamond plus "PHOSPHOR" in Lemon `#F7E15A` on black.
-- The earlier italic speed-stripe wordmark with green/amber/blue bars is still available as `style = "stripes"`, but it is no longer the default.
-
-**Where it appears:**
+**The brand system** (`p2.branding.style = "italic"`, the default):
+- **Wordmark:** a heavy italic "PHOSPHOR" with two speed-cut lines through the lower half of the letters, a general early-80s computer look. It is used everywhere: on the sides, the closed lid, the keyboard deck and the nameplate.
+- **Logo:** the RetroOS Phosphor BIOS diamond, concentric pixel diamonds in Cobalt `#1F3BB3`, Sky `#5C7CFA`, Aqua `#5FE3E3` and White `#F5F5F0`. It appears **only on the front-facing badges** (lid face, keyboard deck and front nameplate), not on the sides.
+- **Model line:** plain bold sans, the way 80s machines paired a logo with a plainly set model name.
+- **No coloured stripes.**
+- **Alternatives:** `"os"` uses the Phosphor Mono pixel wordmark with diamonds everywhere; `"stripes"` uses the italic wordmark with green/amber/blue bars.
 
 | Place | What |
 |---|---|
-| Both sides | A Phosphor Mono wordmark (1.7 mm pixels) low over the ribs, with the diamond ahead of it. |
-| Closed lid (front face) | A large diamond and wordmark plus "P-31 AFTERGLOW". |
+| Both sides | The italic wordmark only, low over the ribs. |
+| Closed lid (front face) | The diamond, a large wordmark and "P-31 AFTERGLOW". |
 | Keyboard deck | A small diamond, wordmark and model on the front band. |
-| Front panel | The dark nameplate under the drives with the diamond, "PHOSPHOR" in Lemon, and the model number. |
+| Front panel | A dark nameplate under the drives with the diamond, the wordmark in Lemon `#F7E15A` and the model number. |
 | Rear I/O plate | "PHOSPHOR COMPUTER COMPANY" and the model/RetroOS line, engraved. |
 | Screen | The **Phosphor BIOS POST screen**, redrawn from the RetroOS source (see below). |
 
@@ -62,7 +61,7 @@ The case is branded for the fictional **Phosphor Computer Company** (PCC), which
 
 **Printing notes:**
 - The raised logo layers (0.4–0.8 mm) are meant to be printed as AMS colour swaps or as separate inlays.
-- The smallest pixels (about 0.34 mm, on the deck and nameplate diamonds) are below a 0.4 mm nozzle line width. Scale those up, or print the deck/nameplate badges as separate parts, for example on a 0.2 mm nozzle.
+- The smallest diamond pixels (0.38–0.4 mm, on the deck and nameplate) are below a 0.4 mm nozzle line width. Scale those up, or print the deck/nameplate badges as separate parts, for example on a 0.2 mm nozzle.
 
 ### Model name ideas
 

@@ -669,8 +669,8 @@
       "font_path": "/usr/share/fonts/opentype/inter/InterDisplay-BlackItalic.otf",
       "font_fallback": "DejaVu Sans",
       "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types.",
-      "style": "os",
-      "style_note": "'os' = Phosphor Mono pixel wordmark + diamond logo from RetroOS (default); 'stripes' = italic speed-stripe wordmark + phosphor bars"
+      "style": "italic",
+      "style_note": "'italic' (default) = italic speed-cut wordmark everywhere, RetroOS diamond on lid face / deck / nameplate only; 'os' = Phosphor Mono pixel wordmark + diamonds incl. sides; 'stripes' = italic wordmark + green/amber/blue bars"
     }
   }
 }

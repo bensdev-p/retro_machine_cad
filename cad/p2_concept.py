@@ -457,7 +457,7 @@ def pixel_diamond(plane, pix, height, size=12):
                 lst.append(box(a * pix - pix / 2, -dy * pix - pix / 2, 0, c_ * pix + pix / 2, -dy * pix + pix / 2, height))
         rings.append([plane.location * s_ for s_ in lst])
     return rings
-style = BR.get('style', 'os')
+style = BR.get('style', 'italic')
 brand, plate_text = [], []
 acc_case, acc_lid = [[] for _ in range(4)], [[] for _ in range(4)]
 def add_acc(target, lst):
@@ -471,7 +471,22 @@ np_z0, np_z1 = vis[1] + 3, DRV_FRONT[1] - 3; np_zc = (np_z0 + np_z1) / 2
 nameplate = box(DRV_FRONT[0], fy - 1.0, np_z0, DRV_FRONT[2], fy, np_z1)
 model_line = '%s %s' % (BR['model_no'], BR['model'])
 side_planes = [((W, (0, 1, 0), (1, 0, 0)), 1), ((0, (0, -1, 0), (-1, 0, 0)), -1)]
-if style == 'os':
+if style == 'italic':
+    # Italic speed-cut PHOSPHOR wordmark everywhere; the RetroOS diamond only on the front-facing badges.
+    for (xs, xd, zd), sg in side_planes:
+        brand.append(brand_text(BR['company'], 26, b.Plane(origin=(xs, 176, fh + 27), x_dir=xd, z_dir=zd), 0.8))
+    add_acc(acc_lid, pixel_diamond(lid_plane(46, H - 40), 1.4, 0.6))
+    lid_brand = [brand_text(BR['company'], 22, lid_plane(140, H - 44), 0.6)]
+    lid_model = [brand_text(model_line, 5.2, lid_plane(140, H - 28), 0.6, stripes=False, bold_font=False)]
+    add_acc(acc_lid, pixel_diamond(deck_plane(34, deck_Y), 0.38, 0.5))
+    deck_brand = [brand_text(BR['company'], 8.5, deck_plane(72, deck_Y), 0.5)]
+    deck_model = [brand_text(model_line, 3.6, deck_plane(132, deck_Y - 0.6), 0.5, stripes=False, bold_font=False)]
+    add_acc(acc_case, pixel_diamond(FRONT_PLANE(DRV_FRONT[0] + 9, fy - 1.0, np_zc), 0.4, 0.4))
+    plate_text.append(brand_text(BR['company'], 6.4, FRONT_PLANE(DRV_FRONT[0] + 40, fy - 1.0, np_zc), 0.4))
+    plate_text.append(brand_text(BR['model_no'], 4.2, FRONT_PLANE(DRV_FRONT[2] - 13, fy - 1.0, np_zc), 0.4, stripes=False, bold_font=False))
+    acc_roles = ('p16_cobalt', 'p16_sky', 'p16_aqua', 'p16_white')
+    acc_note = 'Phosphor logo diamond (Cobalt / Sky / Aqua / White, as on the Phosphor BIOS screen).'
+elif style == 'os':
     # Sides: Phosphor Mono wordmark + the diamond, low on the side across the ribs (Kaypro-style).
     for (xs, xd, zd), sg in side_planes:
         brand += pixel_text(BR['company'], 1.7, b.Plane(origin=(xs, 178, fh + 27), x_dir=xd, z_dir=zd), 0.8)
