@@ -541,7 +541,12 @@
         "led_power": "#d43a2f",
         "led_drive": "#46c25a",
         "text": "#c9ccce",
-        "label": "Kaypro 10-style charcoal"
+        "label": "Kaypro 10-style charcoal",
+        "brand": "#d8dbdd",
+        "plate_text": "#d8dbdd",
+        "phos_green": "#4fae5f",
+        "phos_amber": "#e2a03a",
+        "phos_blue": "#3d7cc9"
       },
       "classic": {
         "shell": "#e2e0d9",
@@ -564,7 +569,12 @@
         "led_power": "#d43a2f",
         "led_drive": "#46c25a",
         "text": "#4f8fd0",
-        "label": "Kaypro II-style off-white and blue"
+        "label": "Kaypro II-style off-white and blue",
+        "brand": "#4f8fd0",
+        "plate_text": "#e2e0d9",
+        "phos_green": "#4fae5f",
+        "phos_amber": "#e2a03a",
+        "phos_blue": "#3d7cc9"
       },
       "charcoal_stock_kb": {
         "shell": "#5d6267",
@@ -587,7 +597,12 @@
         "led_power": "#d43a2f",
         "led_drive": "#46c25a",
         "text": "#c9ccce",
-        "label": "Charcoal case + stock 8BitDo M colours"
+        "label": "Charcoal case + stock 8BitDo M colours",
+        "brand": "#d8dbdd",
+        "plate_text": "#d8dbdd",
+        "phos_green": "#4fae5f",
+        "phos_amber": "#e2a03a",
+        "phos_blue": "#3d7cc9"
       },
       "m_edition": {
         "shell": "#d8d5cd",
@@ -610,7 +625,12 @@
         "led_power": "#d43a2f",
         "led_drive": "#b8e04a",
         "text": "#3d7cc9",
-        "label": "M Edition match (off-white, warm grey, blue accents)"
+        "label": "M Edition match (off-white, warm grey, blue accents)",
+        "brand": "#5d5a54",
+        "plate_text": "#e9e7e0",
+        "phos_green": "#4fae5f",
+        "phos_amber": "#e2a03a",
+        "phos_blue": "#3d7cc9"
       }
     },
     "hinge": {
@@ -623,6 +643,16 @@
       "leaf": 22,
       "note": "Lift-off hinge pair on the bottom front edge. Open tilt angle is derived, not set."
     },
-    "palette_note": "m_edition / stock keyboard colours eyeballed from an 8BitDo product photo; not measured"
+    "palette_note": "m_edition / stock keyboard colours eyeballed from an 8BitDo product photo; not measured",
+    "branding": {
+      "company": "PHOSPHOR",
+      "company_full": "PHOSPHOR COMPUTER COMPANY",
+      "model_no": "P-31",
+      "model": "AFTERGLOW",
+      "os": "RetroOS",
+      "font_path": "/usr/share/fonts/opentype/inter/InterDisplay-BlackItalic.otf",
+      "font_fallback": "DejaVu Sans",
+      "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types."
+    }
   }
 }

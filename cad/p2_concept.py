@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 P = json.loads((ROOT / 'parameters.json').read_text())
 Q = P['p2']; KB = P['keyboard']; DSP = P['display']
 C, T, SH, FA, SS, DR, PI, DW, HD = (Q[k] for k in ('case', 'tray', 'shield', 'fascia', 'screen_shroud', 'drive', 'pi_stack', 'drawer', 'handle'))
+BR = Q['branding']
 OUT = ROOT / 'outputs/p2'; OUT.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------- helpers
@@ -269,7 +270,8 @@ tools += [box(io_x, rp_y0 - 1, fh + 128, io_x + 16, rp_y1 + 1, fh + 136),       
           box(io_x + 30, rp_y0 - 1, fh + 52, io_x + 51, rp_y1 + 1, fh + 66)]             # rocker switch
 for i in range(5):
     tools.append(box(io_x, rp_y0 - 1, fh + 20 + i * 5, cx1 - 2, rp_y1 + 1, fh + 22.5 + i * 5))
-tools += [text_cut('RETRO / M', REAR_PLANE(io_x + 40, rp_y1, fh + 90), 6, 0.5)]
+tools += [text_cut(BR['company_full'], REAR_PLANE(io_x + 45, rp_y1, fh + 96), 3.6, 0.5),
+          text_cut('MODEL %s %s  /  %s' % (BR['model_no'], BR['model'], BR['os']), REAR_PLANE(io_x + 45, rp_y1, fh + 88), 2.6, 0.5)]
 rear = cut_all(rear, tools)
 add('rear_panel', rear, 'fascia', 'case', note='Inset rear panel: drawer opening, exhaust louvres and I/O plate.')
 
@@ -388,6 +390,67 @@ for xa, xb_, xc in ((sw + 1, kx0 - kpc, kx0 + 4), (kx0 + kb_w + kpc, W - sw - 1,
     clips.append(post.fuse(over))
 add('keyboard_clips', clips, 'rubber', 'keyboard', 'tray', note='Hold the keyboard by its case edge so it cannot fall out when the lid is carried.')
 
+# ---------------------------------------------------------------- branding (fictional Phosphor Computer Company)
+from pathlib import Path as _P
+def brand_text(txt, size, plane, height, stripes=True, bold_font=True):
+    fp = BR['font_path'] if bold_font and _P(BR['font_path']).exists() else None
+    sk = b.Text(txt, font_size=size, font_path=fp) if fp else b.Text(txt, font_size=size, font=BR['font_fallback'], font_style=b.FontStyle.BOLD)
+    solid = b.extrude(sk, amount=height)
+    if stripes:  # 80s "speed stripes" cut through the lower half of the letters
+        bb = solid.bounding_box(); hgt = bb.max.Y - bb.min.Y
+        for f in (0.10, 0.27):
+            solid -= box(bb.min.X - 5, bb.min.Y + hgt * f, -1, bb.max.X + 5, bb.min.Y + hgt * (f + 0.08), height + 1)
+    return plane.location * solid
+def phos_bars(plane, x0, y0, length, thick, gap, height, slant=0.35):
+    """Three parallelogram bars (green / amber / blue), top to bottom, in plane-local coords."""
+    out = []
+    for i in range(3):
+        yb = y0 - i * (thick + gap)
+        prof = b.Polyline((x0 + slant * (yb - y0), yb), (x0 + length + slant * (yb - y0), yb),
+                          (x0 + length + slant * (yb + thick - y0), yb + thick), (x0 + slant * (yb + thick - y0), yb + thick), close=True)
+        out.append(plane.location * b.extrude(b.make_face(prof), amount=height))
+    return out
+brand, plate_text, bars = [], [], [[], [], []]
+def add_bars(lst):
+    for i, s_ in enumerate(lst): bars[i].append(s_)
+# Side wordmarks, Kaypro-style, low on both sides across the ribs, with phosphor bars ahead of them.
+for side in ('right', 'left'):
+    xs, xd, zd = (W, (0, 1, 0), (1, 0, 0)) if side == 'right' else (0, (0, -1, 0), (-1, 0, 0))
+    yc = 176
+    pl = b.Plane(origin=(xs, yc, fh + 27), x_dir=xd, z_dir=zd)
+    brand.append(brand_text(BR['company'], 26, pl, 0.8))
+    # bars in front of the wordmark (toward the lid side of the case)
+    sgn = 1 if side == 'right' else -1
+    pb = b.Plane(origin=(xs, 0, fh + 27), x_dir=xd, z_dir=zd)
+    add_bars(phos_bars(pb, (56 if side == 'right' else -96), 6.5, 40, 3.2, 1.8, 0.8))
+# Lid outer face (front of the closed machine): big wordmark + full-width phosphor bars.
+lid_face = b.Plane(origin=(0, 0, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1))   # local up = -Y (closed: up)
+lid_brand = [brand_text(BR['company'], 22, b.Plane(origin=(112, H - 32, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1)), 0.6)]
+lid_bars = phos_bars(lid_face, 182, -(H - 37), 172, 3.6, 2.2, 0.6)
+lid_model = [brand_text('%s  %s' % (BR['model_no'], BR['model']), 5.2, b.Plane(origin=(318, H - 41, 0), x_dir=(1, 0, 0), z_dir=(0, 0, -1)), 0.6, stripes=False, bold_font=False)]
+# Deck badge on the front band of the keyboard housing (seen while typing).
+phi = math.atan(deck_slope); dn = (0, -math.sin(phi), math.cos(phi))
+def deck_plane(x, Y):
+    return b.Plane(origin=(x, Y, deck_z(Y)), x_dir=(1, 0, 0), z_dir=dn)
+deck_Y = 16.5
+deck_brand = [brand_text(BR['company'], 8.5, deck_plane(48, deck_Y), 0.5)]
+deck_model = [brand_text('%s %s' % (BR['model_no'], BR['model']), 3.6, deck_plane(118, deck_Y - 0.6), 0.5, stripes=False, bold_font=False)]
+deck_bars = phos_bars(deck_plane(0, deck_Y), 300, 1.6, 60, 1.6, 1.0, 0.5)
+# Front-panel nameplate under the drive shroud (dark plate, light lettering).
+np_z0, np_z1 = vis[1] + 3, DRV_FRONT[1] - 3
+nameplate = box(DRV_FRONT[0], fy - 1.0, np_z0, DRV_FRONT[2], fy, np_z1)
+npl = FRONT_PLANE((DRV_FRONT[0] + DRV_FRONT[2]) / 2 - 12, fy - 1.0, (np_z0 + np_z1) / 2)
+plate_text.append(brand_text(BR['company'], 6.4, npl, 0.4))
+plate_text.append(brand_text(BR['model_no'], 4.2, FRONT_PLANE(DRV_FRONT[2] - 13, fy - 1.0, (np_z0 + np_z1) / 2), 0.4, stripes=False, bold_font=False))
+add('nameplate', nameplate, 'bezel', 'front', note='Front-panel nameplate under the drives.')
+add('nameplate_text', plate_text, 'plate_text', 'front')
+add('brand_side', brand, 'brand', 'case', note='%s wordmark, raised 0.8 mm (print as a colour swap or a separate inlay).' % BR['company_full'])
+for i, (nm, role) in enumerate((('phos_bar_green', 'phos_green'), ('phos_bar_amber', 'phos_amber'), ('phos_bar_blue', 'phos_blue'))):
+    add(nm, bars[i], role, 'case', note='Phosphor stripe (P1 green / P3 amber / blue).')
+    add(nm + '_lid', [lid_bars[i], deck_bars[i]], role, 'keyboard', 'tray')
+add('brand_lid', lid_brand + deck_brand, 'brand', 'keyboard', 'tray', note='Wordmark on the closed front face and on the keyboard deck.')
+add('brand_lid_model', lid_model + deck_model, 'brand', 'keyboard', 'tray')
+
 # ---------------------------------------------------------------- hinges (lid <-> case bottom front edge)
 # Axis along X at the bottom of the slanted lip. On the lid it is the deck's rear top edge, which
 # sits high when the lid lies on the desk, so the open lid lifts the front of the case.
@@ -490,9 +553,9 @@ def gap(label, a, c, state, need):
     d = solids(a, state).distance_to(solids(c, state))
     checks.append({'check': label, 'state': state, 'min_gap_mm': round(d, 2), 'required_mm': need, 'pass': d >= need - 1e-6})
 
-front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud']
+front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud', 'nameplate', 'nameplate_text', 'brand_side', 'phos_bar_green', 'phos_bar_amber', 'phos_bar_blue']
 inside = ['display', 'pi5_board', 'pi5_cooler', 'floppy_drives', 'drive_cage', 'usb_hub', 'floppy_controller', 'power_board', 'drawer_rails']
-lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet']
+lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet', 'brand_lid', 'brand_lid_model', 'phos_bar_green_lid', 'phos_bar_amber_lid', 'phos_bar_blue_lid']
 check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes'], 'closed')
 gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip_gap'] - 0.05)
 gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
@@ -556,7 +619,7 @@ for state in ('operating', 'closed'):
         kids.append(s)
     b.export_step(b.Compound(children=kids, label='retro_m_p2_' + state), str(OUT / f'p2_{state}.step'))
 
-scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm']}
+scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm'], 'brand': BR}
 for n, p in parts.items():
     sh = p['shape']
     tris = []; verts = []

@@ -1,4 +1,4 @@
-# P2 concept: Kaypro-style luggable (rev C)
+# P2 concept: Kaypro-style luggable (rev C + branding)
 
 **Rev C changes:** the wedge lid is now **hinged** to the bottom front edge of the case with a pair of lift-off hinges at x = 70 and 330 mm. The hinge axis is on the lid's thick rear edge, at deck height (41.7 mm above the desk when open). Folding the lid down onto the desk therefore **lifts the front of the case**. The case pivots on its rear feet and tilts back **10.3°**, which angles the screen and touchscreen up toward the user, and the lid becomes the foot. The tilt angle comes out of the wedge geometry rather than being set directly. The front feet now sit behind the slanted lip; when the case is open they lift off the desk. Lift-off pins still let you detach the keyboard if you want.
 
@@ -36,6 +36,61 @@ There are four colourways in the viewer:
 The 8BitDo colours were picked by eye from a product photo, not measured, so expect to tune them against real filament samples.
 
 ![M Edition match](../outputs/p2/previews/11_operating_m_edition.png)
+
+## Branding: Phosphor Computer Company
+
+The case is branded for the fictional **Phosphor Computer Company**, maker of RetroOS. The current placeholder model name is **P-31 Afterglow**. All of the text lives in `p2.branding` in `parameters.json`, so a rename only needs a rebuild.
+
+**The brand system:**
+- **Wordmark:** a heavy italic "PHOSPHOR" with two horizontal speed-stripe cuts through the lower half of the letters, a classic early-80s treatment.
+- **Phosphor stripes:** three slanted bars in the colours of real CRT phosphors: P1 green, P3 amber, and a cool blue that also matches the 8BitDo's A/B legends. They appear as one consistent mark everywhere the brand does.
+
+**Where it appears:**
+
+| Place | What |
+|---|---|
+| Both sides | A large raised wordmark (26 mm type) low on the side, over the ribs (Kaypro 2-style), with the stripes ahead of it. |
+| Closed lid (front face) | A large wordmark plus full-width stripes and "P-31 AFTERGLOW". This is the face you see when the machine is packed up. |
+| Keyboard deck | A small wordmark and model name on the front band, with mini stripes on the right. |
+| Front panel | A dark nameplate under the floppy drives reading "PHOSPHOR · P-31". The POWER/A/B legend sits above the drives. |
+| Rear I/O plate | "PHOSPHOR COMPUTER COMPANY" and "MODEL P-31 AFTERGLOW / RetroOS" engraved, like a period rating plate. |
+| Screen (illustrative) | A green-phosphor boot banner with the company, model, RetroOS 1.0, a "(C) 1984" line and the three stripes. |
+
+**Printing notes:**
+- The raised logos (0.5–0.8 mm) are meant to be printed as colour swaps, using the AMS on the H2C/X2D, or as separate inlays.
+- The wordmark font is Inter Display Black Italic (SIL OFL), read from the system fonts. The model falls back to DejaVu Sans Bold if it is missing.
+- The speed-stripe gaps are about 0.6–1.7 mm depending on where the logo is. Check that the smallest (on the deck) survives your nozzle.
+
+### Model name ideas
+
+These are grouped by theme. ★ marks my favourites.
+
+**CRT / phosphor science** (the strongest fit with the company name)
+- ★ **P-31 Afterglow**: P31 is the green phosphor used in classic monochrome terminals, and "afterglow" is the term for phosphor persistence. This is the current placeholder.
+- ★ **Persistence 10**: phosphor persistence, plus the 10.1" screen. It also hints at "a computer that lasts".
+- **Raster**, **Scanline 2**, **Raster Portable**
+- **Kilovolt** / **KV-10**, after the CRT's anode voltage
+- **Glow / Glowcase**, **Lumen 10**
+- **P3 Amber**, which works as a special-edition name (an amber screen theme in RetroOS)
+
+**Luggable / travel** (period marketing tone)
+- ★ **Courier**: an era-perfect name for a portable. Watch out for confusion with the Courier typeface.
+- **Nomad 10**, **Voyager DD**, **Attaché**, **Carryall**, **Field Unit**, **Expedition**
+
+**80s spec-sheet style** (numbers and letters, the way they were really sold)
+- **DD-2** (dual drive), **PX-10** (Phosphor eXecutive, 10")
+- **Model 1031** (10.1" screen, P31 phosphor)
+- **Executive Portable**, **Dual Drive Portable**
+
+**Pi nods** (hidden in plain sight)
+- **Pi-Lot**, **Model 314**, **Five** (for the Pi 5), **Tau** (the Pi joke for insiders)
+
+Suggestions for pairing names:
+- Use **company + number + name** on the hardware, for example **Phosphor P-31 Afterglow** or **Phosphor PX-10 Courier**.
+- Keep a short code (P-31) for the nameplate and the full name for the lid and screen.
+- A family scheme also works: P-31 for green and P-3 "Amber Edition" for a second colourway or screen theme.
+
+I have not checked any of these names against existing trademarks or products. Phosphor is fictional, but do a quick search before you print anything you plan to sell or share widely.
 
 ## Key dimensions (from `outputs/p2/validation.json`)
 
