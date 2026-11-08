@@ -1,5 +1,7 @@
 # Retro / M — Raspberry Pi luggable enclosure
 
+**Printable model: P3 v1**: see **[docs/print-P3.md](docs/print-P3.md)**. It produces 40 print-oriented parts (STL, plus 3MF for the multi-colour ones), a printer assignment for each part, fit coupons, and the checks. Rebuild with `./rebuild-p3.sh`; the viewer is `outputs/p3/viewer.html`.
+
 **Current direction: P2 concept, a Kaypro II / Kaypro 10-style luggable.** It has a recessed, angled "shielded" front, a keyboard housing that latches over the screen as the lid, two vertical floppy drives, a rear I/O panel and a rear diskette drawer. See **[docs/concept-P2.md](docs/concept-P2.md)** and the internals parts list **[docs/BOM-P2.md](docs/BOM-P2.md)**, open `outputs/p2/viewer.html` in a browser, or rebuild with `./rebuild-p2.sh`.
 
 ![P2 operating](outputs/p2/previews/01_operating_charcoal.png)

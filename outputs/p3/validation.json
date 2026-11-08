@@ -1,0 +1,149 @@
+{
+  "revision": "P3 printable v1: P2 concept split into printable parts with heat-set inserts, printed hinges/latches/handle, fit coupons",
+  "parts": 40,
+  "issues": [],
+  "checks": [
+    {
+      "check": "Shell halves do not overlap",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Bezels fit the shell",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Rear panels fit the shell",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Closed lid clears case, bezels, latches, case hinges",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Open lid clears case and case hinges",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Hinge knuckles interleave (case vs lid) open",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Hinge knuckles interleave (case vs lid) closed",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Drive cage clears shell, bezels, rear",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Drawer clears shell and rear panel (in and out)",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Drawer pulled out",
+      "state": "rear",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Display bracket clears bezel and shell",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Handle and pivots clear the shell (folded)",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Handle raised clears the shell",
+      "state": "closed",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Latch bases clear the shell",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Case hinges clear shell and feet",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Electronics clear the printed parts",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Power-switch keep-out clear of internals",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    }
+  ],
+  "all_ok": true,
+  "printers": {
+    "A1_mini": [
+      180,
+      180,
+      180
+    ],
+    "A1": [
+      256,
+      256,
+      256
+    ],
+    "X2D": [
+      256,
+      256,
+      260
+    ],
+    "H2C": [
+      325,
+      320,
+      320
+    ]
+  }
+}

@@ -481,8 +481,8 @@ if style == 'italic':
     for (xs, xd, zd), sg in side_planes:
         brand.append(brand_text(BR['company'], 26, b.Plane(origin=(xs, 176, fh + 27), x_dir=xd, z_dir=zd), 0.8))
     add_acc(acc_lid, pixel_diamond(lid_plane(46, H - 40), 1.4, 0.6))
-    lid_brand = [brand_text(BR['company'], 22, lid_plane(140, H - 44), 0.6)]
-    lid_model = [brand_text(model_line, 5.2, lid_plane(140, H - 28), 0.6, stripes=False, bold_font=False)]
+    lid_brand = [brand_text(BR['company'], 22, lid_plane(BR.get('lid_brand_x', 124), H - 44), 0.6)]
+    lid_model = [brand_text(model_line, 5.2, lid_plane(BR.get('lid_brand_x', 124), H - 28), 0.6, stripes=False, bold_font=False)]
     add_acc(acc_lid, pixel_diamond(deck_plane(34, deck_Y), 0.38, 0.5))
     deck_brand = [brand_text(BR['company'], 8.5, deck_plane(72, deck_Y), 0.5)]
     deck_model = [brand_text(model_line, 3.6, deck_plane(132, deck_Y - 0.6), 0.5, stripes=False, bold_font=False)]
@@ -608,115 +608,121 @@ def placed(name, state, world=False):
     loc = b.Location(TopLoc_Location(t))
     return p['shape'].moved(loc)
 
-# ---------------------------------------------------------------- validation
-def vol_overlap(a, c):
-    try:
-        r = a.intersect(c)
-        return 0.0 if r is None else float(r.volume)
-    except Exception as e:  # pragma: no cover
-        return float('nan')
+def _finish():
+    global report, scene, checks
+    # ---------------------------------------------------------------- validation
+    def vol_overlap(a, c):
+        try:
+            r = a.intersect(c)
+            return 0.0 if r is None else float(r.volume)
+        except Exception as e:  # pragma: no cover
+            return float('nan')
 
-def solids(name, state):
-    return placed(name, state)
+    def solids(name, state):
+        return placed(name, state)
 
-def bbox_of(names, state, world=False):
-    bb = b.Compound(children=[placed(n, state, world) for n in names]).bounding_box()
-    return [round(bb.min.X, 1), round(bb.min.Y, 1), round(bb.min.Z, 1), round(bb.max.X, 1), round(bb.max.Y, 1), round(bb.max.Z, 1)]
+    def bbox_of(names, state, world=False):
+        bb = b.Compound(children=[placed(n, state, world) for n in names]).bounding_box()
+        return [round(bb.min.X, 1), round(bb.min.Y, 1), round(bb.min.Z, 1), round(bb.max.X, 1), round(bb.max.Y, 1), round(bb.max.Z, 1)]
 
-checks = []
-def check(label, a_names, b_names, state, tol=1e-3):
-    worst = 0.0
-    for an in a_names:
-        for bn in b_names:
-            v = vol_overlap(solids(an, state), solids(bn, state))
-            worst = max(worst, v)
-    checks.append({'check': label, 'state': state, 'overlap_mm3': round(worst, 4), 'pass': worst <= tol})
+    checks = []
+    def check(label, a_names, b_names, state, tol=1e-3):
+        worst = 0.0
+        for an in a_names:
+            for bn in b_names:
+                v = vol_overlap(solids(an, state), solids(bn, state))
+                worst = max(worst, v)
+        checks.append({'check': label, 'state': state, 'overlap_mm3': round(worst, 4), 'pass': worst <= tol})
 
-def gap(label, a, c, state, need):
-    d = solids(a, state).distance_to(solids(c, state))
-    checks.append({'check': label, 'state': state, 'min_gap_mm': round(d, 2), 'required_mm': need, 'pass': d >= need - 1e-6})
+    def gap(label, a, c, state, need):
+        d = solids(a, state).distance_to(solids(c, state))
+        checks.append({'check': label, 'state': state, 'min_gap_mm': round(d, 2), 'required_mm': need, 'pass': d >= need - 1e-6})
 
-front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud', 'nameplate', 'nameplate_text', 'brand_side'] + [n for n in parts if n.startswith('accent_') and not n.endswith('_lid')]
-inside = ['display', 'pi5_board', 'pi5_cooler', 'floppy_drives', 'drive_cage', 'usb_hub', 'floppy_controller', 'power_board', 'drawer_rails']
-lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet', 'brand_lid', 'brand_lid_model'] + [n for n in parts if n.startswith('accent_') and n.endswith('_lid')]
-check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes'], 'closed')
-gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip_gap'] - 0.05)
-gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
-gap('Closed keycaps to shield frame', 'keycaps', 'shield_frame', 'closed', 3)
-check('Keyboard seated in lid (no overlap with body/deck/clips)', ['keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent'], ['lid_body', 'lid_deck', 'keyboard_clips'], 'operating')
-check('Open lid + hinges clear the case', lid + ['hinge_leaves_lid'], ['shell', 'feet', 'latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes', 'hinges'], 'operating')
-check('Closed hinges clear lid and feet', ['hinges'], lid + ['feet'], 'closed')
-all_names = list(parts)
-_case_min = bbox_of(['feet', 'shell'], 'operating', True)[2]
-_lid_min = bbox_of(['lid_feet', 'lid_body'], 'operating', True)[2]
-checks.append({'check': 'Open: case (rear feet) and lid (feet) rest on the desk, nothing below it', 'state': 'operating',
-               'case_min_z': round(_case_min, 2), 'lid_min_z': round(_lid_min, 2), 'pass': abs(_case_min) < 0.3 and abs(_lid_min) < 0.3})
-check('Drawer closed vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'operating')
-check('Drawer pulled out vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'rear')
-gap('Cooler to drawer air gap', 'pi5_cooler', 'drawer', 'operating', 10)
-check('Drives clear cage, shroud, internals', ['floppy_drives'], ['drive_cage', 'drive_shroud', 'fascia', 'usb_hub', 'floppy_controller', 'power_board', 'rear_panel', 'shell'], 'operating')
-check('Display/Pi clear front and drives', ['display', 'pi5_board', 'pi5_cooler'], ['screen_shroud', 'drive_shroud', 'fascia', 'drive_cage', 'shell', 'floppy_drives'], 'operating')
-check('Folded handle sits in tub', ['handle'], ['shell'], 'operating')
-check('Raised handle clears shell', ['handle'], ['shell'], 'closed')
-check('Hub/power/controller clear shell & cage', ['usb_hub', 'power_board', 'floppy_controller'], ['shell', 'drive_cage', 'rear_panel', 'drawer_rails'], 'operating')
-check('Controllers / power / cable zone clear each other, drives and hub', ['floppy_controller', 'floppy_cable_zone'], ['power_board', 'floppy_drives', 'usb_hub', 'drive_cage', 'shell', 'rear_panel'], 'operating')
-check('Floppy controllers clear power reservation', ['floppy_controller'], ['power_board'], 'operating')
+    front = ['shell', 'shield_frame', 'fascia', 'legend_plate', 'screen_shroud', 'drive_shroud', 'nameplate', 'nameplate_text', 'brand_side'] + [n for n in parts if n.startswith('accent_') and not n.endswith('_lid')]
+    inside = ['display', 'pi5_board', 'pi5_cooler', 'floppy_drives', 'drive_cage', 'usb_hub', 'floppy_controller', 'power_board', 'drawer_rails']
+    lid = ['lid_body', 'lid_deck', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'keyboard_clips', 'lid_feet', 'brand_lid', 'brand_lid_model'] + [n for n in parts if n.startswith('accent_') and n.endswith('_lid')]
+    check('Closed lid + keyboard do not collide with case/front', lid, front + ['latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes'], 'closed')
+    gap('Closed lid deck to slanted case lip', 'lid_deck', 'shell', 'closed', T['lip_gap'] - 0.05)
+    gap('Closed keycaps to fascia', 'keycaps', 'fascia', 'closed', 5)
+    gap('Closed keycaps to shield frame', 'keycaps', 'shield_frame', 'closed', 3)
+    check('Keyboard seated in lid (no overlap with body/deck/clips)', ['keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent'], ['lid_body', 'lid_deck', 'keyboard_clips'], 'operating')
+    check('Open lid + hinges clear the case', lid + ['hinge_leaves_lid'], ['shell', 'feet', 'latch_lever_left', 'latch_lever_right', 'latch_bases', 'side_stripes', 'hinges'], 'operating')
+    check('Closed hinges clear lid and feet', ['hinges'], lid + ['feet'], 'closed')
+    all_names = list(parts)
+    _case_min = bbox_of(['feet', 'shell'], 'operating', True)[2]
+    _lid_min = bbox_of(['lid_feet', 'lid_body'], 'operating', True)[2]
+    checks.append({'check': 'Open: case (rear feet) and lid (feet) rest on the desk, nothing below it', 'state': 'operating',
+                   'case_min_z': round(_case_min, 2), 'lid_min_z': round(_lid_min, 2), 'pass': abs(_case_min) < 0.3 and abs(_lid_min) < 0.3})
+    check('Drawer closed vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'operating')
+    check('Drawer pulled out vs internals/rear panel', ['drawer', 'diskettes'], inside + ['rear_panel', 'shell'], 'rear')
+    gap('Cooler to drawer air gap', 'pi5_cooler', 'drawer', 'operating', 10)
+    check('Drives clear cage, shroud, internals', ['floppy_drives'], ['drive_cage', 'drive_shroud', 'fascia', 'usb_hub', 'floppy_controller', 'power_board', 'rear_panel', 'shell'], 'operating')
+    check('Display/Pi clear front and drives', ['display', 'pi5_board', 'pi5_cooler'], ['screen_shroud', 'drive_shroud', 'fascia', 'drive_cage', 'shell', 'floppy_drives'], 'operating')
+    check('Folded handle sits in tub', ['handle'], ['shell'], 'operating')
+    check('Raised handle clears shell', ['handle'], ['shell'], 'closed')
+    check('Hub/power/controller clear shell & cage', ['usb_hub', 'power_board', 'floppy_controller'], ['shell', 'drive_cage', 'rear_panel', 'drawer_rails'], 'operating')
+    check('Controllers / power / cable zone clear each other, drives and hub', ['floppy_controller', 'floppy_cable_zone'], ['power_board', 'floppy_drives', 'usb_hub', 'drive_cage', 'shell', 'rear_panel'], 'operating')
+    check('Floppy controllers clear power reservation', ['floppy_controller'], ['power_board'], 'operating')
 
 
-all_names = list(parts)
-case_names = [n for n in all_names if parts[n]['group'] != 'keyboard']
-closed_bb = bbox_of([n for n in all_names if n not in ('handle',)], 'closed')
-report = {
-    'revision': Q['revision'],
-    'dimensions_mm': {
-        'case_W_H_D_excl_feet': [W, round(H, 1), D],
-        'case_height_incl_feet': round(TOP, 1),
-        'closed_W_H_D_incl_lid_feet_latches_excl_raised_handle': [round(closed_bb[3] - closed_bb[0], 1), round(closed_bb[5] - closed_bb[2], 1), round(closed_bb[4] - closed_bb[1], 1)],
-        'keyboard_unit_W_D_H': [W, round(H, 1), round(deck_z(H) + 13, 1)],
-        'open_case_tilt_deg': round(case_tilt, 1),
-        'hinge_axis_case_y_z': [round(hinge_y, 1), round(hinge_z, 1)],
-        'operating_footprint_depth': round(bbox_of(all_names, 'operating', True)[4] - bbox_of(all_names, 'operating', True)[1], 1),
-        'lid_wedge_height_front_rear': [round(deck_z(0), 1), round(deck_z(H), 1)],
-        'lid_deck_angle_deg': round(math.degrees(math.atan(deck_slope)), 1),
-        'case_lip_y_top_bottom': [round(lip_y(TOP), 1), round(lip_y(fh), 1)],
-        'hood_opening_W_H': [round(hood_w, 1), round(hood_h, 1)],
-        'fascia_plane_y': fy, 'screen_glass_y': glass_y,
-        'closed_keyboard_envelope_to_fascia_mm': round(fy - kb_reach, 2),  # full 46.8 mm spec height, not the illustrative keys
-        'screen_active_window_x0_z0_x1_z1': [round(v, 2) for v in ACTIVE],
-        'drive_slot_centres_x': [round(x + dw_x / 2, 2) for x in drive_x],
-        'pi_cooler_back_y': round(pi_back, 2), 'drawer_front_y': dy0,
-        'diskette_capacity_estimate': int((rp_y0 - 4 - dy0 - 2 * wt - 6) // (dk[2] + 0.2)),
-    },
-    'checks': checks,
-    'all_pass': all(c['pass'] for c in checks),
-}
-(OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')
-for c in checks:
-    print(('PASS ' if c['pass'] else 'FAIL ') + c['check'], {k: v for k, v in c.items() if k not in ('check', 'pass')})
+    all_names = list(parts)
+    case_names = [n for n in all_names if parts[n]['group'] != 'keyboard']
+    closed_bb = bbox_of([n for n in all_names if n not in ('handle',)], 'closed')
+    report = {
+        'revision': Q['revision'],
+        'dimensions_mm': {
+            'case_W_H_D_excl_feet': [W, round(H, 1), D],
+            'case_height_incl_feet': round(TOP, 1),
+            'closed_W_H_D_incl_lid_feet_latches_excl_raised_handle': [round(closed_bb[3] - closed_bb[0], 1), round(closed_bb[5] - closed_bb[2], 1), round(closed_bb[4] - closed_bb[1], 1)],
+            'keyboard_unit_W_D_H': [W, round(H, 1), round(deck_z(H) + 13, 1)],
+            'open_case_tilt_deg': round(case_tilt, 1),
+            'hinge_axis_case_y_z': [round(hinge_y, 1), round(hinge_z, 1)],
+            'operating_footprint_depth': round(bbox_of(all_names, 'operating', True)[4] - bbox_of(all_names, 'operating', True)[1], 1),
+            'lid_wedge_height_front_rear': [round(deck_z(0), 1), round(deck_z(H), 1)],
+            'lid_deck_angle_deg': round(math.degrees(math.atan(deck_slope)), 1),
+            'case_lip_y_top_bottom': [round(lip_y(TOP), 1), round(lip_y(fh), 1)],
+            'hood_opening_W_H': [round(hood_w, 1), round(hood_h, 1)],
+            'fascia_plane_y': fy, 'screen_glass_y': glass_y,
+            'closed_keyboard_envelope_to_fascia_mm': round(fy - kb_reach, 2),  # full 46.8 mm spec height, not the illustrative keys
+            'screen_active_window_x0_z0_x1_z1': [round(v, 2) for v in ACTIVE],
+            'drive_slot_centres_x': [round(x + dw_x / 2, 2) for x in drive_x],
+            'pi_cooler_back_y': round(pi_back, 2), 'drawer_front_y': dy0,
+            'diskette_capacity_estimate': int((rp_y0 - 4 - dy0 - 2 * wt - 6) // (dk[2] + 0.2)),
+        },
+        'checks': checks,
+        'all_pass': all(c['pass'] for c in checks),
+    }
+    (OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')
+    for c in checks:
+        print(('PASS ' if c['pass'] else 'FAIL ') + c['check'], {k: v for k, v in c.items() if k not in ('check', 'pass')})
 
-# ---------------------------------------------------------------- exports
-pal = Q['palettes']['charcoal']
-for state in ('operating', 'closed'):
-    kids = []
+    # ---------------------------------------------------------------- exports
+    pal = Q['palettes']['charcoal']
+    for state in ('operating', 'closed'):
+        kids = []
+        for n, p in parts.items():
+            s = placed(n, state, True)
+            s.label = n; s.color = b.Color(pal.get(p['role'], '#888888'))
+            kids.append(s)
+        b.export_step(b.Compound(children=kids, label='retro_m_p2_' + state), str(OUT / f'p2_{state}.step'))
+
+    scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm'], 'brand': BR}
     for n, p in parts.items():
-        s = placed(n, state, True)
-        s.label = n; s.color = b.Color(pal.get(p['role'], '#888888'))
-        kids.append(s)
-    b.export_step(b.Compound(children=kids, label='retro_m_p2_' + state), str(OUT / f'p2_{state}.step'))
+        sh = p['shape']
+        tris = []; verts = []
+        for s in (sh.solids() if sh.solids() else [sh]):
+            v, f = s.tessellate(0.08, 0.25)
+            off = len(verts)
+            verts += [(round(q.X, 3), round(q.Y, 3), round(q.Z, 3)) for q in v]
+            tris += [(a + off, c + off, d + off) for a, c, d in f]
+        scene['parts'].append({'name': n, 'role': p['role'], 'group': p['group'], 'state': p['state'], 'note': p['note'],
+                               'v': [c for q in verts for c in q], 'f': [c for t in tris for c in t]})
+    for s, mm in STATES.items():
+        scene['states'][s] = {k: [round(float(x), 6) for x in m.flatten()] for k, m in mm.items()}
+    (OUT / 'scene.json').write_text(json.dumps(scene, separators=(',', ':')))
+    print('report all_pass =', report['all_pass'])
+    print(json.dumps(report['dimensions_mm'], indent=1))
 
-scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm'], 'brand': BR}
-for n, p in parts.items():
-    sh = p['shape']
-    tris = []; verts = []
-    for s in (sh.solids() if sh.solids() else [sh]):
-        v, f = s.tessellate(0.08, 0.25)
-        off = len(verts)
-        verts += [(round(q.X, 3), round(q.Y, 3), round(q.Z, 3)) for q in v]
-        tris += [(a + off, c + off, d + off) for a, c, d in f]
-    scene['parts'].append({'name': n, 'role': p['role'], 'group': p['group'], 'state': p['state'], 'note': p['note'],
-                           'v': [c for q in verts for c in q], 'f': [c for t in tris for c in t]})
-for s, mm in STATES.items():
-    scene['states'][s] = {k: [round(float(x), 6) for x in m.flatten()] for k, m in mm.items()}
-(OUT / 'scene.json').write_text(json.dumps(scene, separators=(',', ':')))
-print('report all_pass =', report['all_pass'])
-print(json.dumps(report['dimensions_mm'], indent=1))
+
+if __name__ != 'p2':
+    _finish()

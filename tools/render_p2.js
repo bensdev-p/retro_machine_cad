@@ -1,8 +1,8 @@
 // Render preview PNGs from the offline viewer with the pre-installed Playwright Chromium.
 // Usage: node tools/render_p2.js   (run after cad/p2_concept.py and tools/package_p2.py)
 const path = require('path'); const { chromium } = require('playwright');
-const OUT = path.resolve(__dirname, '../outputs/p2');
-const shots = [
+const OUT = path.resolve(__dirname, '..', process.argv[2] || 'outputs/p2');
+const shots = process.argv[3] ? JSON.parse(require('fs').readFileSync(process.argv[3], 'utf8')) : [
   ['01_operating_charcoal', 'operating', 'charcoal', 'operating'],
   ['02_operating_classic', 'operating', 'classic', 'operating'],
   ['03_closed_carry', 'closed', 'charcoal', 'closed'],

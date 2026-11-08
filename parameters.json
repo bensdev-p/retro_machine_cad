@@ -522,7 +522,7 @@
         95,
         305
       ],
-      "pocket_depth": 12
+      "pocket_depth": 14
     },
     "palettes": {
       "charcoal": {
@@ -679,7 +679,8 @@
       "font_fallback": "DejaVu Sans",
       "note": "Fictional brand. Model name is a placeholder; see docs/concept-P2.md for alternatives. Stripes = P1 green, P3 amber, P4/blue phosphor types.",
       "style": "italic",
-      "style_note": "'italic' (default) = italic speed-cut wordmark everywhere, RetroOS diamond on lid face / deck / nameplate only; 'os' = Phosphor Mono pixel wordmark + diamonds incl. sides; 'stripes' = italic wordmark + green/amber/blue bars"
+      "style_note": "'italic' (default) = italic speed-cut wordmark everywhere, RetroOS diamond on lid face / deck / nameplate only; 'os' = Phosphor Mono pixel wordmark + diamonds incl. sides; 'stripes' = italic wordmark + green/amber/blue bars",
+      "lid_brand_x": 124
     },
     "floppy_controller": {
       "layout": "one Feather RP2040 + Floppy FeatherWing stack per drive, lying flat under its drive, IDC header toward the rear",
@@ -698,7 +699,7 @@
       "stack_height_reserved": 32.0,
       "stack_height_status": "RESERVATION, not a measurement: depends on header type (stacking vs short) and USB plug; to be measured",
       "standoff": 3.0,
-      "cable_zone_depth": 28.0,
+      "cable_zone_depth": 26.0,
       "unknowns": [
         "Feather RP2040 mounting hole positions/diameter",
         "FeatherWing mounting holes",
@@ -710,6 +711,109 @@
         "5 V buck converter model and dimensions",
         "Feather USB cable plug size (right-angle?)"
       ]
+    }
+  },
+  "p3": {
+    "revision": "P3 printable v1: P2 concept split into printable parts with heat-set inserts, printed hinges/latches/handle, fit coupons",
+    "printers": {
+      "A1_mini": {
+        "volume": [
+          180,
+          180,
+          180
+        ],
+        "source": "Bambu Lab A1 mini 180 mm cube (all3dp/itechguides via search)"
+      },
+      "A1": {
+        "volume": [
+          256,
+          256,
+          256
+        ],
+        "source": "Bambu Lab A1 256 mm cube (all3dp/itechguides via search)"
+      },
+      "X2D": {
+        "volume": [
+          256,
+          256,
+          260
+        ],
+        "source": "X2D spec sheet: 256x256x260 single nozzle; dual-nozzle 235.5x256x256 (3djake/solidprint3d via search)"
+      },
+      "H2C": {
+        "volume": [
+          325,
+          320,
+          320
+        ],
+        "source": "Bambu Lab H2 series page: left nozzle 325x320x320; dual 300x320x320; Z 320 vs 325 conflicts between sources -> 320 used"
+      }
+    },
+    "print_margin": 5,
+    "printer_preference": [
+      "A1_mini",
+      "A1",
+      "X2D",
+      "H2C"
+    ],
+    "seam_x": 200,
+    "insert": {
+      "thread": "M3",
+      "hole_d": 4.0,
+      "depth": 5.7,
+      "boss_d": 8.0,
+      "status": "VERIFY against the datasheet of the inserts you buy (hole diameter and length); print coupon C1 first"
+    },
+    "insert_short": {
+      "hole_d": 4.0,
+      "depth": 4.2,
+      "note": "Short M3 insert (about 4 mm long) for 5 mm walls; VERIFY"
+    },
+    "screw": {
+      "clear_d": 3.4,
+      "head_d": 6.0,
+      "head_h": 3.0,
+      "csk_d": 6.5
+    },
+    "m25_clear_d": 2.9,
+    "dowel_d": 3.0,
+    "dowel_hole_d": 3.2,
+    "dowel_len_each": 10,
+    "hinge": {
+      "pin_d": 3.0,
+      "pin_hole_d": 3.2,
+      "leaf_t": 3.5,
+      "note": "3 mm steel pin (cut rod or 3 mm dowel pin)"
+    },
+    "latch_pin_d": 3.0,
+    "handle": {
+      "core_d": 8.0,
+      "pivot_pin_d": 4.0,
+      "note": "Grip slides over an 8 mm aluminium/steel rod; legs pivot on 4 mm steel pins"
+    },
+    "feet": {
+      "d": 22.0,
+      "recess": 1.5,
+      "material": "TPU 95A"
+    },
+    "inlay": {
+      "side": 0.8,
+      "lid_face": 0.6,
+      "deck": 0.5,
+      "nameplate": 0.4
+    },
+    "fit_clearance": 0.25,
+    "power_switch": {
+      "location": "right_side_rear",
+      "y_from_rear": 40,
+      "z_above_floor": 110,
+      "cutout_w": 30,
+      "cutout_h": 30,
+      "keepout_depth": 28,
+      "status": "PLACEHOLDER: waiting for the Big Red Switch model (Printables 459567) STEP/dimensions and which electrical switch it actuates"
+    },
+    "materials": {
+      "note": "Final material picked by colour match to the keyboard; PETG or ASA for the shell; PLA fine for coupons/prototype"
     }
   }
 }
