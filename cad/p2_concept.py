@@ -80,8 +80,8 @@ kx0 = (W - kb_w) / 2
 ky0 = (TOP - hood_cz) - kb_d * math.cos(tilt) / 2          # keyboard centred in the hood when closed
 kz0 = T['platform_base'] + T['foam']                        # keyboard underside at its front edge
 def case_top(yk):  # keyboard's own case top above its underside, yk from its front edge (envelope guess)
-    return 17 + 8 * yk / kb_d
-deck_slope = math.tan(tilt) + 8 / kb_d
+    return KB['case_front_height'] + (KB['case_rear_height'] - KB['case_front_height']) * yk / kb_d
+deck_slope = math.tan(tilt) + (KB['case_rear_height'] - KB['case_front_height']) / kb_d
 def deck_z(Y):     # lid top (deck) surface height in lid-local coords
     return kz0 + case_top(0) - T['deck_recess'] + deck_slope * (Y - ky0)
 def lip_y(z):      # world y of the slanted case lip at height z (matches the closed deck + gap)
@@ -375,7 +375,7 @@ for r, row in enumerate(rows):
     x = lx0; yk = row_y[r]
     for lab, wu, kind in row:
         if kind != 'g':
-            base_z = kz0 + case_top(yk - ky0 + u / 2) + 4
+            base_z = kz0 + case_top(yk - ky0 + u / 2) - 3   # keycaps stand ~6-8 mm proud of the frame (envelope 46.8 mm)
             top_h = 9 + (r == 0) * 1.5 + (r == 1) * 1.0
             cap = b.Solid.make_loft([
                 b.Wire.make_polygon([b.Vector(x + .5, yk + .5, base_z), b.Vector(x + wu * u - .5, yk + .5, base_z), b.Vector(x + wu * u - .5, yk + u - .5, base_z), b.Vector(x + .5, yk + u - .5, base_z)], close=True),

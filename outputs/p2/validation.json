@@ -15,30 +15,30 @@
     "keyboard_unit_W_D_H": [
       400,
       210,
-      54.4
+      56.1
     ],
-    "open_case_tilt_deg": 10.3,
+    "open_case_tilt_deg": 10.9,
     "hinge_axis_case_y_z": [
-      37.7,
+      39.4,
       6
     ],
     "operating_footprint_depth": 470.8,
     "lid_wedge_height_front_rear": [
-      16.8,
-      41.4
+      18.9,
+      43.1
     ],
-    "lid_deck_angle_deg": 6.7,
+    "lid_deck_angle_deg": 6.6,
     "case_lip_y_top_bottom": [
-      13.4,
-      38.0
+      15.5,
+      39.7
     ],
     "hood_opening_W_H": [
       390,
       189
     ],
-    "fascia_plane_y": 67,
-    "screen_glass_y": 77,
-    "closed_keyboard_envelope_to_fascia_mm": 8.48,
+    "fascia_plane_y": 55,
+    "screen_glass_y": 65,
+    "closed_keyboard_envelope_to_fascia_mm": 8.2,
     "screen_active_window_x0_z0_x1_z1": [
       32,
       44.82,
@@ -49,9 +49,9 @@
       303.09,
       342.49
     ],
-    "pi_cooler_back_y": 124.15,
-    "drawer_front_y": 143,
-    "diskette_capacity_estimate": 28
+    "pi_cooler_back_y": 112.15,
+    "drawer_front_y": 131,
+    "diskette_capacity_estimate": 32
   },
   "checks": [
     {
@@ -70,14 +70,14 @@
     {
       "check": "Closed keycaps to fascia",
       "state": "closed",
-      "min_gap_mm": 24.23,
+      "min_gap_mm": 17.69,
       "required_mm": 5,
       "pass": true
     },
     {
       "check": "Closed keycaps to shield frame",
       "state": "closed",
-      "min_gap_mm": 26.6,
+      "min_gap_mm": 21.98,
       "required_mm": 3,
       "pass": true
     },
@@ -102,7 +102,7 @@
     {
       "check": "Open: case (rear feet) and lid (feet) rest on the desk, nothing below it",
       "state": "operating",
-      "case_min_z": -0.0,
+      "case_min_z": 0.0,
       "lid_min_z": -0.0,
       "pass": true
     },

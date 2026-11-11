@@ -1,5 +1,7 @@
 # P2 concept: Kaypro-style luggable (rev C + branding)
 
+**Keyboard measured (11 Nov):** the front edge is 19.05 mm and the rear edge 38.6 mm; the listing's overall 376.6 × 169.6 × 46.8 mm still stands. The keyboard already slopes about 6.6°, so the extra platform tilt is now **0°** (`p2.tray.platform_tilt_deg`). The wedge lid follows the keyboard: **18.9 mm at the front, 43.1 mm at the rear**. The open case tilt is **10.9°**, and the fascia moved 12 mm forward (y = 55). Some of the rev B/C figures quoted below (17 → 41 mm, 4°, 10.3°) are superseded by these; `outputs/p2/validation.json` always has the current numbers.
+
 **Rev C changes:** the wedge lid is now **hinged** to the bottom front edge of the case with a pair of lift-off hinges at x = 70 and 330 mm. The hinge axis is on the lid's thick rear edge, at deck height (41.7 mm above the desk when open). Folding the lid down onto the desk therefore **lifts the front of the case**. The case pivots on its rear feet and tilts back **10.3°**, which angles the screen and touchscreen up toward the user, and the lid becomes the foot. The tilt angle comes out of the wedge geometry rather than being set directly. The front feet now sit behind the slanted lip; when the case is open they lift off the desk. Lift-off pins still let you detach the keyboard if you want.
 
 

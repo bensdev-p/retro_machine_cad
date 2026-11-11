@@ -1,29 +1,29 @@
 part,printer,x_mm,y_mm,z_mm,volume_cm3,material,inlays (same 3MF),notes
-shell_left,H2C,210.0,251.6,200.0,713.8,shell,inlay_side_left,Print on its outer side face (wordmark inlay on the bed). Supports: handle tub and hood ceiling.
-shell_right,H2C,210.0,251.6,200.0,733.9,shell,inlay_side_right,Print on its outer side face. Power-switch cutout is a placeholder.
+shell_left,A1,210.0,249.5,200.0,674.3,shell,inlay_side_left,Print on its outer side face (wordmark inlay on the bed). Supports: handle tub and hood ceiling.
+shell_right,A1,210.0,249.5,200.0,694.3,shell,inlay_side_right,Print on its outer side face. Power-switch cutout is a placeholder.
 bezel_screen,H2C,264.0,201.5,33.5,145.3,shell,bezel_screen_face,Print face-up (flange on the bed) as ONE multi-part object: dark shield/shroud + warm-grey face. Glass rests behind the shroud with a gap; no clamping.
 bezel_drives,A1,126.0,201.5,18.0,101.6,shell,"bezel_drives_face,inlay_nameplate",Print face-up as one multi-part object (dark + warm-grey face + nameplate inlay).
 rear_panel_left,H2C,265.0,202.0,4.0,68.8,shell,,Outer face on the bed. Flat-head M3 into the ledge inserts.
 rear_io_plate,A1,125.0,202.0,4.0,92.9,shell,,Replaceable I/O plate: cutouts finalised once panel-mount parts are chosen.
-lid_left,A1,200.0,210.0,41.4,564.7,shell,"inlay_lid_face,inlay_lid_deck","Print on its outer face (front of the closed machine): flush logo inlays on the bed, deck badge inlays on top."
-lid_right,A1,200.0,210.0,41.4,565.9,shell,,
-lid_splice_1,A1_mini,43.6,19.8,4.4,2.4,shell,,Recessed under the keyboard; joins the lid halves (2x M3 into inserts each side).
-lid_splice_2,A1_mini,43.6,19.8,4.4,2.4,shell,,Recessed under the keyboard; joins the lid halves (2x M3 into inserts each side).
+lid_left,A1,200.0,210.0,43.1,385.1,shell,"inlay_lid_face,inlay_lid_deck","Print on its outer face (front of the closed machine): flush logo inlays on the bed, deck badge inlays on top."
+lid_right,A1,200.0,210.0,43.1,386.3,shell,,
+lid_splice_1,A1_mini,43.6,19.6,3.0,2.4,shell,,Recessed under the keyboard; joins the lid halves (2x M3 into inserts each side).
+lid_splice_2,A1_mini,43.6,19.6,3.0,2.4,shell,,Recessed under the keyboard; joins the lid halves (2x M3 into inserts each side).
 hinge_case_1,A1_mini,44.0,32.5,9.0,5.2,structural,,Printed knuckle block under the case. 3 mm steel pin. Print leaf-up (knuckle on bed side) or use supports.
 hinge_lid_1,A1_mini,44.0,32.5,9.0,4.7,structural,,Printed knuckle block on the lid rear face.
 hinge_case_2,A1_mini,44.0,32.5,9.0,5.2,structural,,Printed knuckle block under the case. 3 mm steel pin. Print leaf-up (knuckle on bed side) or use supports.
 hinge_lid_2,A1_mini,44.0,32.5,9.0,4.7,structural,,Printed knuckle block on the lid rear face.
 latch_base_left,A1_mini,44.0,30.0,9.0,11.3,structural,,"Screws (M3, short inserts in the side wall) sit outside the lever path."
-latch_lever_left,A1_mini,19.0,63.5,22.0,6.8,structural,,Pivot: 3 mm steel pin or M3 shoulder screw.
+latch_lever_left,A1_mini,19.0,65.4,22.0,7.0,structural,,Pivot: 3 mm steel pin or M3 shoulder screw.
 latch_base_right,A1_mini,44.0,30.0,9.0,11.3,structural,,"Screws (M3, short inserts in the side wall) sit outside the lever path."
-latch_lever_right,A1_mini,19.0,63.5,22.0,6.8,structural,,Pivot: 3 mm steel pin or M3 shoulder screw.
+latch_lever_right,A1_mini,19.0,65.4,22.0,7.0,structural,,Pivot: 3 mm steel pin or M3 shoulder screw.
 handle,A1,190.0,56.5,13.0,18.9,structural,,Grip slides over an 8 mm metal rod (structural); legs pivot on 4 mm steel pins. Proof-load before trusting.
 handle_pivot_1,A1_mini,9.0,18.0,9.0,1.0,structural,,
 handle_pivot_2,A1_mini,9.0,18.0,9.0,1.0,structural,,
-drive_cage,A1_mini,76.8,175.0,150.8,313.1,structural,,Drive screw slots are generic until the MPF-920 side-hole positions are measured.
-drawer,H2C,252.0,119.0,116.0,281.6,shell,,
-keyboard_clip_1,A1_mini,9.7,24.0,7.8,1.2,structural,,
-keyboard_clip_2,A1_mini,9.7,24.0,7.8,1.2,structural,,
+drive_cage,A1,76.8,187.0,150.8,315.8,structural,,Drive screw slots are generic until the MPF-920 side-hole positions are measured.
+drawer,H2C,252.0,131.0,116.0,294.9,shell,,
+keyboard_clip_1,A1_mini,9.7,24.0,7.9,1.2,structural,,
+keyboard_clip_2,A1_mini,9.7,24.0,7.9,1.2,structural,,
 display_bracket,A1,176.0,178.9,3.0,39.8,structural,,M2.5 into the display rear outer pattern (thread depth not yet known: use the screws supplied with the display).
 foot_case_1,A1_mini,22.0,22.0,6.0,2.3,tpu,,
 foot_case_2,A1_mini,22.0,22.0,6.0,2.3,tpu,,
@@ -34,8 +34,8 @@ foot_lid_2,A1_mini,12.0,12.0,3.2,0.4,tpu,,
 foot_lid_3,A1_mini,12.0,12.0,3.2,0.4,tpu,,
 foot_lid_4,A1_mini,12.0,12.0,3.2,0.4,tpu,,
 coupon_C1_insert_holes,A1_mini,40.0,14.0,9.0,4.8,coupon,,Holes 3.9 / 4.0 / 4.1 mm (left to right). Pick the best and set p3.insert.hole_d.
-coupon_C3_seam_L,A1_mini,22.0,24.0,16.0,2.8,coupon,,Seam block + counterbore (pair with C3_seam_R).
-coupon_C3_seam_R,A1_mini,22.0,24.0,16.0,2.8,coupon,,Seam block + insert.
-coupon_C4_lip_corner,A1_mini,45.0,55.6,40.0,28.7,coupon,,Top-right lip corner; check the closed-lid gap against coupon C4_lid.
+coupon_C3_seam_L,A1_mini,22.0,24.0,16.0,3.9,coupon,,Seam block + counterbore (pair with C3_seam_R).
+coupon_C3_seam_R,A1_mini,22.0,24.0,16.0,4.1,coupon,,Seam block + insert.
+coupon_C4_lip_corner,A1_mini,45.0,41.5,40.0,21.2,coupon,,Top-right lip corner; check the closed-lid gap against coupon C4_lid.
 coupon_C5_inlay,A1_mini,30.0,50.0,5.0,7.1,coupon,coupon_C5_inlay_letters,Side wall slice with wordmark pocket; print with its inlay to tune colour change.
 coupon_C6_shroud_corner,A1_mini,55.0,52.8,18.0,14.6,coupon,,Shroud corner + flange with bezel screw hole.

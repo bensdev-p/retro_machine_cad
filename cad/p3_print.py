@@ -122,7 +122,7 @@ shell = shell - ps_cut
 
 # Seam joint blocks: left block carries the counterbored screw, right block the insert.
 seam_blocks_top = [236]
-seam_blocks_bot = [106, 132]
+seam_blocks_bot = [g['glass_y'] + g['DSP']['depth'] + 9, g['dy0'] - 9]   # between the display-bracket bosses and the drawer
 bl, br, tools_l, tools_r = [], [], [], []
 for y in seam_blocks_top:
     zt = TOP - iw

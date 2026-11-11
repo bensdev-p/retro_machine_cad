@@ -28,11 +28,9 @@ Build volumes, from manufacturer pages via search; the scripts keep a 5 mm margi
 The script picks the **smallest printer that fits** each part in its print orientation (preference order: A1 mini → A1 → X2D → H2C). The result is in `print_manifest.csv`.
 
 **Assignment from this run** (every part fits with the 5 mm margin):
-- **H2C:** shell halves (210 × 252 × 200 mm), screen bezel, drawer panel, drawer.
-- **A1:** lid halves, drive bezel, I/O plate, handle, display bracket.
+- **H2C:** screen bezel, drawer panel, drawer.
+- **A1:** shell halves (210 × 249.5 × 200 mm, which fits since the measured keyboard moved the front forward), lid halves, drive bezel, I/O plate, handle, display bracket.
 - **A1 mini:** everything else, including the drive cage, hinges, latches, feet and coupons.
-
-The shell halves are 0.6 mm too big for the A1 once the margin is applied, so they go to the H2C.
 
 **Front bezels are multi-part prints:** the dark shield and shroud plus the warm-grey grooved face print together as one object. The face is listed as `bezel_*_face` inside the same `.3mf`. This keeps the two-tone look without gluing anything.
 
@@ -106,7 +104,7 @@ PLA is fine for the coupons and a first prototype. For the final build, use **PE
 
 ## Open inputs (placeholders in the model)
 
-1. **Keyboard:** confirm the overall size and the front/rear case heights; the wedge angle and lid pocket follow them.
+1. **Keyboard:** measured: front edge 19.05 mm and rear edge 38.6 mm (the listing's 376.6 × 169.6 × 46.8 mm is confirmed). The wedge is now 18.9 → 43.1 mm with a 6.6° deck.
 2. **MPF-920:** side screw positions and thread (the cage uses long slots for now), rear connector positions, eject button position. Your photos confirm the black bezel, the eject button on the right, the LED on the left, and the 34-pin and power connectors at the rear.
 3. **Display:** mounting-hole thread depth. Your estimate of about 25 mm of protrusion is inside the reserved Pi/cooler space.
 4. **Greaseweazle V4.1:** board size and mounting holes.

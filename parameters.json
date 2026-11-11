@@ -7,11 +7,14 @@
     "manufacturer_reference": "Transcribed from manufacturer product brief; approximate reference dimensions, not physical measurements or production tolerances"
   },
   "keyboard": {
-    "status": "provided",
-    "source": "User: 8BitDo Retro Mechanical Keyboard M Edition manufacturer dimensions",
+    "status": "Listing W/D/H (user confirmed they match the delivered keyboard); edge heights measured by user",
+    "source": "8BitDo listing 376.6 x 169.6 x 46.8 mm (user compared with the delivered keyboard: 14 11/16 x ~6 5/8 in). Case edge heights measured by user: front 3/4 in (19.05 mm), rear a hair over 1.5 in (38.6 mm).",
     "width": 376.6,
     "depth": 169.6,
-    "height": 46.8
+    "height": 46.8,
+    "case_front_height": 19.05,
+    "case_rear_height": 38.6,
+    "height_status": "46.8 mm max height from the listing"
   },
   "display": {
     "status": "manufacturer_reference",
@@ -447,14 +450,15 @@
       "hood_height": 189
     },
     "tray": {
-      "platform_tilt_deg": 4.0,
+      "platform_tilt_deg": 0.0,
       "platform_base": 3.0,
       "deck_recess": 2.0,
       "deck_thickness": 3.0,
       "pocket_clearance": 1.5,
       "foam": 1.0,
       "lip_gap": 0.6,
-      "note": "Wedge keyboard housing that is also the front lid. Deck slope = keyboard's own case slope + platform tilt; the case lip is cut to the same slope so the closed lid meets it flush."
+      "note": "Wedge keyboard housing that is also the front lid. Deck slope = keyboard's own case slope + platform tilt; the case lip is cut to the same slope so the closed lid meets it flush.",
+      "platform_tilt_note": "0 deg since the measured keyboard already slopes ~6.8 deg (19.05 -> 38.6 mm over 165.1 mm); raise for a steeper Kaypro wedge (also raises the open case tilt)"
     },
     "shield": {
       "depth": 8,
