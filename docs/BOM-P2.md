@@ -1,5 +1,7 @@
 # P2 internals: bill of materials
 
+> **Update, 16 Nov 2026:** see [`hardware-recommendations.md`](hardware-recommendations.md) for the recommended parts, with links, for sections 2–5 and 9–10.
+
 This lists everything that goes **inside** the Phosphor luggable (P2 concept). The printed case, hinges and latches are listed at the end and get detailed in P2-detail.
 
 **Status key:** **HAVE** = owned or decided · **CART** = in your Adafruit cart · **CHOOSE** = pick a part to the stated requirement · **OPTIONAL** = nice to have · **VERIFY** = a fact I could not confirm from a source; check it before buying.
@@ -25,13 +27,12 @@ I have not picked brands or models where I could not confirm the dimensions. Tho
 | # | Qty | Part | Status | Notes |
 |---|---|---|---|---|
 | 2.1 | 2 | Adafruit 6037 Upcycled Sony MPF-920 drive | CART | 146.1 × 101.6 × 25.4 mm, +5 V only, 1.25 W normal operation |
-| 2.2 | 2 | Adafruit Floppy FeatherWing (5679) | CART | 50.8 × 22.8 × 13.6 mm. Works only with Feather M4 or RP2040. Drive power is not supplied through it. |
-| 2.3 | 2 | Rainbow 34-pin IDC ribbon, 30 cm | CART | One per drive; no twisted cable needed. **VERIFY** which drive-select line the Adafruit firmware uses versus the drive's jumper. |
-| 2.4 | 2 | Adafruit Feather RP2040 (4884) | CHOOSE | 50.8 × 22.8 × 7 mm, USB-C. Runs Adafruit's Greaseweazle-compatible firmware. |
-| 2.5 | 2 sets | Headers to join each Feather to its FeatherWing | CHOOSE | Header type sets the stack height. The CAD reserves 32 mm; about 38 mm is available. **VERIFY** whether headers come with the boards. |
-| 2.6 | 2 | Floppy drive power lead: 4-pin floppy ("Berg") female to wires | CHOOSE | Feeds +5 V/GND from the internal 5 V bus to each drive. The 12 V pin stays unused. |
-| 2.7 | 2 | USB-C to USB-A **data** cable, short (15–20 cm, right-angle preferred) | CHOOSE | Feather to internal hub |
-| 2.8 | 4 | M2.5 or #2 nylon standoffs plus screws per stack | VERIFY | The Feather and FeatherWing hole size and positions are not sourced yet |
+| 2.2 | 1 | **Greaseweazle V4.1** (replaces the Feather + FeatherWing stacks) | CHOOSE → decided | 95 × 50 mm, 4 × Ø2.7 holes (M2.5) at 81 × 35 mm, from the official Gerbers. Mounted on the printed `gw_sled`. See [`hardware-recommendations.md`](hardware-recommendations.md) §1. |
+| 2.3 | 1 | 34-pin **twisted** PC floppy cable, 3 connectors | CHOOSE | Replaces the 2 straight rainbow ribbons. Both drives stay strapped DS1; the twist selects A/B. **VERIFY** the MPF-920's drive-select setting. |
+| 2.4 | 2 | Floppy drive power lead: 4-pin floppy ("Berg") female to wires | CHOOSE | Feeds +5 V/GND from the internal 5 V bus to each drive |
+| 2.5 | 1 | USB-C (right-angle preferred) to USB-A data cable, short | CHOOSE | Greaseweazle to the hub or Pi. The CAD reserves 40 mm for the plug and bend toward the right wall. |
+| 2.6 | 4 + 4 | M2.5 × 12 screws + M2.5 hex nuts | CHOOSE | Board to sled; the nuts sit in traps in the sled |
+| 2.7 | 2 | M3 screws + M3 heat-set inserts | CHOOSE | Sled to case floor, from below |
 | 2.9 | 8 | Drive mounting screws | VERIFY | The MPF-920 screw thread and hole positions are not sourced yet |
 | 2.10 | — | HD 1.44 MB disks, DD 720K disks, one head-cleaning disk | CHOOSE | HD disks for PC formats; DD disks for Amiga and Atari ST |
 
@@ -59,7 +60,7 @@ I have not picked brands or models where I could not confirm the dimensions. Tho
 | Touch Display 2, 10.1" | 5.1 W | product brief in `docs/reference` |
 | 2 × MPF-920 | 2 × 1.25 W normal operation; **spin-up peak unknown** | Sony manual |
 | MAX98357A amp (if fitted) | up to 3.2 W into 4 Ω | Adafruit 3006 |
-| Hub, 2 × Feather, keyboard dongle, LEDs | estimate about 1.5 W | **estimate, not sourced** |
+| Hub, Greaseweazle, keyboard dongle, LEDs | estimate about 1.5 W | **estimate, not sourced** |
 | **Total** | **about 37 W plus drive spin-up** | → a **50 W or larger** 5 V converter leaves headroom |
 
 ## 4. USB and rear I/O
@@ -68,7 +69,7 @@ The Pi 5 has 4 USB-A ports: 2 × USB 3, 2 × USB 2.
 
 | # | Qty | Part | Status | Notes |
 |---|---|---|---|---|
-| 4.1 | 1 | Internal USB 2.0 hub board, **4 ports or more, with its own 5 V power input** | CHOOSE | Powered from the 5 V bus. It connects the two Feathers, the keyboard dongle and the side USB-C port. Upstream to one Pi USB 2 port. The CAD reserves about 79 × 72 × 26 mm above the drives; send me the board's dimensions. |
+| 4.1 | 1 | Internal USB 2.0 hub board, **4 ports or more, with its own 5 V power input** | CHOOSE | Powered from the 5 V bus. It connects the Greaseweazle, the keyboard dongle and the side USB-C port. Upstream to one Pi USB 2 port. The CAD reserves about 79 × 72 × 26 mm above the drives; send me the board's dimensions. |
 | 4.2 | 2 | Panel-mount USB 3 extension (USB-A male to female, short) | CHOOSE | Pi USB 3 ports to the rear panel |
 | 4.3 | 1 | Panel-mount USB 2 extension | CHOOSE | The Pi's remaining USB 2 port to the rear panel (3 rear USB-A in total) |
 | 4.4 | 1 | Panel-mount RJ45 extension (Cat6, short) | CHOOSE | Pi Ethernet to the rear panel |
@@ -92,7 +93,7 @@ The Pi 5 has no 3.5 mm audio jack, and the RetroOS startup chime needs a speaker
 | # | Qty | Part | Status | Notes |
 |---|---|---|---|---|
 | 6.1 | 1 | 5 mm LED, red: POWER | CHOOSE | From the 5 V bus through a resistor. The fascia holes are 5.2 mm. |
-| 6.2 | 2 | 5 mm LED, green or lime: A and B | CHOOSE | Driven from a spare pin on each Feather (3.3 V) so they show real drive activity |
+| 6.2 | 2 | 5 mm LED, green or lime: A and B | CHOOSE | **Changed:** the Greaseweazle has a single Act. LED header, not one per drive. Options: one LED shows Greaseweazle activity, or the fascia keeps 2 LEDs and the second shows something else. The MPF-920's own bezel LEDs remain visible. Decision pending. |
 | 6.3 | 3 | Current-limiting resistors | CHOOSE | Value depends on each LED's forward voltage and current; I'll calculate them once you've picked LEDs |
 | 6.4 | — | 2.54 mm Dupont/JST leads, heat-shrink | CHOOSE | |
 
@@ -114,7 +115,7 @@ The Pi 5 has no 3.5 mm audio jack, and the RetroOS startup chime needs a speaker
 | # | Part | Status |
 |---|---|---|
 | 9.1 | Drive screws: **VERIFY** the MPF-920 thread | — |
-| 9.2 | Feather standoffs: **VERIFY** the hole size | — |
+| 9.2 | Greaseweazle: M2.5 screws + nuts into the printed sled (holes sourced) | CHOOSE |
 | 9.3 | M3 screws and nuts or heat-set inserts for the cage, hub shelf and buck mount; counts come with P2-detail | CHOOSE |
 | 9.4 | Cable ties, adhesive cable mounts, Kapton tape | CHOOSE |
 
@@ -127,7 +128,7 @@ The lift-off hinge pair; 2 side latches; the fold-flat handle (which needs a ste
 ## Still open: I need these from you
 
 1. The drive's screw positions and thread, its rear connector positions, its eject-button position, and its spin-up current.
-2. The Feather RP2040 and FeatherWing hole positions, and the assembled stack height.
+2. The Greaseweazle's header and IDC plug height, and the PCB thickness (measure when the board arrives).
 3. Datasheets or dimensions for the parts you choose for 3.1–3.5 and 3.9 (adapter, input connector, rocker switch, fuse, buck converter, soft-power button).
 4. Dimensions of the hub board you choose (4.1), and the panel-mount cutouts for 4.2–4.6.
 5. Speaker size (5.2) and where you'd like the grille.

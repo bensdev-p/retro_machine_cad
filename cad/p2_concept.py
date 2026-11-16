@@ -247,16 +247,31 @@ add('drive_cage', cage, 'drawer', 'internal', note='Printed cradle; drives screw
 # Electronics envelopes in the spare volume.
 hub = box(cx0 + 2, D - 9 - 72, z1 + 4, cx1 + 4, D - 9, z1 + 4 + 26)
 add('usb_hub', hub, 'electronics', 'electronics', note='Powered 4-port USB hub envelope, ports facing the rear I/O panel.')
-FC = Q['floppy_controller']; fw = FC['floppy_featherwing']
-st_y1 = cg_y1 - 14; st_y0 = st_y1 - fw['w']                      # stacks lie flat, long axis front-to-back
-st_z0 = fh + iw + FC['standoff']
-ctrls = [box(xc - fw['d'] / 2, st_y0, st_z0, xc + fw['d'] / 2, st_y1, st_z0 + FC['stack_height_reserved'])
-         for xc in (drive_x[0] + dw_x / 2, drive_x[1] + dw_x / 2)]
-add('floppy_controller', ctrls, 'pcb', 'electronics', note='2x Feather RP2040 + Floppy FeatherWing (50.8 x 22.8 mm, verified); stack height %.0f mm is a RESERVATION, not measured.' % FC['stack_height_reserved'])
-add('floppy_cable_zone', [box(cx0 + 4, cg_y1 + 0.5, fh + iw, cx1 - 4, cg_y1 + FC['cable_zone_depth'], z1)], 'cable', 'electronics',
-    note='Keep-out for the two 34-pin ribbons and drive power cables behind the drives (drive connector positions not yet sourced).')
-pwr = box(cx0 + 8, cg_y0 + 12, fh + iw + 2, cx1 - 8, st_y0 - 6, fh + iw + 26)
-add('power_board', pwr, 'electronics', 'electronics', note='RESERVED volume for the 5 V buck / power input (part not chosen yet).')
+# Greaseweazle V4.1 (official Gerbers): one board under the drive cage, on a printed sled (sled lives in P3).
+FC = Q['floppy_controller']; GP, GS, GK = FC['pcb'], FC['sled'], FC['keepouts']
+gw_x1 = drv_cx + FC['placement']['right_edge_x_from_drive_centre']     # board right edge (USB-C edge)
+gw_x0 = gw_x1 - GP['d']
+gw_y0 = FC['placement']['front_y']; gw_y1 = gw_y0 + GP['w']
+gw_z0 = fh + iw + GS['plate_t'] + GS['standoff_h']; gw_z1 = gw_z0 + GP['thickness']
+def gw_xy(bx, by):
+    """Board coords (bx along 95 mm edge, by from USB-C edge) -> world x, y (board rotated so USB-C faces +x)."""
+    return gw_x1 - by, gw_y0 + bx
+pcb = box(gw_x0, gw_y0, gw_z0, gw_x1, gw_y1, gw_z1)
+for bx, by in FC['holes']['bxby']:
+    hx, hy = gw_xy(bx, by); pcb -= cyl(hx, hy, gw_z0 - 0.5, FC['holes']['d'] / 2, GP['thickness'] + 1)
+hdr_x, hdr_y = gw_xy(*FC['header_34pin']['center_bxby'])
+hdr = box(hdr_x - GK['header_plug_w'] / 2, hdr_y - GK['header_plug_len'] / 2, gw_z1, hdr_x + GK['header_plug_w'] / 2, hdr_y + GK['header_plug_len'] / 2, gw_z1 + GK['header_plug_height'])
+add('floppy_controller', [pcb, hdr], 'pcb', 'electronics',
+    note='Greaseweazle V4.1, 95 x 50 mm, 4x M2.5 holes 81 x 35 mm (official Gerbers). Header + IDC plug block is a RESERVATION (%s)' % GK['header_status'])
+usb_x, usb_y = gw_xy(FC['usb_c']['center_bx'], 0)
+usb_zone = box(usb_x, usb_y - GK['usb_plug_w'] / 2, gw_z0 - 3, usb_x + GK['usb_plug_len'], usb_y + GK['usb_plug_w'] / 2, gw_z0 - 3 + GK['usb_plug_h'])
+rib_z0 = gw_z1 + GK['header_plug_height'] - 8
+ribbon = box(hdr_x - GK['ribbon_w'] / 2, hdr_y, rib_z0, hdr_x + GK['ribbon_w'] / 2, cg_y1 + 0.5, z0 - 4.5)
+add('floppy_cable_zone', [box(cx0 + 4, cg_y1 + 0.5, fh + iw, cx1 - 4, cg_y1 + FC['cable_zone_depth'], z1), ribbon, usb_zone], 'cable', 'electronics',
+    note='Keep-outs: twisted 34-pin ribbon + drive power behind the drives (drive connector positions not yet sourced), the ribbon run from the Greaseweazle header, and its USB-C plug.')
+PR = FC['power_reserve']
+pwr = box(drv_cx - PR['w'] / 2, PR['y0'], fh + iw, drv_cx + PR['w'] / 2, PR['y1'], fh + iw + PR['h'])
+add('power_board', pwr, 'electronics', 'electronics', note='RESERVED volume: 5 V buck (recommended Pololu D42V110F5), fuse holder, 5 V distribution.')
 
 # ---------------------------------------------------------------- rear panel + drawer
 rp_y0, rp_y1 = D - 7, D - 3

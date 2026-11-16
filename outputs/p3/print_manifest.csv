@@ -21,6 +21,7 @@ handle,A1,190.0,56.5,13.0,18.9,structural,,Grip slides over an 8 mm metal rod (s
 handle_pivot_1,A1_mini,9.0,18.0,9.0,1.0,structural,,
 handle_pivot_2,A1_mini,9.0,18.0,9.0,1.0,structural,,
 drive_cage,A1,76.8,187.0,150.8,315.8,structural,,Drive screw slots are generic until the MPF-920 side-hole positions are measured.
+gw_sled,A1_mini,62.2,101.0,11.0,12.1,structural,,Greaseweazle V4.1 sled (hole pattern from the official Gerbers). 4x M2.5 screws + hex nuts (load nuts from below); 2x M3 from under the case into inserts. Reprint only this part if your board differs.
 drawer,H2C,252.0,131.0,116.0,294.9,shell,,
 keyboard_clip_1,A1_mini,9.7,24.0,7.9,1.2,structural,,
 keyboard_clip_2,A1_mini,9.7,24.0,7.9,1.2,structural,,

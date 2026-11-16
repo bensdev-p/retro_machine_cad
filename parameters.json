@@ -687,34 +687,122 @@
       "lid_brand_x": 124
     },
     "floppy_controller": {
-      "layout": "one Feather RP2040 + Floppy FeatherWing stack per drive, lying flat under its drive, IDC header toward the rear",
-      "feather_rp2040": {
-        "w": 50.8,
-        "d": 22.8,
-        "h_no_headers": 7.0,
-        "source": "Adafruit 4884 listing: 50.8 x 22.8 x 7 mm without headers; 4 mounting holes, positions NOT sourced"
+      "model": "Greaseweazle V4.1 (one board drives both MPF-920s through a 3-connector twisted PC floppy cable)",
+      "layout": "Board lies flat under the drive cage on a printed sled, component side up. Board long edge runs front-to-back; 34-pin header on the LEFT long edge (ribbon folds rearward to the cable zone), USB-C on the RIGHT long edge pointing at the right side wall.",
+      "source": "Official design files: github.com/keirf/greaseweazle/wiki/Design-Files -> assets/v4.1/GW_V41_231112.zip (KiCad 7 Gerbers 2023-07-22: GW-Edge_Cuts.gbr, GW-NPTH.drl, GW-PTH.drl, picknplace.csv)",
+      "status": "Outline, mounting holes and connector centres SOURCED from the official Gerbers. Board not in hand; resellers may differ, so the sled is a separate reprintable part.",
+      "board_coords": "bx along the 95 mm edge from the left end (header facing away, USB-C toward you); by from the USB-C edge toward the header edge",
+      "pcb": {
+        "w": 95.0,
+        "d": 50.0,
+        "corner_r": 3.0,
+        "thickness": 1.6,
+        "thickness_status": "MEASURE: board thickness is not in the Gerbers; 1.6 is a placeholder"
       },
-      "floppy_featherwing": {
-        "w": 50.8,
-        "d": 22.8,
-        "h": 13.6,
-        "source": "Adafruit 5679 listing: 50.8 x 22.8 x 13.6 mm, 8.4 g (2x17 IDC header pre-attached); supports Feather M4 / RP2040 only"
+      "holes": {
+        "d": 2.7,
+        "screw": "M2.5",
+        "bxby": [
+          [
+            7.0,
+            10.0
+          ],
+          [
+            88.0,
+            10.0
+          ],
+          [
+            7.0,
+            45.0
+          ],
+          [
+            88.0,
+            45.0
+          ]
+        ],
+        "source": "GW-NPTH.drl T2 = 0.1063 in; positions relative to GW-Edge_Cuts outline"
       },
-      "stack_height_reserved": 32.0,
-      "stack_height_status": "RESERVATION, not a measurement: depends on header type (stacking vs short) and USB plug; to be measured",
-      "standoff": 3.0,
+      "header_34pin": {
+        "center_bxby": [
+          40.64,
+          39.27
+        ],
+        "pin_rows_by": [
+          38.0,
+          40.54
+        ],
+        "pin_span_bx": [
+          20.32,
+          60.96
+        ],
+        "source": "GW-PTH.drl 17x2 at 0.1 in pitch (J1)"
+      },
+      "usb_c": {
+        "center_bx": 75.0,
+        "edge": "by=0",
+        "source": "picknplace.csv J3 + two NPTH locating pegs in GW-NPTH.drl"
+      },
+      "power_header": {
+        "pins_bx": [
+          71.1,
+          73.6,
+          76.2,
+          78.7
+        ],
+        "by": 39.27,
+        "pinout": "+5V, GND, NC (4-pin 2.54 mm, per board silkscreen photo)",
+        "source": "GW-PTH.drl, assembled_example.jpg"
+      },
+      "placement": {
+        "right_edge_x_from_drive_centre": 25.0,
+        "front_y": 113.0,
+        "note": "World position: board right edge = drive-cluster centre + 25 mm; board front end at y=front_y"
+      },
+      "sled": {
+        "plate_t": 3.0,
+        "standoff_h": 8.0,
+        "standoff_d": 6.0,
+        "margin": 3.0,
+        "hole_slot": 1.0,
+        "nut_af": 5.0,
+        "nut_h": 2.0,
+        "nut_status": "ISO 4032 M2.5 hex nut nominal (5.0 mm A/F, 2.0 mm thick); pocket adds p3.fit_clearance",
+        "pad_x_from_board_right": 5.2,
+        "pad_y_from_board_front": [
+          12.0,
+          52.0
+        ],
+        "pad_h": 7.5,
+        "note": "M2.5 screws down through the board into hex nuts trapped in the plate underside (load the nuts before fitting the sled). Holes are slotted +/- hole_slot along the board long axis. Sled fixes to the floor with 2 M3 screws from below into inserts in two pads."
+      },
+      "keepouts": {
+        "header_plug_height": 28.0,
+        "header_plug_len": 56.0,
+        "header_plug_w": 16.0,
+        "header_status": "RESERVATION: shroud height and IDC plug size are not in the design files. Measure the header and the plug on your cable.",
+        "ribbon_w": 26.0,
+        "usb_plug_len": 40.0,
+        "usb_plug_w": 16.0,
+        "usb_plug_h": 22.0,
+        "usb_status": "RESERVATION for a USB-C plug + cable bend out of the board edge; a right-angle USB-C cable is recommended. Measure your cable."
+      },
+      "power_reserve": {
+        "y0": 72.0,
+        "y1": 107.0,
+        "w": 46.0,
+        "h": 24.0,
+        "note": "Reservation for the recommended Pololu D42V110F5 (31.8 x 43.2 x 9.0 mm per listing, unverified here) plus fuse holder and 5 V distribution block"
+      },
       "cable_zone_depth": 26.0,
       "unknowns": [
-        "Feather RP2040 mounting hole positions/diameter",
-        "FeatherWing mounting holes",
-        "assembled stack height with chosen headers",
-        "IDC plug body size on the 30 cm ribbon",
+        "PCB thickness",
+        "34-pin shroud height and IDC plug body size",
+        "USB-C cable plug length / right-angle choice",
         "MPF-920 rear 34-pin and power connector positions",
         "MPF-920 side/bottom screw hole positions",
-        "drive power cable (4-pin floppy) choice and connector body",
-        "5 V buck converter model and dimensions",
-        "Feather USB cable plug size (right-angle?)"
-      ]
+        "twisted cable connector spacing (drive-to-drive and controller-to-first-drive lengths)"
+      ],
+      "replaces": "2x Feather RP2040 + Floppy FeatherWing stacks (P2 rev C)"
     }
   },
   "p3": {

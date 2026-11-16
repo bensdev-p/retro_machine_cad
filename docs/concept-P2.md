@@ -107,7 +107,9 @@ I have not checked any of these names against existing trademarks or products. P
 - 2× 30 cm 34-pin ribbon cables
 - 2× Adafruit 5679 Floppy FeatherWing
 
-**Layout:** one **Feather RP2040 + Floppy FeatherWing** stack per drive, lying flat under its drive with the IDC header toward the rear. With one controller per drive, both drives can work at once (`DISKCOPY A: B:`) and no twisted cable is needed. Adafruit provides Greaseweazle-compatible firmware for this wing on the Feather RP2040.
+> **Superseded (16 Nov 2026):** the controller is now **one Greaseweazle V4.1** on a printed sled under the drive cage, driving both drives through a twisted cable. The board geometry comes from the official Gerbers; see `parameters.json -> p2.floppy_controller` and [`hardware-recommendations.md`](hardware-recommendations.md). The Feather notes below are kept for history.
+
+**Layout (old):** one **Feather RP2040 + Floppy FeatherWing** stack per drive, lying flat under its drive with the IDC header toward the rear. With one controller per drive, both drives can work at once (`DISKCOPY A: B:`) and no twisted cable is needed. Adafruit provides Greaseweazle-compatible firmware for this wing on the Feather RP2040.
 
 ![Drive bay x-ray](../outputs/p2/previews/13_xray_drive_bay.png)
 

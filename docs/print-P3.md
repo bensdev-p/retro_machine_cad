@@ -78,6 +78,7 @@ None of the joint screws show on the outside, except:
 | Feet | TPU, pressed into 1.5 mm recesses (4 on the case, 4 on the lid). |
 | Keyboard clips | Swing clips on the keyboard deck. |
 | Drive cage | Corner posts with inserts, screwed up from under the case. The drive screw slots are generic for now. |
+| Greaseweazle sled (`gw_sled`) | Sits on the floor under the drive cage. It is fixed by 2 M3 screws from under the case into inserts in its pads. The board is held by 4 M2.5 screws into hex nuts trapped in the underside (load the nuts first). The holes are slotted ±1 mm (`p2.floppy_controller.sled.hole_slot`). Hole pattern: 81 × 35 mm, taken from the official V4.1 Gerbers. If your board differs, reprint only this part. |
 | Display bracket | Frame on the display's outer M2.5 rear pattern, bolted to bosses on the screen bezel's flange. The glass sits behind the shroud with a small gap; nothing presses on it. |
 
 ## Coupons (print these first)

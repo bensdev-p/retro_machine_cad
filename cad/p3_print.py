@@ -164,6 +164,14 @@ cx0, cx1, cg_y0, cg_y1, z0 = g['cx0'], g['cx1'], g['cg_y0'], g['cg_y1'], g['z0']
 post_xy = [(xa + 5, ya + 5) for xa in (cx0, cx1 - 10) for ya in (cg_y0, cg_y1 - 10)]
 floor_holes = [clear_hole(x, y, fh - 0.1, 'z', 1, iw + 0.3) for x, y in post_xy]
 
+# Greaseweazle sled: plate on the floor, slotted M2.5 standoffs with nut traps underneath,
+# two pads with M3 inserts screwed from below through the floor.
+FCQ = Q2['floppy_controller']; GS = FCQ['sled']
+gw_x0, gw_x1, gw_y0, gw_y1, gw_z0, gw_xy = (g[k] for k in ('gw_x0', 'gw_x1', 'gw_y0', 'gw_y1', 'gw_z0', 'gw_xy'))
+sl_z0 = fh + iw; sl_z1 = sl_z0 + GS['plate_t']
+sled_pads = [(gw_x1 + GS['pad_x_from_board_right'], gw_y0 + dy) for dy in GS['pad_y_from_board_front']]
+floor_holes += [clear_hole(x, y, fh - 0.1, 'z', 1, iw + 0.3) for x, y in sled_pads]
+
 # Hinge blocks: inserts going up into the solid bottom front ring.
 HG, hinge_y, hinge_z, hk_r = g['HG'], g['hinge_y'], g['hinge_z'], g['hk_r']
 LEAF = Q3['hinge']['leaf_t']
@@ -347,6 +355,25 @@ for xw in (cx0, g['drv_cx'] - 4, cx1 - 4):
         dslots.append(box(xw - 1, yc - 14, dz_c - 30 - 1.75, xw + 5, yc + 14, dz_c - 30 + 1.75))
 cage = cut(cage, dslots)
 add('drive_cage', cage, 'drawer', (0, 0, -1), note='Drive screw slots are generic until the MPF-920 side-hole positions are measured.', material='structural')
+m = GS['margin']; slot = GS['hole_slot']
+sled = box(gw_x0 - m, gw_y0 - m, sl_z0, gw_x1 + m, gw_y1 + m, sl_z1)
+sled -= box(gw_x0 + 12, gw_y0 + 12, sl_z0 - 1, gw_x1 - 12, gw_y1 - 12, sl_z1 + 1)          # lightening window
+sl_tools = []
+for bx, by in FCQ['holes']['bxby']:
+    hx, hy = gw_xy(bx, by)
+    sled = sled.fuse(cyl(hx, hy, sl_z0, GS['standoff_d'] / 2, GS['plate_t'] + GS['standoff_h']),
+                     box(hx - GS['standoff_d'] / 2, hy - GS['standoff_d'] / 2, sl_z0, hx + GS['standoff_d'] / 2, hy + GS['standoff_d'] / 2, sl_z1))
+    # slotted M2.5 clearance along the board's long axis (y), hex nut trap from below
+    sl_tools.append(box(hx - Q3['m25_clear_d'] / 2, hy - slot - Q3['m25_clear_d'] / 2, sl_z0 - 1, hx + Q3['m25_clear_d'] / 2, hy + slot + Q3['m25_clear_d'] / 2, gw_z0 + 1))
+    af = GS['nut_af'] + 2 * CL
+    nut = b.Pos(hx, hy, sl_z0 - 0.01) * b.extrude(b.RegularPolygon(af / math.sqrt(3), 6), amount=GS['nut_h'] + CL)
+    sl_tools += [nut, b.Pos(0, slot, 0) * nut, b.Pos(0, -slot, 0) * nut]
+for x, y in sled_pads:
+    sled = sled.fuse(cyl(x, y, sl_z0, Q3['insert']['boss_d'] / 2, GS['pad_h']), box(x - 6, y - 4, sl_z0, x, y + 4, sl_z1))
+    sl_tools.append(ins_hole(x, y, sl_z0, 'z', 1))
+sled = cut(sled, sl_tools)
+add('gw_sled', sled, 'drawer', (0, 0, -1),
+    note='Greaseweazle V4.1 sled (hole pattern from the official Gerbers). 4x M2.5 screws + hex nuts (load nuts from below); 2x M3 from under the case into inserts. Reprint only this part if your board differs.', material='structural')
 add('drawer', part('drawer'), 'drawer', (0, 0, -1), state='drawer')
 for i, s in enumerate(solids_of(part('keyboard_clips'))):
     add('keyboard_clip_%d' % (i + 1), s, 'rubber', (0, 0, -1), state='tray', material='structural')
@@ -517,7 +544,8 @@ check('Case hinges clear shell and feet', ['hinge_case_1', 'hinge_case_2'], shel
 for nm in ('floppy_drives', 'usb_hub', 'power_board', 'floppy_controller', 'display', 'pi5_board', 'pi5_cooler', 'floppy_cable_zone'):
     PRINT['_ref_' + nm] = dict(shape=part(nm), state=None)
 check('Electronics clear the printed parts', ['_ref_' + n for n in ('floppy_drives', 'usb_hub', 'power_board', 'floppy_controller', 'display', 'pi5_board', 'pi5_cooler', 'floppy_cable_zone')],
-      shells + ['drive_cage', 'display_bracket', 'bezel_screen', 'bezel_drives', 'rear_io_plate', 'rear_panel_left'], 'operating', tol=0.05)
+      shells + ['drive_cage', 'gw_sled', 'display_bracket', 'bezel_screen', 'bezel_drives', 'rear_io_plate', 'rear_panel_left'], 'operating', tol=0.05)
+check('Greaseweazle sled clears shell, cage, drawer', ['gw_sled'], shells + ['drive_cage', 'drawer', 'rear_io_plate'], 'operating')
 ps_keep = box(W - sw - PS['keepout_depth'], ps_y - PS['cutout_w'] / 2 - 5, ps_z - PS['cutout_h'] / 2 - 5, W - sw, ps_y + PS['cutout_w'] / 2 + 5, ps_z + PS['cutout_h'] / 2 + 5)
 PRINT['_ref_power_switch_keepout'] = dict(shape=ps_keep, state=None)
 check('Power-switch keep-out clear of internals', ['_ref_power_switch_keepout'], ['_ref_usb_hub', '_ref_floppy_drives', 'drive_cage', 'shell_right'], 'operating', tol=0.05)
@@ -535,7 +563,7 @@ stage('# ----------------------------------------------------------')
 # ------------------------------------------------------------------ viewer scene (assembled / closed / exploded)
 EXPLODE = {'shell_left': (-70, 0, 0), 'shell_right': (70, 0, 0), 'inlay_side_left': (-72, 0, 0), 'inlay_side_right': (72, 0, 0),
            'bezel_screen': (-20, -110, 0), 'bezel_drives': (20, -110, 0), 'bezel_screen_face': (-20, -110, 0), 'bezel_drives_face': (20, -110, 0), 'inlay_nameplate': (20, -112, 0),
-           'rear_panel_left': (-20, 110, 0), 'rear_io_plate': (20, 110, 0), 'drive_cage': (60, 0, -40), 'drawer': (0, 160, 0),
+           'rear_panel_left': (-20, 110, 0), 'rear_io_plate': (20, 110, 0), 'drive_cage': (60, 0, -40), 'gw_sled': (60, 0, -80), 'drawer': (0, 160, 0),
            'display_bracket': (0, -50, 0), 'handle': (0, 0, 80), 'handle_pivot_1': (0, 0, 60), 'handle_pivot_2': (0, 0, 60),
            'latch_base_left': (-40, 0, 0), 'latch_lever_left': (-55, 0, 0), 'latch_base_right': (40, 0, 0), 'latch_lever_right': (55, 0, 0),
            'hinge_case_1': (0, 0, -30), 'hinge_case_2': (0, 0, -30)}

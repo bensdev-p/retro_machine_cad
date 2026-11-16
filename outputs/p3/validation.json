@@ -1,6 +1,6 @@
 {
   "revision": "P3 printable v1: P2 concept split into printable parts with heat-set inserts, printed hinges/latches/handle, fit coupons",
-  "parts": 40,
+  "parts": 41,
   "issues": [],
   "checks": [
     {
@@ -110,6 +110,13 @@
     },
     {
       "check": "Electronics clear the printed parts",
+      "state": "operating",
+      "overlap_mm3": 0.0,
+      "worst_pair": null,
+      "ok": true
+    },
+    {
+      "check": "Greaseweazle sled clears shell, cage, drawer",
       "state": "operating",
       "overlap_mm3": 0.0,
       "worst_pair": null,
