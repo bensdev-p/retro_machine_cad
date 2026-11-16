@@ -660,6 +660,40 @@
         "p16_aqua": "#5FE3E3",
         "p16_white": "#F5F5F0",
         "cable": "#c9a24a"
+      },
+      "filament_pick": {
+        "shell": "#DBD0BC",
+        "fascia": "#948E7A",
+        "bezel": "#2c2c2b",
+        "tray": "#948E7A",
+        "flange": "#948E7A",
+        "stripe": "#948E7A",
+        "keys": "#e9e7e0",
+        "mod_keys": "#8f8b82",
+        "accent_keys": "#615e58",
+        "kb_body": "#d6d3cb",
+        "drive": "#26282b",
+        "drawer": "#948E7A",
+        "metal": "#a7abaf",
+        "rubber": "#18191b",
+        "pcb": "#2f6b3a",
+        "glass": "#0d0f10",
+        "electronics": "#4a6f8a",
+        "led_power": "#d43a2f",
+        "led_drive": "#b8e04a",
+        "text": "#3d7cc9",
+        "label": "Filament pick: Jessie Beige 500 + Zyltech Khaki",
+        "brand": "#5d5a54",
+        "plate_text": "#F7E15A",
+        "phos_green": "#4fae5f",
+        "phos_amber": "#e2a03a",
+        "phos_blue": "#3d7cc9",
+        "p16_cobalt": "#1F3BB3",
+        "p16_sky": "#5C7CFA",
+        "p16_aqua": "#5FE3E3",
+        "p16_white": "#F5F5F0",
+        "cable": "#c9a24a",
+        "source": "shell = Printed Solid Jessie PLA Beige 500, filamentcolors.xyz measured #DBD0BC; greys = Zyltech Panhandle Khaki PLA, filamentcolors.xyz measured CIELAB 59.16/-1.25/11.5 -> #948E7A. Keyboard colours unchanged from m_edition. Screen approximations only."
       }
     },
     "hinge": {
@@ -803,7 +837,8 @@
         "twisted cable connector spacing (drive-to-drive and controller-to-first-drive lengths)"
       ],
       "replaces": "2x Feather RP2040 + Floppy FeatherWing stacks (P2 rev C)"
-    }
+    },
+    "default_palette": "filament_pick"
   },
   "p3": {
     "revision": "P3 printable v1: P2 concept split into printable parts with heat-set inserts, printed hinges/latches/handle, fit coupons",

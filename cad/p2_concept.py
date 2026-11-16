@@ -721,7 +721,7 @@ def _finish():
             kids.append(s)
         b.export_step(b.Compound(children=kids, label='retro_m_p2_' + state), str(OUT / f'p2_{state}.step'))
 
-    scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm'], 'brand': BR}
+    scene = {'parts': [], 'states': {}, 'palettes': Q['palettes'], 'defaultPalette': Q.get('default_palette', 'charcoal'), 'active': ACTIVE, 'glass_y': glass_y, 'size': [W, D, TOP], 'dims': report['dimensions_mm'], 'brand': BR}
     for n, p in parts.items():
         sh = p['shape']
         tris = []; verts = []

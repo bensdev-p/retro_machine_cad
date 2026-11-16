@@ -455,8 +455,8 @@ def same_orientation(host_shape, host_down, inlay):
     rot = {(0, 0, -1): b.Rot(), (0, 0, 1): b.Rot(X=180), (1, 0, 0): b.Rot(Y=90), (-1, 0, 0): b.Rot(Y=-90), (0, 1, 0): b.Rot(X=-90), (0, -1, 0): b.Rot(X=90)}[tuple(int(v) for v in d)]
     hs = rot * host_shape; bb = hs.bounding_box()
     return b.Pos(-bb.min.X, -bb.min.Y, -bb.min.Z) * (rot * inlay)
-stage("PAL = Q2['palettes']['m_edition']")
-PAL = Q2['palettes']['m_edition']
+stage("PAL = Q2['palettes'][Q2.get('default_palette', 'm_edition')]")
+PAL = Q2['palettes'][Q2.get('default_palette', 'm_edition')]
 import zipfile
 def write_3mf(path, bodies):
     """Minimal 3MF: one mesh object per body (name, shape), grouped as components of one build object."""
@@ -568,7 +568,7 @@ EXPLODE = {'shell_left': (-70, 0, 0), 'shell_right': (70, 0, 0), 'inlay_side_lef
            'latch_base_left': (-40, 0, 0), 'latch_lever_left': (-55, 0, 0), 'latch_base_right': (40, 0, 0), 'latch_lever_right': (55, 0, 0),
            'hinge_case_1': (0, 0, -30), 'hinge_case_2': (0, 0, -30)}
 role_map = {'brand': 'brand', 'plate_text': 'plate_text'}
-scene = {'parts': [], 'states': {}, 'palettes': Q2['palettes'], 'active': g['ACTIVE'], 'glass_y': glass_y, 'size': [W, D, TOP],
+scene = {'parts': [], 'states': {}, 'palettes': Q2['palettes'], 'defaultPalette': Q2.get('default_palette', 'm_edition'), 'active': g['ACTIVE'], 'glass_y': glass_y, 'size': [W, D, TOP],
          'dims': json.loads((ROOT / 'outputs/p2/validation.json').read_text())['dimensions_mm'], 'brand': Q2['branding'],
          'stateButtons': [['operating', 'Assembled'], ['closed', 'Closed'], ['rear', 'Exploded'], ['xray', 'X-ray']]}
 show_refs = ['floppy_drives', 'display', 'pi5_board', 'pi5_cooler', 'keyboard_body', 'keycaps', 'keycaps_mod', 'keycaps_accent', 'usb_hub', 'power_board', 'floppy_controller', 'diskettes', 'led_power', 'led_drives']

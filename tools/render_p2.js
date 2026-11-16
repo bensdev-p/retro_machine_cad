@@ -16,6 +16,8 @@ const shots = process.argv[3] ? JSON.parse(require('fs').readFileSync(process.ar
   ['11_operating_m_edition', 'operating', 'm_edition', 'operating'],
   ['12_closed_m_edition', 'closed', 'm_edition', 'closed'],
   ['13_xray_drive_bay', 'xray', 'm_edition', 'bay'],
+  ['14_operating_filament_pick', 'operating', 'filament_pick', 'operating'],
+  ['15_closed_filament_pick', 'closed', 'filament_pick', 'closed'],
 ];
 (async () => {
   const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });

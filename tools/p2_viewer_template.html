@@ -115,7 +115,7 @@ function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);c
 addEventListener('resize',resize);resize();
 window.__cam=(p,t)=>{camera.position.set(...p);controls.target.set(...t);controls.update();renderer.render(scene,camera);};
 window.__setup=(state,pal,view)=>{setPalette(pal);setState(state,true);setView(view||state);controls.update();renderer.render(scene,camera);};
-setPalette('charcoal');setState('operating',true);setView('operating');
+setPalette(S.defaultPalette&&S.palettes[S.defaultPalette]?S.defaultPalette:'charcoal');setState('operating',true);setView('operating');
 window.__pause=false;
 (function loop(){requestAnimationFrame(loop);if(window.__pause)return;if(dur)tick();controls.update();renderer.render(scene,camera);})();
 (function wait(){if(screenReady){window.__ready=true;}else setTimeout(wait,50);})();
